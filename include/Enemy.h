@@ -7,7 +7,7 @@ class Enemy : public MovingObject
 public:
     Enemy();
     virtual ~Enemy()=default;
-    virtual void setLocation(const int row, const int col);
+    virtual void setLocation(const int y, const int x);
     virtual void print();
     virtual void move();
     virtual sf::Sprite getSprite();

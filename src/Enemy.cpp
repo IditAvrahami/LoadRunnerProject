@@ -1,7 +1,7 @@
 #pragma once
 #include "Enemy.h"
 
-void Enemy::setLocation()
+void Enemy::setLocation(const int x, const int y)
 {
-//idit its work again
+	m_enemyPng.setPosition((float)x, (float)y);
 }
