@@ -6,7 +6,7 @@ class RandomEnemy : public Enemy
 {
 public:
 	RandomEnemy();
-	~RandomEnemy() = default;
+	virtual ~RandomEnemy() = default;
 	virtual void move();
 
 };

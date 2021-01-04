@@ -5,20 +5,17 @@
 class Enemy : public MovingObject
 {
 public:
-    Enemy();
+    Enemy(sf::Texture picture, const int speed);
     virtual ~Enemy()=default;
     virtual void setLocation(const int y, const int x);
-    virtual void print();
-    virtual void move();
+    virtual void print(sf::RenderWindow &window);
+    virtual void move(); // empy
     virtual sf::Sprite getSprite();
-    virtual bool checkNextMove();
-    virtual void setSpeed() ;
-    virtual int getSpeed() ;
-    virtual void setSign() ;
-    virtual void move() ;
-    //int enemyMovments();  
+    //virtual bool checkNextMove(const int direction);
+    virtual void setSpeed(const int ) ;
+    virtual int getSpeed();
   
 private:
     sf::Sprite m_enemyPng;
-    
+    int m_speed;
 };
