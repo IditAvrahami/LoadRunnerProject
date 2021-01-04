@@ -87,7 +87,7 @@ bool Board::isGoodMove(const StaticObject &play, const int direction)const
 
 int Board::algorithmOfEnemy()
 {
-	return rand() % 3;
+	return rand() % 3; // daniel you see that????
 }
 
 int Board::getNumberOfCoins()
