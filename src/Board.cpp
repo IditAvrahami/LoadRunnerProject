@@ -66,9 +66,7 @@ bool Board::loadBoard(std::string levelName)
 		return false;
 
 	m_fileRead >> m_height >> m_width >> time;
-	auto timelevel = sf::seconds(0);
-	m_time = sf::Time(sf::seconds(float(time)));
-	m_time = (float)time; // convert int to time
+	m_time = sf::seconds(time);
 	loadBoardFromFile(player, enemyArray);
 	//createBoard();
 	m_fileRead.close();
@@ -99,10 +97,10 @@ int Board::getNumberOfCoins()
 	return m_coinsCounter;
 }
 
-int Board::getNumberOfPresents()
+/*int Board::getNumberOfPresents()
 {
 	return m_presents.size();
-}
+}*/
 
 void Board::createObjectVector()
 {
@@ -116,18 +114,19 @@ std::unique_ptr<StaticObject> Board::createObject(const char tosprite)
 	switch (tosprite)
 	{
 	case 'H':
-		return std::unique_ptr<Ladder>();
+		return std::make_unique<Ladder>();
 		break;
 	case '*':
 		m_coinsCounter = m_coinsCounter+1;
-		return std::unique_ptr<Coin>();
+		return std::make_unique<Coin>();
 		break;
 	case '#':
-		return std::unique_ptr<Floor>();
+		return std::make_unique<Floor>();
 		break;
 	case '-':
-		return std::unique_ptr<Rod>();
+		return std::make_unique<Rod>();
 		break;
+		//add present case
 	}
 	return nullptr;
 }

@@ -4,7 +4,7 @@
 #include "Object.h"
 
 
-class Present : public Object
+class Present : public StaticObject
 {
 public:
     Present();
