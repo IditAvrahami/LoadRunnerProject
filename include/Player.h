@@ -5,7 +5,7 @@
 class Player : public MovingObject
 {
 public:
-    virtual void setLocation();
+    virtual void setLocation(const int row, const int col);
     virtual void print();
     virtual void move();
     void dig();

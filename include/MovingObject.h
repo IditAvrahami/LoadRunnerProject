@@ -13,7 +13,7 @@ public:
     virtual void setSpeed()=0;
     virtual int getSpeed()=0;
     virtual void setSign()=0;
-    virtual void setLocation()=0;
+    virtual void setLocation(const int row, const int col)=0;
     virtual void move()=0;
 
 

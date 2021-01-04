@@ -12,7 +12,7 @@ public:
 	int coinValue();
 	virtual void print();
 	virtual sf::Sprite getSprite();
-	virtual void setLocation();
+	virtual void setLocation(const int row, const int col);
 
 private:
 	sf::Sprite m_coinPng;

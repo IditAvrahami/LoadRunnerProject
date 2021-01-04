@@ -9,7 +9,7 @@ public:
 	virtual ~Floor()=default;
 	virtual void print();
 	virtual sf::Sprite getSprite();
-	virtual void setLocation();
+	virtual void setLocation(const int row, const int col);
 
 private:
 	sf::Sprite m_floorPng;

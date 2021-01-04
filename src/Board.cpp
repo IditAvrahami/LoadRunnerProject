@@ -3,6 +3,7 @@
 #include <vector>
 
 Board::Board(std::string levelName, Player& player, std::vector <Enemy> enemyArray)
+	:m_coinsCounter(0)
 { 
 	srand(NULL);
 
@@ -30,7 +31,7 @@ Board::Board(std::string levelName, Player& player, std::vector <Enemy> enemyArr
 	loadBoard(levelName);
 }
 
-void Board::loadBoardFromFile(Player& player, std::vector <Enemy> enemyArray)
+void Board::loadBoardFromFile(Player& player, std::vector <Enemy>& enemyArray)
 {
 	int enemyKind = algorithmOfEnemy();
 	string str;
@@ -45,10 +46,11 @@ void Board::loadBoardFromFile(Player& player, std::vector <Enemy> enemyArray)
 			else if (!(str[j] == '@') && !(str[j] == '%'))
 			{
 				m_board[i].insert(m_board[i].begin(), createObject(str[j])); // insert pointer to object to array
-				m_board[i][j].setLocation(i, j);
+				m_board[i][j]->setLocation(i, j);
 			}
 			else // is enemy
 				{
+				enemyArray.resize(enemyArray.size() + 1);
 				enemyArray.push_back(kindOfEnemy(enemyKind));
 			    }
 			
@@ -107,7 +109,7 @@ void Board::createObjectVector()
 		m_board[i].resize(m_width); // board of vectors
 }
 
-std::unique_ptr<Object> Board::createObject(const char tosprite) const
+std::unique_ptr<StaticObject> Board::createObject(const char tosprite)
 {
 	switch (tosprite)
 	{
@@ -115,7 +117,7 @@ std::unique_ptr<Object> Board::createObject(const char tosprite) const
 		return std::unique_ptr<Ladder>();
 		break;
 	case '*':
-		m_coinsCounter++;
+		m_coinsCounter = m_coinsCounter+1;
 		return std::unique_ptr<Coin>();
 		break;
 	case '#':
@@ -133,13 +135,13 @@ std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
 	switch (type)
 	{
 	case 0:
-		return std::unique_ptr<SmartEnemy>;
+		return std::unique_ptr<SmartEnemy>();
 		break;
 	case 1:
-		return std::unique_ptr<HorizontalEnemy>;
+		return std::unique_ptr<HorizontalEnemy>();
 		break;
 
 	}
-	return std::unique_ptr< RandomEnemy >;
+	return std::unique_ptr< RandomEnemy >();
 }
 

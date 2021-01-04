@@ -21,7 +21,7 @@ public:
     virtual void setPresent();
     //void setPresent();
     virtual sf::Sprite getSprite();
-    virtual void setLocation();
+    virtual void setLocation(const int row, const int col);
 private:
     sf::Sprite m_presentPng;
 };
