@@ -35,14 +35,14 @@ public:
 	virtual ~Board()=default;
 	//void updateBoard(); // update all changes on board
 	void loadBoardFromFile(Player& player, std::vector <Enemy>& enemyArray);
-	void loadBoard(std::string levelName); //  get the file and read the level to vector
+	bool loadBoard(std::string levelName); //  get the file and read the level to vector
 	bool isGoodMove(const MovingObject& play)const; // check if is not floor the player can dig
 	int algorithmOfEnemy(); // 
 	int getNumberOfCoins();
 	int getNumberOfPresents();
 	void createObjectVector();
 	std::unique_ptr<StaticObject> createObject(const char);
-	std::unique_ptr<Enemy>kindOfEnemy(const int type);
+	std::unique_ptr<Enemy>kindOfEnemy(const int type)const;
 
 private:
 	
@@ -50,7 +50,7 @@ private:
 	int m_width;
 	int m_coinsCounter;
 	ifstream m_fileRead;
-	sf::Clock m_time;
+	sf::Time m_time;
 	std::vector<std::vector<std::unique_ptr<StaticObject>>> m_board;
 	//std::vector <Coin> m_coins;
 	//std::vector <Present> m_presents; // location of the present and kind

@@ -49,10 +49,10 @@ void Board::loadBoardFromFile(Player& player, std::vector <Enemy>& enemyArray)
 				m_board[i][j]->setLocation(i, j);
 			}
 			else // is enemy
-				{
+			{
 				enemyArray.resize(enemyArray.size() + 1);
 				enemyArray.push_back(kindOfEnemy(enemyKind));
-			    }
+		    }
 			
 		}
 	}
@@ -66,7 +66,9 @@ bool Board::loadBoard(std::string levelName)
 		return false;
 
 	m_fileRead >> m_height >> m_width >> time;
-	m_time = (sf::Vector2f)time; // convert int to time
+	auto timelevel = sf::seconds(0);
+	m_time = sf::Time(sf::seconds(float(time)));
+	m_time = (float)time; // convert int to time
 	loadBoardFromFile(player, enemyArray);
 	//createBoard();
 	m_fileRead.close();
@@ -130,18 +132,18 @@ std::unique_ptr<StaticObject> Board::createObject(const char tosprite)
 	return nullptr;
 }
 
-std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
+std::unique_ptr<Enemy> Board::kindOfEnemy(const int type) const
 {
 	switch (type)
 	{
 	case 0:
-		return std::unique_ptr<SmartEnemy>();
+		return std::make_unique<SmartEnemy>();
 		break;
 	case 1:
-		return std::unique_ptr<HorizontalEnemy>();
+		return std::make_unique<HorizontalEnemy>();
 		break;
 
 	}
-	return std::unique_ptr< RandomEnemy >();
+	return std::make_unique< RandomEnemy >();
 }
 
