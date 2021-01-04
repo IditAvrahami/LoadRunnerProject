@@ -11,8 +11,11 @@ public:
     virtual void print();
     virtual void move();
     virtual sf::Sprite getSprite();
-    virtual void setLocation();
     virtual bool checkNextMove();
+    virtual void setSpeed() ;
+    virtual int getSpeed() ;
+    virtual void setSign() ;
+    virtual void move() ;
     //int enemyMovments();  
   
 private:
