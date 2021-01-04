@@ -4,4 +4,5 @@
 void Enemy::setLocation()
 {
 //idit its work
+	//test
 }
