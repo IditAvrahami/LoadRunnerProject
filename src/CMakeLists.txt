@@ -1,2 +1,3 @@
 ﻿target_sources (SFMLExamples PRIVATE "main.cpp"
-                                      "Board.cpp")
+                                      "Board.cpp"
+                                      "Enemy.cpp")
