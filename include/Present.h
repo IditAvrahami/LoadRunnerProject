@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "Object.h"
+#include "StaticObject.h"
 
 
 class Present : public StaticObject
