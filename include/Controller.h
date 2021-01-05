@@ -16,9 +16,9 @@ public:
 	//getInput();
 	void openScreen(int heigth, int width); // open new window with hei wid
 	void startGame();
-	void printBoard();
+	void print();
 	//	void printAndClearBoard();
-	int getLives();
+/*	int getLives();
 	int getLevel();
 	int getScore();
 	int getTime();
@@ -26,19 +26,20 @@ public:
 	void setLevel();
 	void setScore();
 	void setTime();
-	void print();
+	*/
+	
 
 private:
 	//private functions
 	std::string levelName();
 
 	//private members
-	int m_lives;
-	int m_level;
-	int m_score;
+	int m_lives=0;
+	int m_level=0;
+	int m_score=0;
 	Board m_board;
 	sf::RenderWindow m_window;
-	 std::Vector <std::uniqe_ptr <Enemy>> m_enemy; // check what to do
+	 std::vector <std::unique_ptr <Enemy>> m_enemy; // check what to do
 	Player m_player;
 	//sf::clock m_time;
 	//std::vector <Coin> m_coins;

@@ -10,9 +10,10 @@ public:
     MovingObject()=default;
     virtual ~MovingObject() = default;
   //  virtual bool checkNextMove()=0;
+  //  virtual void print(sf::RenderWindow& window);
     virtual void setSpeed(const int)=0;
     virtual int getSpeed()=0;
-    virtual void setLocation(const int y, const int x)=0;
+  //  virtual void setLocation(const int y, const int x)=0;
     virtual void move(const sf::Time& time)=0;
 
 
