@@ -7,5 +7,5 @@ class SmartEnemy : public Enemy
 public:
 	SmartEnemy();
 	virtual ~SmartEnemy() = default;
-	virtual void move();
+	virtual void enemyAlgorithem();
 };

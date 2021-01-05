@@ -8,8 +8,10 @@ public:
     Enemy(sf::Texture picture, const int speed);
     virtual ~Enemy() = default;
     virtual void setLocation(const int y, const int x);
+    //void moveLocation(sf::Vector2f d, int speed, sf::Time t);
+    void moveLocation(const sf::Vector2f& d, sf::Time t);
     virtual void print(sf::RenderWindow& window);
-    virtual void move(); // empy
+    virtual void move(const sf::Time& time);//, const sf::Vector2f &direction); // empy
     virtual sf::Sprite getSprite();
    virtual sf::Vector2f getLocation()const;
     //virtual bool checkNextMove(const int direction);

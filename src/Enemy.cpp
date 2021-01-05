@@ -10,13 +10,21 @@ void Enemy::setLocation(const int y, const int x)
 	m_enemyPng.setPosition((float)x, (float)y);
 }
 
+void Enemy::moveLocation(const sf::Vector2f & direction,sf::Time time)
+{
+	m_enemyPng.move(  m_speed * time.asSeconds() * direction );
+}
+
+
 void Enemy::print(sf::RenderWindow& window)
 {
 	window.draw(m_enemyPng);
 }
 
-void Enemy::move()
+void Enemy::move(const sf::Time& time)//, const sf::Vector2f& direction)
 {
+
+
 }
 
 sf::Sprite Enemy::getSprite()

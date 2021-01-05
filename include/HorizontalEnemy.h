@@ -7,9 +7,10 @@
 class HorizontalEnemy : public Enemy
 {
 public:
-	HorizontalEnemy();
+	HorizontalEnemy(sf::Texture picture, const int speed);
 	virtual~HorizontalEnemy() = default;
-	virtual void move();
+	sf::Vector2f directionToGo();
+	virtual void move(const sf::Time& time);
 private:
 	sf::Vector2f m_myLastDirection;
 };
