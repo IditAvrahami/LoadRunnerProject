@@ -8,4 +8,6 @@
                                           "Coin.cpp"
                                           "Floor.cpp"
                                           "Rod.cpp"
+                                          "Controller.cpp" 
+                                          "Player.cpp"
                                           )

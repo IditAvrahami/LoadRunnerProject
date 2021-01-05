@@ -45,6 +45,8 @@ public:
 	void createObjectVector();
 	std::unique_ptr<StaticObject> createObject(const char);
 	std::unique_ptr<Enemy>kindOfEnemy(const int type);
+	int getHeight();
+	int getWidth();
 
 private:
 	

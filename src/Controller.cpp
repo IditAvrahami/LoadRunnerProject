@@ -3,22 +3,18 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 
-Controller::Controller() : m_lives(3), m_level(1), m_score(0), m_board((*this).levelName(), m_enemy, m_player)
+Controller::Controller() : m_lives(3), m_level(1), m_score(0), m_board((*this).levelName(), m_player, m_enemy)
 {
-	m_window.create(sf::VideoMode(m_board.getHeigth() * 50, m_board.getWidth() * 50), (*this).levelName());
+	m_window.create(sf::VideoMode(m_board.getHeight() * 50, m_board.getWidth() * 50), (*this).levelName());
 
 }
 
 void Controller::openScreen(int heigth, int width)
 {
 	//heigth + 4 for the info about score level lives and time left
-	m_window.create(sf::VideoMode((m_board.getHeigth() + 4) * 50, m_board.getWidth() * 50), (*this).levelName());
+	m_window.create(sf::VideoMode((m_board.getHeight() + 4) * 50, m_board.getWidth() * 50), (*this).levelName());
 }
 
-void Controller::loop()
-{
-
-}
 
 void Controller::startGame()
 {

@@ -34,13 +34,13 @@ private:
 	std::string levelName();
 
 	//private members
+	std::vector <std::unique_ptr <Enemy>> m_enemy; // check what to do
+	Player m_player;
 	int m_lives=0;
 	int m_level=0;
 	int m_score=0;
 	Board m_board;
 	sf::RenderWindow m_window;
-	 std::vector <std::unique_ptr <Enemy>> m_enemy; // check what to do
-	Player m_player;
 	//sf::clock m_time;
 	//std::vector <Coin> m_coins;
 	//std::vector <Present> m_presents; // location of the present and kind

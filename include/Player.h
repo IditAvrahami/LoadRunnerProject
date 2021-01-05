@@ -5,6 +5,7 @@
 class Player : public MovingObject
 {
 public:
+    Player() {};
     Player(sf::Texture picture, const int speed);
     Player(sf::Texture picture);
     virtual ~Player() =default;
@@ -13,6 +14,7 @@ public:
     virtual void move(const sf::Time &timePassed)override;
     //void dig();
     //bool canDig();
+    void setSprite(const sf::Texture& picture);
     virtual void setSpeed(const int)override {};
     virtual int getSpeed()override {};
     //virtual sf::Sprite getSprite() ;
@@ -24,6 +26,6 @@ public:
 
 private:
         sf::Sprite m_playerPng;
-        int m_speed;
+        int m_speed=1;
         sf::Vector2f m_direction;
 };

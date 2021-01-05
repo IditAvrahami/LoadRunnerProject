@@ -27,7 +27,7 @@ Board::Board(std::string levelName, Player& player, std::vector <std::unique_ptr
 
 	//m_pictures[6].loadFromFile("present.png");
 
-	//	m_pictures[7].loadFromFile("download.png");
+	//	m_pictures[7].loadFromFile("forest.png");
 
 	loadBoard(levelName,player,enemyArray);
 }
@@ -45,7 +45,10 @@ void Board::loadBoardFromFile(Player& player, std::vector <std::unique_ptr <Enem
 		for (int j = str.size(); j >= 0; j--) // insert to the vector the board
 		{
 			if (str[j] == '@')
+			{ 
+				player.setSprite();
 				player.setLocation(i, j);
+			}
 			else if (!(str[j] == '@') && !(str[j] == '%'))
 			{
 				m_board[i].insert(m_board[i].begin(), createObject(str[j])); // insert pointer to object to array
@@ -163,4 +166,14 @@ std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
 
 	}
 	return std::make_unique< RandomEnemy >(m_pictures[1], 1);
+}
+
+int Board::getHeight()
+{
+	return m_height;
+}
+
+int Board::getWidth()
+{
+	return m_width;
 }

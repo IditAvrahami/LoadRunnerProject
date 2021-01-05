@@ -1,6 +1,8 @@
+#include "..\include\Player.h"
 #include "Player.h"
-#include "Utillities"
+#include "Utillities.h"
 #include <SFML/Graphics.hpp>
+
 
 Player::Player(sf::Texture picture, const int speed) 
 	:m_playerPng(picture),m_speed(speed), m_direction(sf::Vector2f(0,0))
@@ -20,20 +22,25 @@ void Player::print(sf::RenderWindow& window)
 	window.draw(m_playerPng);
 }
 
-void Player::move(sf::Time& timePassed)
+void Player::move(const sf::Time& timePassed)
 {
-	m_playerPng.move(m_direction * m_speed * timePassed.asSeconds());
+	m_playerPng.move( m_speed * timePassed.asSeconds()* m_direction);
 	//if colision return to place
 	//if (checkcolision(m_playerPng.getPosition() ) )
 	//	m_playerPng.move(m_direction * m_speed * timePassed.asSeconds() * -1 );
 
 }
 
+void Player::setSprite(const sf::Texture &picture)
+{
+	m_playerPng.setTexture(picture);
+}
+
 void Player::setDirection(sf::Keyboard::Key key)
 {
 	switch (key)
 	{
-	case: sf::Keyboard::Key::Right :
+	case sf::Keyboard::Key::Right :
 		m_direction = KB_RIGHT;
 		break;
 	case sf::Keyboard::Key::Left:
