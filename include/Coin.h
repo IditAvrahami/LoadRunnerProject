@@ -6,12 +6,12 @@
 class Coin : public StaticObject
 {
 public:
-	Coin();
+	Coin(sf::Texture picture);
 	virtual ~Coin();
 	void setCoin();
 	int coinValue();
-	virtual void print();
-	virtual sf::Sprite getSprite();
+	virtual void print(sf::RenderWindow& window);
+	//virtual sf::Sprite getSprite();
 	virtual void setLocation(const int y, const int x);
 
 private:
