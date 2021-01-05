@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include "Object.h"
 #include "Coin.h"
 #include "Present.h"

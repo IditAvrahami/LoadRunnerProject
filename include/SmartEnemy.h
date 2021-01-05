@@ -3,8 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include "Utillities.h"
 
-
-
 class SmartEnemy : public Enemy
 {
 public:

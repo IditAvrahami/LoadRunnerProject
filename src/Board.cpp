@@ -130,22 +130,22 @@ std::unique_ptr<StaticObject> Board::createObject(const char tosprite)
 	switch (tosprite)
 	{
 	case 'H':
-		return std::make_unique<Ladder>();
+		return std::make_unique<Ladder>(m_pictures[2]);
 		break;
 	case '*':
 		m_coinsCounter = m_coinsCounter+1;
-		return std::make_unique<Coin>();
+		return std::make_unique<Coin>(m_pictures[3]);
 		break;
 	case '#':
-		return std::make_unique<Floor>();
+		return std::make_unique<Floor>(m_pictures[4]);
 		break;
 	case '-':
-		return std::make_unique<Rod>();
+		return std::make_unique<Rod>(m_pictures[5]);
 		break;
-	case '+':
-		return std::make_unique<Present>();
+	/*case '+':
+		return std::make_unique<Present>(m_pictures[6]);
 		break;
-		//add present case
+		//add present case*/
 	}
 	return nullptr;
 }
