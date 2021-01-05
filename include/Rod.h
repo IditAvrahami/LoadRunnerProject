@@ -5,10 +5,10 @@
 class Rod : public StaticObject
 {
 public:
-	Rod();
-	~Rod();
-	virtual void print();
-	virtual sf::Sprite getSprite();
+	Rod(sf::Texture picture);
+	virtual ~Rod() = default;
+	virtual void print(sf::RenderWindow & window);
+	//virtual sf::Sprite getSprite();
 	virtual void setLocation(const int y, const int x);
 
 private:

@@ -17,7 +17,7 @@ void Player::setLocation(const int y, const int x)
 
 void Player::print(sf::RenderWindow& window)
 {
-	window.drew(m_enemyPng);
+	window.draw(m_playerPng);
 }
 
 void Player::move(sf::Time& timePassed)

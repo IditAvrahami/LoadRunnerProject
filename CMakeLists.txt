@@ -9,7 +9,7 @@ if (MSVC)
     add_compile_options (/permissive-)
 endif ()
 
-add_executable (SFMLExamples WIN32 "")
+add_executable (LoadRunnerProject WIN32 "")
 
 add_subdirectory (include)
 add_subdirectory (src)
@@ -22,4 +22,4 @@ find_package (SFML 2.5 COMPONENTS graphics REQUIRED)
 
 set_target_properties (sfml-main sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
 
-target_link_libraries (SFMLExamples sfml-graphics sfml-main)
+target_link_libraries (LoadRunnerProject sfml-graphics sfml-main)

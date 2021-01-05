@@ -1,8 +1,8 @@
-﻿target_sources (SFMLExamples PRIVATE "main.cpp"
+﻿target_sources (LoadRunnerProject PRIVATE "main.cpp"
                                       "Board.cpp"
                                       "Enemy.cpp"
                                       "HorizontalEnemy.cpp"
                                       "RandomEnemy.cpp"
-                                      "MovingObject.cpp"
                                      "SmartEnemy.cpp"
+                                     "Ladder.cpp"
                                       )

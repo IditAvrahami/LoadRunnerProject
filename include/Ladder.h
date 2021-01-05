@@ -1,14 +1,14 @@
 #pragma once
-#include "StaticObject.h"
 #include <SFML/Graphics.hpp>
+#include "StaticObject.h"
 
 class Ladder : public StaticObject
 {
 public:
-	 Ladder ();
+	 Ladder (sf::Texture picture);
 	virtual ~ Ladder()=default ;
-	virtual void print();
-	virtual sf::Sprite getSprite();
+	virtual void print(sf::RenderWindow& window);
+	//virtual sf::Sprite getSprite();
 	virtual void setLocation(const int y, const int x);
 
 private:
