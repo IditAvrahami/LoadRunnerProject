@@ -27,10 +27,10 @@ using std::ifstream;
 using std::string;
 using std::unique_ptr;
 
-const int KB_UP = 72;
-const int KB_DOWN = 80;
-const int KB_LEFT = 75;
-const int KB_RIGHT = 77;
+const sf::Vector2f KB_UP = {0,-1};
+const sf::Vector2f KB_DOWN = { 0,1 };
+const sf::Vector2f KB_LEFT = { -1,0 };
+const sf::Vector2f KB_RIGHT = { 1,0 };
 
 class Board
 {
