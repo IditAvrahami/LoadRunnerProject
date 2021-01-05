@@ -1,21 +1,23 @@
 #pragma once
 #include "HorizontalEnemy.h"
+#include <SFML/Graphics.hpp>
 
-HorizontalEnemy::HorizontalEnemy()
-{
-}
+HorizontalEnemy::HorizontalEnemy() : m_myLastDirection(KB_RIGHT)
+{}
 
 virtual void HorizontalEnemy::move()
 {
-	auto sf::Vector2f location;
-	int x, y;
+	
+	sf::Vector2f location = getLocation();
+//	location = getLocation();
 
-	location = getLocation();
-	x = 
 	if (m_myLastDirection == KB_RIGHT)
 	{
 		
 	}
-	if(m_myLastDirection == KB_LEFT)
+	if (m_myLastDirection == KB_LEFT)
+	{
+
+	}
 
 }
