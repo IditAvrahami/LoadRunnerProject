@@ -2,8 +2,7 @@
 #include <string>
 #include <vector>
 
-Board::Board(std::string levelName, Player& player, std::vector <Enemy> enemyArray)
-	:m_coinsCounter(0)
+Board::Board(std::string levelName, Player& player, std::vector <Enemy>& enemyArray)
 { 
 	srand(NULL);
 
@@ -28,7 +27,7 @@ Board::Board(std::string levelName, Player& player, std::vector <Enemy> enemyArr
 
 	//	m_pictures[7].loadFromFile("download.png");
 
-	loadBoard(levelName);
+	loadBoard(levelName,player,enemyArray);
 }
 
 void Board::loadBoardFromFile(Player& player, std::vector <Enemy>& enemyArray)
@@ -49,16 +48,16 @@ void Board::loadBoardFromFile(Player& player, std::vector <Enemy>& enemyArray)
 				m_board[i][j]->setLocation(i, j);
 			}
 			else // is enemy
-				{
+			{
 				enemyArray.resize(enemyArray.size() + 1);
 				enemyArray.push_back(kindOfEnemy(enemyKind));
-			    }
+		    }
 			
 		}
 	}
 }
 
-bool Board::loadBoard(std::string levelName)
+bool Board::loadBoard(std::string levelName,Player& player, std::vector <Enemy>& enemyArray)
 {
 	int time;
 	m_fileRead.open(levelName);
@@ -66,12 +65,20 @@ bool Board::loadBoard(std::string levelName)
 		return false;
 
 	m_fileRead >> m_height >> m_width >> time;
-	m_time = (sf::Vector2f)time; // convert int to time
+	m_time = sf::seconds((float)time);
 	loadBoardFromFile(player, enemyArray);
 	//createBoard();
 	m_fileRead.close();
 
 	return true;
+}
+
+
+
+
+bool Board::isGoodMove(const MovingObject& play) const
+{
+	return false;
 }
 
 bool Board::isGoodMove(const StaticObject &play, const int direction)const
@@ -87,6 +94,9 @@ bool Board::isGoodMove(const StaticObject &play, const int direction)const
 	return false;
 }
 
+
+
+
 int Board::algorithmOfEnemy()
 {
 	return rand() % 3; // daniel you see that????
@@ -97,10 +107,10 @@ int Board::getNumberOfCoins()
 	return m_coinsCounter;
 }
 
-int Board::getNumberOfPresents()
+/*int Board::getNumberOfPresents()
 {
 	return m_presents.size();
-}
+}*/
 
 void Board::createObjectVector()
 {
@@ -114,18 +124,22 @@ std::unique_ptr<StaticObject> Board::createObject(const char tosprite)
 	switch (tosprite)
 	{
 	case 'H':
-		return std::unique_ptr<Ladder>();
+		return std::make_unique<Ladder>();
 		break;
 	case '*':
 		m_coinsCounter = m_coinsCounter+1;
-		return std::unique_ptr<Coin>();
+		return std::make_unique<Coin>();
 		break;
 	case '#':
-		return std::unique_ptr<Floor>();
+		return std::make_unique<Floor>();
 		break;
 	case '-':
-		return std::unique_ptr<Rod>();
+		return std::make_unique<Rod>();
 		break;
+	case '+':
+		return std::make_unique<Present>();
+		break;
+		//add present case
 	}
 	return nullptr;
 }
@@ -135,13 +149,13 @@ std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
 	switch (type)
 	{
 	case 0:
-		return std::unique_ptr<SmartEnemy>();
+		return std::make_unique<SmartEnemy>();
 		break;
 	case 1:
-		return std::unique_ptr<HorizontalEnemy>();
+		return std::make_unique<HorizontalEnemy>();
 		break;
 
 	}
-	return std::unique_ptr< RandomEnemy >();
+	return std::make_unique< RandomEnemy >();
 }
 

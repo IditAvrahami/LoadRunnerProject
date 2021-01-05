@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Object.h"
+#include "StaticObject.h"
 
 
-class Coin : public Object
+class Coin : public StaticObject
 {
 public:
 	Coin();
@@ -12,7 +12,7 @@ public:
 	int coinValue();
 	virtual void print();
 	virtual sf::Sprite getSprite();
-	virtual void setLocation(const int row, const int col);
+	virtual void setLocation(const int y, const int x);
 
 private:
 	sf::Sprite m_coinPng;

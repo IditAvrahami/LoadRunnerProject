@@ -6,7 +6,6 @@ class SmartEnemy : public Enemy
 {
 public:
 	SmartEnemy();
-	~SmartEnemy() = default;
+	virtual ~SmartEnemy() = default;
 	virtual void move();
-
 };
