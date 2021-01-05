@@ -17,7 +17,11 @@
 #include "HorizontalEnemy.h"
 #include "StaticObject.h"
 
+
+
 const int OBJECTS = 6; // change it with backgroud and play buttom
+
+
 
 using std::ifstream;
 using std::string;

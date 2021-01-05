@@ -5,6 +5,8 @@
 class Player : public MovingObject
 {
 public:
+    Player();
+    virtual ~Player() =default;
     virtual void setLocation(const int y, const int x);
     virtual void print();
     virtual void move();

@@ -23,7 +23,9 @@ Board::Board(std::string levelName, Player& player, std::vector <Enemy>& enemyAr
 
 	m_pictures[5].loadFromFile("rod.png");
 
-//	m_pictures[6].loadFromFile("back.png");
+	//change size of object
+
+	//m_pictures[6].loadFromFile("present.png");
 
 	//	m_pictures[7].loadFromFile("download.png");
 
@@ -33,6 +35,8 @@ Board::Board(std::string levelName, Player& player, std::vector <Enemy>& enemyAr
 void Board::loadBoardFromFile(Player& player, std::vector <Enemy>& enemyArray)
 {
 	int enemyKind = algorithmOfEnemy();
+	//enemyArray.resize(0);
+	int amountofenemy = enemyArray.size();
 	string str;
 	getline(m_fileRead, str); //read enter
 	for (int i = 0; i < m_height; i++)
@@ -51,6 +55,7 @@ void Board::loadBoardFromFile(Player& player, std::vector <Enemy>& enemyArray)
 			{
 				enemyArray.resize(enemyArray.size() + 1);
 				enemyArray.push_back(kindOfEnemy(enemyKind));
+				enemyArray[enemyArray.size() - 1].setLocation(i, j);
 		    }
 			
 		}
