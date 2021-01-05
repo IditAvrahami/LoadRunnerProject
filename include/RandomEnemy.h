@@ -1,12 +1,14 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include "Enemy.h"
+#include "Utillities.h"
 
 
 class RandomEnemy : public Enemy
 {
 public:
-	RandomEnemy();
+	RandomEnemy(sf::Texture picture, const int speed);
 	virtual ~RandomEnemy() = default;
-	virtual void enemyAlgorithem();
-
+	sf::Vector2f directionToGo();
+	virtual void move(const sf::Time& time);
 };

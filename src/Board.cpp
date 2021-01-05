@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-Board::Board(std::string levelName, Player& player, std::vector <Enemy>& enemyArray)
+Board::Board(std::string levelName, Player& player, std::vector <std::unique_ptr <Enemy>>& enemyArray)
 { 
 	srand(NULL);
 
@@ -32,11 +32,11 @@ Board::Board(std::string levelName, Player& player, std::vector <Enemy>& enemyAr
 	loadBoard(levelName,player,enemyArray);
 }
 
-void Board::loadBoardFromFile(Player& player, std::vector <Enemy>& enemyArray)
+void Board::loadBoardFromFile(Player& player, std::vector <std::unique_ptr <Enemy>>& enemyArray)
 {
 	int enemyKind = algorithmOfEnemy();
 	//enemyArray.resize(0);
-	int amountofenemy = enemyArray.size();
+	int amountofenemy = (int)enemyArray.size();
 	string str;
 	getline(m_fileRead, str); //read enter
 	for (int i = 0; i < m_height; i++)
@@ -54,15 +54,16 @@ void Board::loadBoardFromFile(Player& player, std::vector <Enemy>& enemyArray)
 			else // is enemy
 			{
 				enemyArray.resize(enemyArray.size() + 1);
+				//enemyArray->
 				enemyArray.push_back(kindOfEnemy(enemyKind));
-				enemyArray[enemyArray.size() - 1].setLocation(i, j);
+				enemyArray[enemyArray.size() - 1]->setLocation(i, j);
 		    }
 			
 		}
 	}
 }
 
-bool Board::loadBoard(std::string levelName,Player& player, std::vector <Enemy>& enemyArray)
+bool Board::loadBoard(std::string levelName,Player& player, std::vector <std::unique_ptr <Enemy>>& enemyArray)
 {
 	int time;
 	m_fileRead.open(levelName);
@@ -88,8 +89,8 @@ bool Board::isGoodMove(const MovingObject& play) const
 
 bool Board::isGoodMove(const StaticObject &play, const int direction)const
 {
-	int x;
-	int y;
+//	int x;
+//	int y;
 	/// <summary>
 	/// //////////////////////////////////////////////////////////////////////////////////
 	/// </summary>
@@ -154,13 +155,12 @@ std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
 	switch (type)
 	{
 	case 0:
-		return std::make_unique<SmartEnemy>();
+		return std::make_unique<SmartEnemy>(m_pictures[1], 1);
 		break;
 	case 1:
-		return std::make_unique<HorizontalEnemy>();
+		return std::make_unique<HorizontalEnemy>(m_pictures[1], 1);
 		break;
 
 	}
-	return std::make_unique< RandomEnemy >();
+	return std::make_unique< RandomEnemy >(m_pictures[1], 1);
 }
-

@@ -7,12 +7,11 @@ class Board;
 class MovingObject : public Object
 {
 public:
-    MovingObject();
+    MovingObject()=default;
     virtual ~MovingObject() = default;
-    virtual bool checkNextMove()=0;
+  //  virtual bool checkNextMove()=0;
     virtual void setSpeed()=0;
     virtual int getSpeed()=0;
-    virtual void setSign()=0;
     virtual void setLocation(const int y, const int x)=0;
     virtual void move()=0;
 

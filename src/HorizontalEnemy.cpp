@@ -11,8 +11,8 @@ sf::Vector2f HorizontalEnemy::directionToGo()
 	sf::Vector2f location = getLocation();
 
 	int col, row; // x- col, y- row
-	col = location.x/COMPARISON;
-	row = location.y / COMPARISON;
+	col = (int)location.x/COMPARISON;
+	row = (int)location.y / COMPARISON;
 	if (m_myLastDirection == KB_RIGHT)
 	{
 	//	if(checkIfCan(row, col + 1))
@@ -30,11 +30,11 @@ sf::Vector2f HorizontalEnemy::directionToGo()
 
 	//move(time)//, KB_Left);
 	}
-
+	return KB_LEFT;
 }
 
 void HorizontalEnemy::move(const sf::Time& time)
 {
-	sf::Vector2f direction; //need caculate direction
+	sf::Vector2f direction = directionToGo(); //need caculate direction
 	Enemy::moveLocation(direction,time);
 }

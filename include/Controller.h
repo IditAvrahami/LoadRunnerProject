@@ -5,12 +5,14 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include <string>
+#include <memory>
+#include <vector>
 
 class Controller
 {
 public:
 	Controller(); // ctor
-	~Controller();
+	virtual ~Controller() =default;
 	//getInput();
 	void openScreen(int heigth, int width); // open new window with hei wid
 	void startGame();
@@ -36,7 +38,7 @@ private:
 	int m_score;
 	Board m_board;
 	sf::RenderWindow m_window;
-	std::vector <Enemy> m_enemy; // check what to do
+	 std::Vector <std::uniqe_ptr <Enemy>> m_enemy; // check what to do
 	Player m_player;
 	//sf::clock m_time;
 	//std::vector <Coin> m_coins;

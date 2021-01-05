@@ -17,7 +17,7 @@
 #include "HorizontalEnemy.h"
 #include "StaticObject.h"
 #include "Utillities.h"
-
+#include "MovingObject.h"
 
 
 //const int OBJECTS = 6; // change it with backgroud and play buttom
@@ -31,16 +31,16 @@ using std::unique_ptr;
 class Board
 {
 public:
-	Board(std::string levelName, Player& player, std::vector <Enemy>& enemyArray);
+	Board(std::string levelName, Player& player, std::vector <std::unique_ptr <Enemy>>& enemyArray);
 	virtual ~Board()=default;
 	//void updateBoard(); // update all changes on board
-	void loadBoardFromFile(Player& player, std::vector <Enemy>& enemyArray);
-	bool loadBoard(std::string levelName, Player& player, std::vector <Enemy>& enemyArray); //  get the file and read the level to vector
+	void loadBoardFromFile(Player& player, std::vector <std::unique_ptr <Enemy>>& enemyArray);
+	bool loadBoard(std::string levelName, Player& player, std::vector <std::unique_ptr <Enemy>>& enemyArray); //  get the file and read the level to vector
 	bool isGoodMove(const MovingObject& play)const; // check if is not floor the player can dig
 	bool isGoodMove(const StaticObject& play, const int direction)const;
 	int algorithmOfEnemy(); // 
 	int getNumberOfCoins();
-	int getNumberOfPresents();
+	//int getNumberOfPresents();
 	void createObjectVector();
 	std::unique_ptr<StaticObject> createObject(const char);
 	std::unique_ptr<Enemy>kindOfEnemy(const int type);
@@ -53,7 +53,5 @@ private:
 	ifstream m_fileRead;
 	sf::Time m_time;
 	std::vector<std::vector<std::unique_ptr<StaticObject>>> m_board;
-	//std::vector <Coin> m_coins;
-	//std::vector <Present> m_presents; // location of the present and kind
 	std::vector <sf::Texture> m_pictures;
 };

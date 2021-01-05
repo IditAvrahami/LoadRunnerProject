@@ -2,4 +2,7 @@
                                       "Board.cpp"
                                       "Enemy.cpp"
                                       "HorizontalEnemy.cpp"
+                                      "RandomEnemy.cpp"
+                                      "MovingObject.cpp"
+                                     "SmartEnemy.cpp"
                                       )
