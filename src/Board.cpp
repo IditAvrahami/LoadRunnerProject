@@ -46,7 +46,7 @@ void Board::loadBoardFromFile(Player& player, std::vector <std::unique_ptr <Enem
 		{
 			if (str[j] == '@')
 			{ 
-				player.setSprite();
+				player.setSprite(m_pictures[1]);
 				player.setLocation(i, j);
 			}
 			else if (!(str[j] == '@') && !(str[j] == '%'))
@@ -176,4 +176,12 @@ int Board::getHeight()
 int Board::getWidth()
 {
 	return m_width;
+}
+
+void Board::print(sf::RenderWindow& window)
+{
+	for (int i = 0; i < m_height; i++)
+		for (int j = 0; j < m_width; j++)
+			if (m_board[i][j] != nullptr)
+				m_board[i][j]->print(window);
 }

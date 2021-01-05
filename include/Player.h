@@ -15,8 +15,8 @@ public:
     //void dig();
     //bool canDig();
     void setSprite(const sf::Texture& picture);
-    virtual void setSpeed(const int)override {};
-    virtual int getSpeed()override {};
+    virtual void setSpeed(const int)override ;
+    virtual int getSpeed()override ;
     //virtual sf::Sprite getSprite() ;
     //virtual bool checkNextMove();
     virtual void setDirection(sf::Keyboard::Key);

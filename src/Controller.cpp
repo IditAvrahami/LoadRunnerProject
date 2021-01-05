@@ -23,6 +23,7 @@ void Controller::startGame()
 
 	while (m_window.isOpen() && m_board.getNumberOfCoins() != 0)
 	{
+		print();
 		// Handle events
 		sf::Event event;
 		while (m_window.pollEvent(event))
@@ -51,11 +52,11 @@ void Controller::startGame()
 			}
 
 		}
-
-		m_player.move();
+		auto time = clock.restart();
+		m_player.move(time);
 		for (int i = 0; i < m_enemy.size(); i++)
-			m_enemy[i].move();
-		print();
+			m_enemy[i]->move(time);
+		
 
 	}
 }
@@ -63,10 +64,10 @@ void Controller::startGame()
 void Controller::print()
 {
 	m_window.clear();
+	m_board.print(m_window);
 	m_player.print(m_window);
 	for (int i = 0; i < m_enemy.size(); i++)
-		m_enemy[i].print(m_window);
-	m_board.print(m_window);
+		m_enemy[i]->print(m_window);
 	m_window.display();
 }
 

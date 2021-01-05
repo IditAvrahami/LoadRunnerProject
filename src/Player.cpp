@@ -53,7 +53,7 @@ void Player::setDirection(sf::Keyboard::Key key)
 		m_direction = KB_DOWN;
 		break;
 	}
-	m_direction = (0,0);
+	m_direction = KB_STAY;
 }
 
 void Player::changeface(bool toRight)
@@ -63,4 +63,14 @@ void Player::changeface(bool toRight)
 		m_playerPng.setScale(-1,1);
 	else
 		m_playerPng.setScale(1, 1);
+}
+
+void Player::setSpeed(const int speed)
+{
+	m_speed = speed;
+}
+
+int Player::getSpeed()
+{
+	return m_speed;
 }

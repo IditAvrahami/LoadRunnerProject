@@ -41,6 +41,7 @@ public:
 	bool isGoodMove(const StaticObject& play, const int direction)const;
 	int algorithmOfEnemy(); // 
 	int getNumberOfCoins();
+	void print(sf::RenderWindow &window);
 	//int getNumberOfPresents();
 	void createObjectVector();
 	std::unique_ptr<StaticObject> createObject(const char);

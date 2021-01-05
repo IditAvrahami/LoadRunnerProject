@@ -19,5 +19,5 @@ public:
 
 private:
   //  sf::sprite m_hideObject;
-    int m_speed;
+    int m_speed=1;
 };
