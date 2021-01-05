@@ -16,21 +16,17 @@
 #include "RandomEnemy.h"
 #include "HorizontalEnemy.h"
 #include "StaticObject.h"
+#include "utillities.h"
 
 
 
-const int OBJECTS = 6; // change it with backgroud and play buttom
+//const int OBJECTS = 6; // change it with backgroud and play buttom
 
 
 
 using std::ifstream;
 using std::string;
 using std::unique_ptr;
-
-const sf::Vector2f KB_UP = {0,-1};
-const sf::Vector2f KB_DOWN = { 0,1 };
-const sf::Vector2f KB_LEFT = { -1,0 };
-const sf::Vector2f KB_RIGHT = { 1,0 };
 
 class Board
 {

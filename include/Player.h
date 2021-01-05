@@ -5,7 +5,7 @@
 class Player : public MovingObject
 {
 public:
-    Player();
+    Player(sf::Texture picture, const int speed);
     virtual ~Player() =default;
     virtual void setLocation(const int y, const int x);
     virtual void print();
@@ -20,4 +20,6 @@ public:
 
 private:
         sf::Sprite m_playerPng;
+        int m_speed;
+        sf::Vector2f m_direction;
 };
