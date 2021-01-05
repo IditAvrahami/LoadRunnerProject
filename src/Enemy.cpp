@@ -5,7 +5,7 @@
 Enemy::Enemy(sf::Texture picture, const int speed) : m_enemyPng(sf::Sprite(picture)), m_speed(speed)
 {}
 
-void Enemy::setLocation(const int x, const int y)
+void Enemy::setLocation(const int y, const int x)
 {
 	m_enemyPng.setPosition((float)x, (float)y);
 }
