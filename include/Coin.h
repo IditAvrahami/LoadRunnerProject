@@ -7,7 +7,7 @@ class Coin : public StaticObject
 {
 public:
 	Coin(sf::Texture picture);
-	virtual ~Coin();
+	virtual ~Coin()=default;
 	void setCoin();
 	int coinValue();
 	virtual void print(sf::RenderWindow& window);
@@ -15,5 +15,5 @@ public:
 	virtual void setLocation(const int y, const int x);
 
 private:
-	sf::Sprite m_coinPng;
+	sf::Sprite m_CoinPng;
 };

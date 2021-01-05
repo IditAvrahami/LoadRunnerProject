@@ -1,12 +1,12 @@
 #pragma once
 #include "Coin.h"
 
-Coin::Coin(sf::Texture picture) : m_coinPng(sf::Sprite(picture))
+Coin::Coin(sf::Texture picture) : m_CoinPng(sf::Sprite(picture))
 {}
 
 void Coin::print(sf::RenderWindow& window)
 {
-	window.drew(m_CoinPng);
+	window.draw(m_CoinPng);
 }
 
 void Coin::setLocation(const int y, const int x)
