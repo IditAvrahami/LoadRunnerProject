@@ -12,7 +12,7 @@ Board::Board(std::string levelName, Player& player, std::vector <std::unique_ptr
 	m_pictures.resize(OBJECTS);
 
 	m_pictures[0].loadFromFile("player.png");
-
+	
 	m_pictures[1].loadFromFile("enemy.png");
 
 	m_pictures[2].loadFromFile("ladder.png");
@@ -28,7 +28,8 @@ Board::Board(std::string levelName, Player& player, std::vector <std::unique_ptr
 	//m_pictures[6].loadFromFile("present.png");
 
 	//	m_pictures[7].loadFromFile("forest.png");
-
+	// ( m_pictures[0] );
+	
 	loadBoard(levelName,player,enemyArray);
 }
 
@@ -198,4 +199,7 @@ void Board::print(sf::RenderWindow& window)
 		for (int j = 0; j < m_width; j++)
 			if (m_board[i][j])
 				m_board[i][j]->print(window);
+	a.setTexture(m_pictures[5]);
+	a.setPosition(0, 0);
+	window.draw(a);
 }

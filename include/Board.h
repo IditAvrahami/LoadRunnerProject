@@ -60,4 +60,5 @@ private:
 	sf::Time m_time;
 	std::vector<std::vector<std::unique_ptr<StaticObject>>> m_board;
 	std::vector <sf::Texture> m_pictures;
+	sf::Sprite a;
 };
