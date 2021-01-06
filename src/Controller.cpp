@@ -26,15 +26,10 @@ void Controller::startGame()
 		print();
 		// Handle events
 		sf::Event event;
-		while (m_window.pollEvent(event))
+		for (auto event = sf::Event{}; m_window.pollEvent(event); )
+
+		//	while (m_window.pollEvent(event)) // wait to event
 		{
-			/*// Window closed or escape key pressed: exit
-			if ((event.type == sf::Event::Closed) ||
-				((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape)))
-			{
-				m_window.close();
-				break;
-			}*/
 			switch (event.type)
 			{
 			case sf::Event::Closed:

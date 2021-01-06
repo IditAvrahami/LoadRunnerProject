@@ -35,6 +35,7 @@ Board::Board(std::string levelName, Player& player, std::vector <std::unique_ptr
 void Board::loadBoardFromFile(Player& player, std::vector <std::unique_ptr <Enemy>>& enemyArray)
 {
 	int enemyKind = algorithmOfEnemy();
+	
 	//enemyArray.resize(0);
 	string str;
 	getline(m_fileRead, str); //read enter
@@ -56,12 +57,10 @@ void Board::loadBoardFromFile(Player& player, std::vector <std::unique_ptr <Enem
 			}
 			else // is enemy
 			{
-				enemyArray.resize(enemyArray.size() + 1);
+				//enemyArray.resize(enemyArray.size());
 				enemyArray.push_back(kindOfEnemy(enemyKind));
 				enemyArray[enemyArray.size() - 1]->setLocation(i, j);
 		    }
-			int amountofenemy = (int)enemyArray.size(); // move to enf of func
-			
 		}
 	}
 }
@@ -135,10 +134,6 @@ int Board::getNumberOfCoins()
 	return m_coinsCounter;
 }
 
-/*int Board::getNumberOfPresents()
-{
-	return m_presents.size();
-}*/
 
 void Board::createObjectVector()
 {
@@ -169,7 +164,7 @@ std::unique_ptr<StaticObject> Board::createObject(const char tosprite)
 		break;
 		//add present case*/
 	}
-	return nullptr;
+	return std::unique_ptr<StaticObject>(nullptr);
 }
 
 std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
@@ -201,6 +196,6 @@ void Board::print(sf::RenderWindow& window)
 {
 	for (int i = 0; i < m_height; i++)
 		for (int j = 0; j < m_width; j++)
-			if (m_board[i][j] != nullptr)
+			if (m_board[i][j])
 				m_board[i][j]->print(window);
 }
