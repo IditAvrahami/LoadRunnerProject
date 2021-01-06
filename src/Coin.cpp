@@ -1,7 +1,9 @@
 #pragma once
 #include "Coin.h"
 
-Coin::Coin(sf::Texture picture) : m_CoinPng(sf::Sprite(picture))
+//Coin::Coin(sf::Texture picture) : m_CoinPng(sf::Sprite(picture))
+//{}
+Coin::Coin(sf::Sprite picture) : m_CoinPng(sf::Sprite(picture))
 {}
 
 void Coin::print(sf::RenderWindow& window)

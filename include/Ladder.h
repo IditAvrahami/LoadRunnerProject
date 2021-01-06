@@ -8,7 +8,8 @@
 class Ladder : public StaticObject
 {
 public:
-	 Ladder (sf::Texture picture);
+//	 Ladder (sf::Texture picture);
+	Ladder(sf::Sprite picture);
 	virtual ~ Ladder()=default ;
 	virtual void print(sf::RenderWindow& window);
 	//virtual sf::Sprite getSprite();

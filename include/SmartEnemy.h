@@ -6,7 +6,7 @@
 class SmartEnemy : public Enemy
 {
 public:
-	SmartEnemy(sf::Texture picture, const int speed);
+	SmartEnemy(sf::Sprite picture, const int speed);
 	virtual ~SmartEnemy() = default;
 //	virtual void enemyAlgorithem();
 	sf::Vector2f directionToGo();

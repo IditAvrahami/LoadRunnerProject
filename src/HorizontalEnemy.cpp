@@ -2,7 +2,7 @@
 #include "HorizontalEnemy.h"
 #include <SFML/Graphics.hpp>
 
-HorizontalEnemy::HorizontalEnemy(sf::Texture picture, const int speed) :Enemy(picture, speed),  m_myLastDirection(KB_RIGHT)
+HorizontalEnemy::HorizontalEnemy(sf::Sprite picture, const int speed) :Enemy(picture, speed),  m_myLastDirection(KB_RIGHT)
 {}
 
 sf::Vector2f HorizontalEnemy::directionToGo()

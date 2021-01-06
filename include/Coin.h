@@ -7,7 +7,8 @@
 class Coin : public StaticObject
 {
 public:
-	Coin(sf::Texture picture);
+//	Coin(sf::Texture picture);
+	Coin(sf::Sprite picture);
 	virtual ~Coin()=default;
 //	void setCoin();
 //	int coinValue();

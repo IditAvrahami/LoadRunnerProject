@@ -2,7 +2,7 @@
 #include "RandomEnemy.h"
 
 
-RandomEnemy::RandomEnemy(sf::Texture picture, const int speed) : Enemy(picture, speed)
+RandomEnemy::RandomEnemy(sf::Sprite picture, const int speed) : Enemy(picture, speed)
 {}
 
 sf::Vector2f RandomEnemy::directionToGo()

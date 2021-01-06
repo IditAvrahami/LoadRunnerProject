@@ -9,7 +9,8 @@
 class Floor : public StaticObject
 {
 public:
-	Floor(sf::Texture picture);
+	//Floor(sf::Texture picture);
+	Floor(sf::Sprite picture);
 	virtual ~Floor() = default;
 	virtual void print(sf::RenderWindow & window);
 	//virtual sf::Sprite getSprite();

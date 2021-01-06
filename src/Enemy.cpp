@@ -2,7 +2,7 @@
 #pragma once
 #include "Enemy.h"
 
-Enemy::Enemy(sf::Texture picture, const int speed) : m_enemyPng(sf::Sprite(picture)), m_speed(speed)
+Enemy::Enemy(sf::Sprite picture, const int speed) : m_enemyPng(sf::Sprite(picture)), m_speed(speed)
 {}
 
 void Enemy::setLocation(const float y, const float x)

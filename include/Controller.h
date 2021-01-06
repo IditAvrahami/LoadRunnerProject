@@ -16,7 +16,7 @@ public:
 	//getInput();
 	void openScreen(int heigth, int width); // open new window with hei wid
 	void startGame();
-	void print();
+	//void print();
 	//	void printAndClearBoard();
 /*	int getLives();
 	int getLevel();
@@ -34,8 +34,8 @@ private:
 	std::string levelName();
 
 	//private members
-	std::vector <std::unique_ptr <Enemy>> m_enemy; // check what to do
-	Player m_player;
+//	std::vector <std::unique_ptr <Enemy>> m_enemy; // check what to do
+//	Player m_player;
 	int m_lives=0;
 	int m_level=0;
 	int m_score=0;

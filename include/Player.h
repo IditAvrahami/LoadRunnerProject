@@ -9,8 +9,10 @@ class Player : public MovingObject
 {
 public:
     Player() {};
-    Player(sf::Texture picture, const int speed);
-    Player(sf::Texture picture);
+    Player(sf::Sprite picture, const int speed);
+  //  Player(sf::Texture picture, const int speed);
+   // Player(sf::Texture picture);
+    Player(sf::Sprite picture);
     virtual ~Player() =default;
     virtual void setLocation(const float y, const float x)override;
     virtual void print(sf::RenderWindow& window)override;
@@ -18,6 +20,7 @@ public:
     //void dig();
     //bool canDig();
     void setSprite(const sf::Texture& picture);
+  //  void setSprite(const sf::Sprite& picture);
     virtual void setSpeed(const int)override ;
     virtual int getSpeed()override ;
     //virtual sf::Sprite getSprite() ;

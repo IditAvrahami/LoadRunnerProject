@@ -1,7 +1,9 @@
 #pragma once
 #include "Ladder.h"
 
-Ladder::Ladder(sf::Texture picture) : m_ladderPng(sf::Sprite (picture))
+//Ladder::Ladder(sf::Texture picture) : m_ladderPng(sf::Sprite (picture))
+//{}
+Ladder::Ladder(sf::Sprite picture) : m_ladderPng(sf::Sprite(picture))
 {}
 
 void Ladder:: print(sf::RenderWindow& window)

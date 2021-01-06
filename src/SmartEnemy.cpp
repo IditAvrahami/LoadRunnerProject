@@ -1,7 +1,7 @@
 #pragma once
 #include "SmartEnemy.h"
 
-SmartEnemy::SmartEnemy(sf::Texture picture, const int speed) : Enemy(picture, speed)
+SmartEnemy::SmartEnemy(sf::Sprite picture, const int speed) : Enemy(picture, speed)
 {}
 
 sf::Vector2f SmartEnemy::directionToGo()
