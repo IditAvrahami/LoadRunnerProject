@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "StaticObject.h"
 #include "Utillities.h"
+#include <iostream>
 
 class Coin : public StaticObject
 {

@@ -6,6 +6,7 @@ Coin::Coin(sf::Texture picture) : m_CoinPng(sf::Sprite(picture))
 
 void Coin::print(sf::RenderWindow& window)
 {
+	std::cout << "print the coin in x: " << m_CoinPng.getPosition().x << " y:" << m_CoinPng.getPosition().y << std::endl;
 	window.draw(m_CoinPng);
 }
 
