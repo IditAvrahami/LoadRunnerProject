@@ -6,6 +6,7 @@ Ladder::Ladder(sf::Texture picture) : m_ladderPng(sf::Sprite (picture))
 
 void Ladder:: print(sf::RenderWindow& window)
 {
+	std::cout << "ladder class:  x:  " << m_ladderPng.getPosition().x << "y: " << m_ladderPng.getPosition().y << std::endl;
 	window.draw(m_ladderPng);
 }
 

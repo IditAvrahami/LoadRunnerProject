@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "MovingObject.h"
 #include "Utillities.h"
+#include <iostream>
+#include <ostream>
 
 class Player : public MovingObject
 {

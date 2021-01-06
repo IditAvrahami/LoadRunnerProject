@@ -2,6 +2,8 @@
 #include "StaticObject.h"
 #include <SFML/Graphics.hpp>
 #include "Utillities.h"
+#include <iostream>
+#include <ostream>
 
 class Rod : public StaticObject
 {

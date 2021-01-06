@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "StaticObject.h"
 #include "Utillities.h"
+#include <iostream>
+#include <ostream>
 
 class Ladder : public StaticObject
 {
