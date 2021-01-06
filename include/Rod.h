@@ -1,6 +1,7 @@
 #pragma once
 #include "StaticObject.h"
 #include <SFML/Graphics.hpp>
+#include "Utillities.h"
 
 class Rod : public StaticObject
 {
@@ -9,7 +10,7 @@ public:
 	virtual ~Rod() = default;
 	virtual void print(sf::RenderWindow & window);
 	//virtual sf::Sprite getSprite();
-	virtual void setLocation(const int y, const int x);
+	virtual void setLocation(const float y, const float x);
 
 private:
 	sf::Sprite m_rodPng;

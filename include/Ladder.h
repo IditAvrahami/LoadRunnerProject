@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "StaticObject.h"
+#include "Utillities.h"
 
 class Ladder : public StaticObject
 {
@@ -9,7 +10,7 @@ public:
 	virtual ~ Ladder()=default ;
 	virtual void print(sf::RenderWindow& window);
 	//virtual sf::Sprite getSprite();
-	virtual void setLocation(const int y, const int x);
+	virtual void setLocation(const float y, const float x);
 
 private:
 	sf::Sprite m_ladderPng;

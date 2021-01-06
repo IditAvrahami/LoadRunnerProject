@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "MovingObject.h"
+#include "Utillities.h"
 
 class Player : public MovingObject
 {
@@ -9,7 +10,7 @@ public:
     Player(sf::Texture picture, const int speed);
     Player(sf::Texture picture);
     virtual ~Player() =default;
-    virtual void setLocation(const int y, const int x)override;
+    virtual void setLocation(const float y, const float x)override;
     virtual void print(sf::RenderWindow& window)override;
     virtual void move(const sf::Time &timePassed)override;
     //void dig();

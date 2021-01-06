@@ -4,7 +4,7 @@
 
 Board::Board(std::string levelName, Player& player, std::vector <std::unique_ptr <Enemy>>& enemyArray)
 { 
-	srand(NULL);
+	srand(time(NULL));
 
 	// play button and background
 	// kind of enemeis
@@ -36,13 +36,12 @@ void Board::loadBoardFromFile(Player& player, std::vector <std::unique_ptr <Enem
 {
 	int enemyKind = algorithmOfEnemy();
 	//enemyArray.resize(0);
-	int amountofenemy = (int)enemyArray.size();
 	string str;
 	getline(m_fileRead, str); //read enter
 	for (int i = 0; i < m_height; i++)
 	{
 		getline(m_fileRead, str);
-		for (int j = str.size(); j >= 0; j--) // insert to the vector the board
+		for (int j = str.size()-1; j >= 0; j--) // insert to the vector the board
 		{
 			if (str[j] == '@')
 			{ 
@@ -51,17 +50,29 @@ void Board::loadBoardFromFile(Player& player, std::vector <std::unique_ptr <Enem
 			}
 			else if (!(str[j] == '@') && !(str[j] == '%'))
 			{
-				m_board[i].insert(m_board[i].begin(), createObject(str[j])); // insert pointer to object to array
+				m_board[i][j] = createObject(str[j]);
+				if(str[j] != ' ')
 				m_board[i][j]->setLocation(i, j);
 			}
 			else // is enemy
 			{
 				enemyArray.resize(enemyArray.size() + 1);
-				//enemyArray->
 				enemyArray.push_back(kindOfEnemy(enemyKind));
 				enemyArray[enemyArray.size() - 1]->setLocation(i, j);
 		    }
+			int amountofenemy = (int)enemyArray.size(); // move to enf of func
 			
+		}
+	}
+}
+
+void Board::pointToNull()
+{
+	for (size_t i = 0; i < m_height; i++)
+	{
+		for (size_t j = 0; j < m_width; j++)
+		{
+			m_board[i][j] = nullptr;
 		}
 	}
 }
@@ -75,6 +86,7 @@ bool Board::loadBoard(std::string levelName,Player& player, std::vector <std::un
 
 	m_fileRead >> m_height >> m_width >> time;
 	m_time = sf::seconds((float)time);
+	createBoard();
 	loadBoardFromFile(player, enemyArray);
 	//createBoard();
 	m_fileRead.close();
@@ -82,8 +94,15 @@ bool Board::loadBoard(std::string levelName,Player& player, std::vector <std::un
 	return true;
 }
 
-
-
+void Board::createBoard()
+{
+	m_board.resize(m_height);
+	for (size_t i = 0; i < m_height; i++)
+	{
+		m_board[i].resize(m_width);
+	}
+	pointToNull();
+}
 
 bool Board::isGoodMove(const MovingObject& play) const
 {

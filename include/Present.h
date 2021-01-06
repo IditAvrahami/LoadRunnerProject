@@ -2,6 +2,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "StaticObject.h"
+#include "Utillities.h"
 
 
 class Present : public StaticObject
@@ -22,7 +23,7 @@ public:
     //void setPresent();
   //  virtual sf::Sprite getSprite();
     virtual void print(sf::RenderWindow& window);
-    virtual void setLocation(const int y, const int x);
+    virtual void setLocation(const float y, const float x);
 private:
     sf::Sprite m_presentPng;
 };

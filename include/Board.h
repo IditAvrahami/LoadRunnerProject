@@ -42,6 +42,8 @@ public:
 	int algorithmOfEnemy(); // 
 	int getNumberOfCoins();
 	void print(sf::RenderWindow &window);
+	void createBoard();
+	void pointToNull();
 	//int getNumberOfPresents();
 	void createObjectVector();
 	std::unique_ptr<StaticObject> createObject(const char);

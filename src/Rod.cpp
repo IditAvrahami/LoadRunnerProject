@@ -9,7 +9,7 @@ void Rod::print(sf::RenderWindow& window)
 	window.draw(m_rodPng);
 }
 
-void  Rod::setLocation(const int y, const int x)
+void  Rod::setLocation(const float y, const float x)
 {
-	m_rodPng.setPosition((float)x, (float)y);
+	m_rodPng.setPosition(sf::Vector2f(x * COMPARISON, y * COMPARISON));
 }

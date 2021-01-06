@@ -12,9 +12,9 @@ Player::Player(sf::Texture picture)
 	: m_playerPng(picture), m_speed(1), m_direction(sf::Vector2f(0, 0))
 {}
 
-void Player::setLocation(const int y, const int x)
+void Player::setLocation(const float y, const float x)
 {
-	m_playerPng.setPosition((float)x, (float)y);
+	m_playerPng.setPosition(sf::Vector2f(x * COMPARISON, y * COMPARISON));
 }
 
 void Player::print(sf::RenderWindow& window)

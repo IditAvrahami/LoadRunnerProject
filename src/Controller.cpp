@@ -73,10 +73,16 @@ void Controller::print()
 
 std::string Controller::levelName()
 {
+	int i;
 	std::string level = std::to_string(m_level);
 	int size = level.size();
 	auto fileName = std::string("level");
-	for (int i = 0; i < size; i++)
+	for (i = 0; i < size; i++)
 		fileName.push_back(level[i]);
+	fileName.push_back('.');
+	fileName.push_back('t');
+	fileName.push_back('x');
+	fileName.push_back('t');
+
 	return std::string(fileName);
 }

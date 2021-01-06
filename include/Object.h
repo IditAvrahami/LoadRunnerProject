@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Utillities.h"
 
 class Object
 {
@@ -8,5 +9,5 @@ public:
     virtual ~Object()= default;
     virtual void print(sf::RenderWindow& window)=0;
   //  virtual sf::Sprite getSprite() = 0;
-    virtual void setLocation(const int y, const int x)=0;
+    virtual void setLocation(const float y, const float x)=0;
 };

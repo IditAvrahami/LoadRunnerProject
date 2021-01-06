@@ -9,7 +9,7 @@ if (MSVC)
     add_compile_options (/permissive-)
 endif ()
 
-add_executable (LoadRunnerProject WIN32 "")
+add_executable (LoadRunnerProject "")
 
 add_subdirectory (include)
 add_subdirectory (src)

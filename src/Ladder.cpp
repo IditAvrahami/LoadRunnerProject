@@ -9,7 +9,9 @@ void Ladder:: print(sf::RenderWindow& window)
 	window.draw(m_ladderPng);
 }
 
-void  Ladder::setLocation(const int y, const int x)
+void  Ladder::setLocation(const float y, const float x)
 {
-	m_ladderPng.setPosition((float)x, (float)y);
+	//m_ladderPng.setPosition((float)x, (float)y);
+	//m_ladderPng.setPosition(x * COMPARISON, y * COMPARISON);
+	m_ladderPng.setPosition(sf::Vector2f(x * COMPARISON, y * COMPARISON));
 }
