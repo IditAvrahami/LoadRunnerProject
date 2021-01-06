@@ -13,7 +13,6 @@ class Controller
 public:
 	Controller(); // ctor
 	virtual ~Controller() =default;
-	//getInput();
 	void openScreen(int heigth, int width); // open new window with hei wid
 	void startGame();
 	//void print();

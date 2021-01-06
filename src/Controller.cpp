@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 
-Controller::Controller() : m_lives(3), m_level(1), m_score(0), m_board((*this).levelName())//, m_player, m_enemy)
+Controller::Controller() : m_lives(3), m_level(1), m_score(0), m_board((*this).levelName())
 {
 	m_window.create(sf::VideoMode(m_board.getHeight() * COMPARISON, m_board.getWidth() * COMPARISON), (*this).levelName());
 
@@ -24,17 +24,11 @@ void Controller::startGame()
 	while (m_window.isOpen() && m_board.getNumberOfCoins() != 0)
 	{
 		m_window.clear();
-	//	print();
 		m_board.print(m_window);
-//		m_player.print(m_window);
-//		for (int i = 0; i < m_enemy.size(); i++)
-//			m_enemy[i]->print(m_window);
 		m_window.display();
 		// Handle events
 		sf::Event event;
-		for (auto event = sf::Event{}; m_window.pollEvent(event); )
-
-		//	while (m_window.pollEvent(event)) // wait to event
+		for (auto event = sf::Event{}; m_window.pollEvent(event); ) // wait to event
 		{
 			switch (event.type)
 			{
@@ -46,7 +40,6 @@ void Controller::startGame()
 					m_window.close();
 				else
 					m_board.playerSetDirection(event.key.code);
-				//	m_player.setDirection(event.key.code);
 				break;
 			case sf::Event::KeyReleased:
 				m_board.playerSetDirection(sf::Keyboard::Space);
@@ -56,23 +49,9 @@ void Controller::startGame()
 		}
 		auto time = clock.restart();
 		m_board.move(time);
-//		for (int i = 0; i < m_enemy.size(); i++)
-//			m_enemy[i]->move(time);
-		
-
 	}
 }
-/*
-void Controller::print()
-{
-	//m_window.clear();
-	m_board.print(m_window);
-	m_player.print(m_window);
-	for (int i = 0; i < m_enemy.size(); i++)
-		m_enemy[i]->print(m_window);
-	//m_window.display();
-}
-*/
+
 std::string Controller::levelName()
 {
 	int i;

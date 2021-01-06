@@ -29,29 +29,23 @@ using sf::RenderWindow;
 class Board
 {
 public:
-	//Board(std::string levelName , Player& player, std::vector <std::unique_ptr <Enemy>>& enemyArray);
 	Board(std::string levelName);
-	
 	virtual ~Board()=default;
-	//void updateBoard(); // update all changes on board
-	void loadBoardFromFile();//(Player& player, std::vector <std::unique_ptr <Enemy>>& enemyArray);
-	//bool loadBoard(std::string levelName, Player& player, std::vector <std::unique_ptr <Enemy>>& enemyArray); //  get the file and read the level to vector
+	void loadBoardFromFile();
 	bool loadBoard(std::string levelName);
-	
 	bool isGoodMove(const MovingObject& play)const; // check if is not floor the player can dig
 	bool isGoodMove(const StaticObject& play, const int direction)const;
-	int algorithmOfEnemy(); // 
+	int algorithmOfEnemy();  
 	int getNumberOfCoins();
 	void print(sf::RenderWindow &window);
 	void createBoard();
 	void pointToNull();
-	//int getNumberOfPresents();
 	void createObjectVector();
 	std::unique_ptr<StaticObject> createObject(const char);
 	std::unique_ptr<Enemy>kindOfEnemy(const int type);
 	int getHeight();
 	int getWidth();
-	void playerSetDirection(sf::Keyboard::Key  );///////////////////////////////////// //	m_player.setDirection(event.key.code);
+	void playerSetDirection(sf::Keyboard::Key  );
 	void move(sf::Time&);
 
 private:
@@ -65,7 +59,6 @@ private:
 	std::vector <sf::Texture> m_pictures;
 	std::vector <sf::Sprite> m_picturesSprite;
 	sf::Sprite m_backGroundPng;
-
-	std::vector <std::unique_ptr <Enemy>> m_enemy; // check what to do
+	std::vector <std::unique_ptr <Enemy>> m_enemy; 
 	Player m_player;
 };

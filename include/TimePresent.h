@@ -5,8 +5,8 @@
 class TimePresent : public Present
 {
 public:
-	MyClass();
-	~MyClass()=default;
+	TimePresent()=default;
+	virtual ~TimePresent()=default;
 	virtual void character();
 
 private:

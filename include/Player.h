@@ -10,8 +10,6 @@ class Player : public MovingObject
 public:
     Player() {};
     Player(sf::Sprite picture, const int speed);
-  //  Player(sf::Texture picture, const int speed);
-   // Player(sf::Texture picture);
     Player(sf::Sprite picture);
     virtual ~Player() =default;
     virtual void setLocation(const float y, const float x)override;
@@ -27,8 +25,6 @@ public:
     //virtual bool checkNextMove();
     virtual void setDirection(sf::Keyboard::Key);
     void changeface(bool toRight);
-
-    //virtual void setLocation();
 
 private:
         sf::Sprite m_playerPng;

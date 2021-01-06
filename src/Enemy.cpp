@@ -7,9 +7,7 @@ Enemy::Enemy(sf::Sprite picture, const int speed) : m_enemyPng(sf::Sprite(pictur
 
 void Enemy::setLocation(const float y, const float x)
 {
-	//m_enemyPng.setPosition((float)x, (float)y);
 	m_enemyPng.setPosition(sf::Vector2f(x * COMPARISON, y * COMPARISON));
-//	m_enemyPng.setPosition(x * COMPARISON, y * COMPARISON);
 }
 
 void Enemy::moveLocation(const sf::Vector2f & direction,sf::Time time)
@@ -23,10 +21,8 @@ void Enemy::print(sf::RenderWindow& window)
 	window.draw(m_enemyPng);
 }
 
-void Enemy::move(const sf::Time& time)//, const sf::Vector2f& direction)
+void Enemy::move(const sf::Time& time)
 {
-
-
 }
 
 sf::Sprite Enemy::getSprite()

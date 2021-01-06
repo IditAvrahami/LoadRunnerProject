@@ -5,8 +5,8 @@
 class ScorePresent : public Present
 {
 public:
-	MyClass();
-	~MyClass()=default;
+	ScorePresent()=default;
+	virtual~ScorePresent()=default;
 	virtual void character();
 
 private:

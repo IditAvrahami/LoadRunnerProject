@@ -1,7 +1,7 @@
 #pragma once
 #include "Present.h"
 
-Present::Present(sf::Texture picture) : m_presentPng(sf::Sprite(picture))
+Present::Present(sf::Sprite picture) : m_presentPng(sf::Sprite(picture))
 {}
 
 void Present::print(sf::RenderWindow& window)

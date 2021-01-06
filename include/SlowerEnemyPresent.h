@@ -5,8 +5,8 @@
 class SlowerEnemyPresent : public Present
 {
 public:
-	MyClass();
-	~MyClass()=default;
+	SlowerEnemyPresent();
+	virtual ~SlowerEnemyPresent()=default;
 	virtual void character();
 
 private:

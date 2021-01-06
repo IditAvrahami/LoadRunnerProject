@@ -3,18 +3,11 @@
 #include "Utillities.h"
 #include <SFML/Graphics.hpp>
 
-
-//Player::Player(sf::Texture picture, const int speed) 
-//	:m_playerPng(picture),m_speed(speed), m_direction(sf::Vector2f(0,0))
-//{}
-
 Player::Player(sf::Sprite picture, const int speed)
 	:m_playerPng(picture), m_speed(speed), m_direction(sf::Vector2f(0, 0))
 {}
 
-//Player::Player(sf::Texture picture)
-//	: m_playerPng(picture), m_speed(1), m_direction(sf::Vector2f(0, 0))
-//{}
+
 Player::Player(sf::Sprite picture)
 	: m_playerPng(picture), m_speed(1), m_direction(sf::Vector2f(0, 0))
 {}
@@ -40,7 +33,6 @@ void Player::move(const sf::Time& timePassed)
 
 void Player::setSprite(const sf::Texture &picture)
 {
-//	m_playerPng.setTexture(picture.getTexture());
 	m_playerPng.setTexture(picture);
 }
 
@@ -63,7 +55,7 @@ void Player::setDirection(sf::Keyboard::Key key)
 	default:
 			m_direction = KB_STAY;
 	}
-//	m_direction = KB_STAY;
+
 }
 
 void Player::changeface(bool toRight)
