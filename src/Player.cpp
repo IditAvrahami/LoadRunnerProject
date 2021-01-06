@@ -18,7 +18,7 @@ void Player::setLocation(const float y, const float x)
 
 void Player::print(sf::RenderWindow& window)
 {
-	std::cout << "player class:  x:  " << m_playerPng.getPosition().x << "y: " << m_playerPng.getPosition().y << std::endl;
+//	std::cout << "player class:  x:  " << m_playerPng.getPosition().x << "y: " << m_playerPng.getPosition().y << std::endl;
 	window.draw(m_playerPng);
 }
 
