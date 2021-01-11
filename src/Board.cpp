@@ -2,9 +2,8 @@
 #include <string>
 #include <vector>
 
-Board::Board(std::string levelName)
-{
-	
+Board::Board(std::string levelName, const int level)
+{	
 	srand(time(NULL));
 
 	// play button and background
@@ -35,9 +34,9 @@ Board::Board(std::string levelName)
 	}
 	m_backGroundPng.setTexture(m_pictures[6]);
 	m_player.setSprite(m_pictures[0]);
-	m_player.setSpeed(50);
+	m_player.setSpeed(150);
 	
-	loadBoard(levelName); 
+	loadBoard(levelName, level); 
 	m_backGroundPng.setScale(0.029, 0.041);
 	m_backGroundPng.scale(m_height, m_width);
 	
@@ -49,14 +48,14 @@ std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
 	switch (type)
 	{
 	case 0:
-		return std::make_unique<SmartEnemy>(m_picturesSprite[1], 40);
+		return std::make_unique<SmartEnemy>(m_picturesSprite[1], 60);
 		break;
 	case 1:
-		return std::make_unique<HorizontalEnemy>(m_picturesSprite[1], 40);
+		return std::make_unique<HorizontalEnemy>(m_picturesSprite[1], 60);
 		break;
 
 	}
-	return std::make_unique< RandomEnemy >(m_picturesSprite[1], 40);
+	return std::make_unique< RandomEnemy >(m_picturesSprite[1], 60);
 }
 
 
@@ -65,9 +64,15 @@ void Board::move(sf::Time& time)
 	m_player.move(time);
 		for (int i = 0; i < m_enemy.size(); i++)
 			m_enemy[i]->move(time);
+		//HANDLE COLLISION
 }
 
-std::unique_ptr<StaticObject> Board::createObject(const char tosprite)
+int Board::getLives()
+{
+	return m_player.getLives();
+}
+
+std::unique_ptr<StaticObject> Board::createObject(const char tosprite, const int level)
 {
 	switch (tosprite)
 	{
@@ -76,7 +81,7 @@ std::unique_ptr<StaticObject> Board::createObject(const char tosprite)
 		break;
 	case '*':
 		m_coinsCounter = m_coinsCounter + 1;
-		return std::make_unique<Coin>(m_picturesSprite[3]);
+		return std::make_unique<Coin>(m_picturesSprite[3], level);
 		break;
 	case '#':
 		return std::make_unique<Floor>(m_picturesSprite[4]);
@@ -85,18 +90,19 @@ std::unique_ptr<StaticObject> Board::createObject(const char tosprite)
 		return std::make_unique<Rod>(m_picturesSprite[5]);
 		break;
 	//	case '+':
-	//		return std::make_unique<Present>(m_pictures[6]);
+	//		return std::make_unique<Present>(m_pictures[7]);
 	//		break;
 			//add present case
-		}
-		return std::unique_ptr<StaticObject>(nullptr);
 	}
+		return std::unique_ptr<StaticObject>(nullptr);
+}
 
 void Board::playerSetDirection(sf::Keyboard::Key direction)
 {
 	m_player.setDirection(direction);
 }
-void Board::loadBoardFromFile()
+
+void Board::loadBoardFromFile(const int level)
 {
 	int enemyKind = algorithmOfEnemy();
 
@@ -113,7 +119,7 @@ void Board::loadBoardFromFile()
 			}
 			else if (!(str[j] == '@') && !(str[j] == '%'))
 			{
-				m_board[i][j] = createObject(str[j]);
+				m_board[i][j] = createObject(str[j], level);
 				if (str[j] != ' ')
 					m_board[i][j]->setLocation(i, j);
 			}
@@ -139,7 +145,7 @@ void Board::pointToNull()
 	}
 }
 
-bool Board::loadBoard(std::string levelName)
+bool Board::loadBoard(std::string levelName, const int level)
 {
 	int time;
 	m_fileRead.open(levelName);
@@ -149,7 +155,7 @@ bool Board::loadBoard(std::string levelName)
 	m_fileRead >> m_height >> m_width >> time;
 	m_time = sf::seconds((float)time);
 	createBoard();
-	loadBoardFromFile();
+	loadBoardFromFile(level);
 	m_fileRead.close();
 
 	return true;

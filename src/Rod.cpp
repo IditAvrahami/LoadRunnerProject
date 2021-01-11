@@ -14,3 +14,20 @@ void  Rod::setLocation(const float y, const float x)
 {
 	m_rodPng.setPosition(sf::Vector2f(x * COMPARISON, y * COMPARISON));
 }
+
+void Rod::handleCollision(Object& obj)
+{
+	if (&obj == this)
+		return;
+	obj.handleCollision(*this);
+}
+
+void Rod::handleCollision(Player& obj)
+{
+	obj.handleCollision(*this);
+}
+
+void Rod::handleCollision(Enemy& obj)
+{
+	obj.handleCollision(*this);
+}

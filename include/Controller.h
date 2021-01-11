@@ -35,9 +35,9 @@ private:
 	//private members
 //	std::vector <std::unique_ptr <Enemy>> m_enemy; // check what to do
 //	Player m_player;
-	int m_lives=0;
+//	int m_lives=0;            move tp player
 	int m_level=0;
-	int m_score=0;
+//	int m_score=0;            move to player
 	Board m_board;
 	sf::RenderWindow m_window;
 	//sf::clock m_time;

@@ -13,6 +13,7 @@ void Enemy::setLocation(const float y, const float x)
 void Enemy::moveLocation(const sf::Vector2f & direction,sf::Time time)
 {
 	m_enemyPng.move(  m_speed * time.asSeconds() * direction );
+	m_direction = m_speed * time.asSeconds() * direction;
 }
 
 
@@ -43,4 +44,39 @@ void Enemy::setSpeed(const int newSpeed)
 int Enemy::getSpeed()
 {
 	return m_speed;
+}
+
+sf::Vector2f Enemy::getDirection()
+{
+	return m_direction;
+}
+
+void Enemy::handleCollision(Object& obj)
+{
+	if (&obj == this)
+		return;
+	obj.handleCollision(*this);
+}
+
+void Enemy::handleCollision(Player& obj)
+{
+	//update lives and set last score (the good idea of daniel or abayev)in player
+	obj.handleCollision(*this);
+}
+
+
+
+void Enemy::handleCollision(Floor& gameObject)
+{
+	m_enemyPng.move(m_direction.x*(-1), m_direction.y*(-1));
+	m_direction.x *= (-1);
+	m_direction.y *= (-1);
+}
+
+void Enemy::handleCollision(Rod& gameObject)
+{ // chage angel?? or picture??
+}
+
+void Enemy::handleCollision(Ladder& gameObject)
+{
 }

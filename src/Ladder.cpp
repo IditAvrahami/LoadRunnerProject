@@ -15,3 +15,10 @@ void  Ladder::setLocation(const float y, const float x)
 {
 	m_ladderPng.setPosition(sf::Vector2f(x * COMPARISON, y * COMPARISON));
 }
+
+void Ladder::handleCollision(Object& obj)
+{
+	if (&obj == this)
+		return;
+	obj.handleCollision(*this);
+}

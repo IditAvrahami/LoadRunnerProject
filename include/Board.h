@@ -29,10 +29,10 @@ using sf::RenderWindow;
 class Board
 {
 public:
-	Board(std::string levelName);
+	Board(std::string levelName, const int level);
 	virtual ~Board()=default;
-	void loadBoardFromFile();
-	bool loadBoard(std::string levelName);
+	void loadBoardFromFile(const int level);
+	bool loadBoard(std::string levelName, const int level);
 	bool isGoodMove(const MovingObject& play)const; // check if is not floor the player can dig
 	bool isGoodMove(const StaticObject& play, const int direction)const;
 	int algorithmOfEnemy();  
@@ -41,12 +41,13 @@ public:
 	void createBoard();
 	void pointToNull();
 	void createObjectVector();
-	std::unique_ptr<StaticObject> createObject(const char);
+	std::unique_ptr<StaticObject> createObject(const char, const int);
 	std::unique_ptr<Enemy>kindOfEnemy(const int type);
 	int getHeight();
 	int getWidth();
 	void playerSetDirection(sf::Keyboard::Key  );
 	void move(sf::Time&);
+	int getLives();
 
 private:
 	

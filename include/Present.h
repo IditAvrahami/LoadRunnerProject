@@ -4,11 +4,18 @@
 #include "StaticObject.h"
 #include "Utillities.h"
 
+class Player;
+class Enemy;
+class Coin;
+class Present;
+class Floor;
+class Rod;
+class Ladder;
 
 class Present : public StaticObject
 {
 public:
-    Present(sf::Texture picture);
+    Present(sf::Sprite picture);
     virtual ~Present() = default;
     
  //   void badPresent();
@@ -17,13 +24,18 @@ public:
  //   void scorePresent();
  //   void slowerEnemyPresent();
  //   void ghostEnemyPresent();
-   // virtual void putPresentOnBoard();
-  //  virtual void findAllPresent();
-  //  virtual void setPresent();
-    //void setPresent();
   //  virtual sf::Sprite getSprite();
     virtual void print(sf::RenderWindow& window);
     virtual void setLocation(const float y, const float x);
+
+	virtual void handleCollision(Object& obj)override;
+	virtual void handleCollision(Player& gameObject)override;
+	virtual void handleCollision(Enemy& gameObject) override {};
+	virtual void handleCollision(Present& gameObject) override {};
+	virtual void handleCollision(Coin& gameObject)override {};
+	virtual void handleCollision(Floor& gameObject) override {};
+	virtual void handleCollision(Rod& gameObject) override {};
+	virtual void handleCollision(Ladder& gameObject)override {};
 private:
     sf::Sprite m_presentPng;
 };

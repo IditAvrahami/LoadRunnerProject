@@ -14,3 +14,20 @@ void  Floor::setLocation(const float y, const float x)
 {
 	m_floorPng.setPosition(sf::Vector2f(x*COMPARISON, y*COMPARISON));
 }
+
+void Floor::handleCollision(Object& obj)
+{
+	if (&obj == this)
+		return;
+	obj.handleCollision(*this);
+}
+
+void Floor::handleCollision(Player& gameObject)
+{
+	gameObject.handleCollision(*this);
+}
+
+void Floor::handleCollision(Enemy& gameObject)
+{
+	gameObject.handleCollision(*this);
+}

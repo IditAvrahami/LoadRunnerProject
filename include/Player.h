@@ -4,6 +4,13 @@
 #include "Utillities.h"
 #include <iostream>
 #include <ostream>
+#include "Enemy.h"
+#include "Coin.h"
+
+class Present;
+class Floor;
+class Rod;
+class Ladder;
 
 class Player : public MovingObject
 {
@@ -23,11 +30,31 @@ public:
     virtual int getSpeed()override ;
     //virtual sf::Sprite getSprite() ;
     //virtual bool checkNextMove();
+    void setScore(const int more);
+    int getScore();
+    void setLastScore();
+    void lastScoreUpdateLose();
+    void setLives(const int more);
+    int getLives();
     virtual void setDirection(sf::Keyboard::Key);
     void changeface(bool toRight);
+
+    virtual void handleCollision(Object& obj)override;
+    virtual void handleCollision(Player& gameObject)override {};
+    virtual void handleCollision(Coin& gameObject) override;
+    virtual void handleCollision(Present& gameObject) override;////////////////////////////////////////////////////////////
+    virtual void handleCollision(Floor& gameObject)override;
+    virtual void handleCollision(Enemy& gameObject)override;
+    virtual void handleCollision(Rod& gameObject) override; // chage angel?? or picture??
+    virtual void handleCollision(Ladder& gameObject)override;// chage angel?? or picture??
+
 
 private:
         sf::Sprite m_playerPng;
         int m_speed=1;
+        int m_lives = 3;
+        int m_score = 0;
+        int m_lastScore = 0;
         sf::Vector2f m_direction;
+        sf::Vector2f m_lastDirection;
 };

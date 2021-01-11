@@ -3,7 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 
-Controller::Controller() : m_lives(3), m_level(1), m_score(0), m_board((*this).levelName())
+//Controller::Controller() : m_lives(3), m_level(1), m_score(0), m_board((*this).levelName())
+Controller::Controller() : m_level(1), m_board((*this).levelName(), m_level)
 {
 	m_window.create(sf::VideoMode(m_board.getHeight() * COMPARISON, m_board.getWidth() * COMPARISON), (*this).levelName());
 
@@ -21,7 +22,7 @@ void Controller::startGame()
 	sf::Clock clock;
 	m_window.setFramerateLimit(60);
 
-	while (m_window.isOpen() && m_board.getNumberOfCoins() != 0)
+	while (m_window.isOpen() && m_board.getNumberOfCoins() != 0 && m_board.getLives() != 0)
 	{
 		m_window.clear();
 		m_board.print(m_window);
