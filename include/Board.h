@@ -48,6 +48,9 @@ public:
 	void playerSetDirection(sf::Keyboard::Key  );
 	void move(sf::Time&);
 	int getLives();
+	void handleCollisionsEnemy(Player& player);
+	void handleCollisions(Object& gameObject);
+	void updatePointersInBoard();
 
 private:
 	

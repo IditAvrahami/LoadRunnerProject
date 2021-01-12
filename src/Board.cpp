@@ -62,15 +62,67 @@ std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
 void Board::move(sf::Time& time)
 {
 	m_player.move(time);
-		for (int i = 0; i < m_enemy.size(); i++)
-			m_enemy[i]->move(time);
-		//HANDLE COLLISION
+	handleCollisions(m_player);
+	
+	for (int i = 0; i < m_enemy.size(); i++)
+	{
+		m_enemy[i]->move(time);
+		handleCollisions(*m_enemy[i]);
+	}
+	handleCollisionsEnemy(m_player);
+	updatePointersInBoard();
+}
+
+void Board::handleCollisionsEnemy(Player& player)
+{
+	for (auto& movable : m_enemy)
+	{
+		if (player.checkCollision(movable->getGlobalBounds()))
+		{
+			player.handleCollision(*movable);
+		}
+	}
+}
+
+void Board::handleCollisions(Object& gameObject)
+{
+	for (int i=0; i < m_height ; i++)
+	{
+		for (int j=0 ; j < m_width ; j++)
+		{
+			if (m_board[i][j])
+			{
+				if (gameObject.checkCollision(m_board[i][j]->getGlobalBounds()))
+				{
+					gameObject.handleCollision(*m_board[i][j]);
+				}
+			}
+		}
+	}
+}
+
+void Board::updatePointersInBoard()
+{
+	for (size_t i = 0; i < m_height; i++)
+	{
+		for (size_t j = 0; j < m_width; j++)
+		{
+			if (m_board[i][j])
+			{
+				if (m_board[i][j]->getLocation().x == -1 && m_board[i][j]->getLocation().y == -1)
+				{
+					m_board[i][j] = nullptr; // point to null 
+				}
+			}
+		}
+	}
 }
 
 int Board::getLives()
 {
 	return m_player.getLives();
 }
+
 
 std::unique_ptr<StaticObject> Board::createObject(const char tosprite, const int level)
 {

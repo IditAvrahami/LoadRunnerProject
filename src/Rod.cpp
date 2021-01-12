@@ -15,6 +15,21 @@ void  Rod::setLocation(const float y, const float x)
 	m_rodPng.setPosition(sf::Vector2f(x * COMPARISON, y * COMPARISON));
 }
 
+sf::Vector2f Rod::getLocation() const
+{
+	return m_rodPng.getPosition();
+}
+
+bool Rod::checkCollision(const sf::FloatRect& floatRect) const
+{
+	return m_rodPng.getGlobalBounds().intersects(floatRect);
+}
+
+sf::FloatRect Rod::getGlobalBounds() const
+{
+	return m_rodPng.getGlobalBounds();
+}
+
 void Rod::handleCollision(Object& obj)
 {
 	if (&obj == this)

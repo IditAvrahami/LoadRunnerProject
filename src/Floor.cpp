@@ -15,6 +15,16 @@ void  Floor::setLocation(const float y, const float x)
 	m_floorPng.setPosition(sf::Vector2f(x*COMPARISON, y*COMPARISON));
 }
 
+bool Floor::checkCollision(const sf::FloatRect& floatRect) const
+{
+	return m_floorPng.getGlobalBounds().intersects(floatRect);
+}
+
+sf::FloatRect Floor::getGlobalBounds() const
+{
+	return m_floorPng.getGlobalBounds();
+}
+
 void Floor::handleCollision(Object& obj)
 {
 	if (&obj == this)
@@ -30,4 +40,9 @@ void Floor::handleCollision(Player& gameObject)
 void Floor::handleCollision(Enemy& gameObject)
 {
 	gameObject.handleCollision(*this);
+}
+
+sf::Vector2f Floor::getLocation() const
+{
+	return m_floorPng.getPosition();
 }

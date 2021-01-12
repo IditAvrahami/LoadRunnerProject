@@ -26,8 +26,10 @@ public:
  //   void ghostEnemyPresent();
   //  virtual sf::Sprite getSprite();
     virtual void print(sf::RenderWindow& window);
-    virtual void setLocation(const float y, const float x);
-
+    virtual void setLocation(const float y, const float x)override;
+	virtual sf::Vector2f getLocation()const override;
+	virtual bool checkCollision(const sf::FloatRect& floatRect) const;
+	virtual sf::FloatRect getGlobalBounds() const;
 	virtual void handleCollision(Object& obj)override;
 	virtual void handleCollision(Player& gameObject)override;
 	virtual void handleCollision(Enemy& gameObject) override {};

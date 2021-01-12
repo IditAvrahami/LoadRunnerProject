@@ -16,6 +16,11 @@ void Player::setLocation(const float y, const float x)
 	m_playerPng.setPosition(sf::Vector2f(x * COMPARISON, y * COMPARISON));
 }
 
+sf::Vector2f Player::getLocation() const
+{
+	return m_playerPng.getPosition();
+}
+
 void Player::print(sf::RenderWindow& window)
 {
 //	std::cout << "player class:  x:  " << m_playerPng.getPosition().x << "y: " << m_playerPng.getPosition().y << std::endl;
@@ -66,6 +71,16 @@ void Player::changeface(bool toRight)
 		m_playerPng.setScale(-1,1);
 	else
 		m_playerPng.setScale(1, 1);
+}
+
+bool Player::checkCollision(const sf::FloatRect& floatRect) const
+{
+	return m_playerPng.getGlobalBounds().intersects(floatRect);
+}
+
+sf::FloatRect Player::getGlobalBounds() const
+{
+	return m_playerPng.getGlobalBounds();
 }
 
 void Player::handleCollision(Object& obj)

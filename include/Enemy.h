@@ -24,12 +24,12 @@ public:
     virtual void print(sf::RenderWindow& window);
     virtual void move(const sf::Time& time);
     virtual sf::Sprite getSprite();
-   virtual sf::Vector2f getLocation()const;
+    virtual sf::Vector2f getLocation()const override;
     virtual void setSpeed(const int);
     virtual int getSpeed();
     sf::Vector2f getDirection();
-
-
+    virtual bool checkCollision(const sf::FloatRect& floatRect) const;
+    virtual sf::FloatRect getGlobalBounds() const;
     virtual void handleCollision(Object& obj)override;
     virtual void handleCollision(Player& gameObject)override;
     virtual void handleCollision(Coin& gameObject) override {};

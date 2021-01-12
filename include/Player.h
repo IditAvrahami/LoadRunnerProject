@@ -20,6 +20,7 @@ public:
     Player(sf::Sprite picture);
     virtual ~Player() =default;
     virtual void setLocation(const float y, const float x)override;
+    virtual sf::Vector2f getLocation()const override;
     virtual void print(sf::RenderWindow& window)override;
     virtual void move(const sf::Time &timePassed)override;
     //void dig();
@@ -38,7 +39,8 @@ public:
     int getLives();
     virtual void setDirection(sf::Keyboard::Key);
     void changeface(bool toRight);
-
+    virtual bool checkCollision(const sf::FloatRect& floatRect) const override;
+    virtual sf::FloatRect getGlobalBounds() const override;
     virtual void handleCollision(Object& obj)override;
     virtual void handleCollision(Player& gameObject)override {};
     virtual void handleCollision(Coin& gameObject) override;

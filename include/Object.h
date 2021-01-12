@@ -17,6 +17,8 @@ public:
     virtual ~Object()= default;
     virtual void print(sf::RenderWindow& window)=0;
     virtual void setLocation(const float y, const float x)=0;
+    virtual bool checkCollision(const sf::FloatRect& )const=0;
+    virtual sf::FloatRect getGlobalBounds()const =0;
     virtual void handleCollision(Object& gameObject) = 0;
     virtual void handleCollision(Player& gameObject) = 0;
     virtual void handleCollision(Enemy& gameObject) = 0;
@@ -25,4 +27,5 @@ public:
     virtual void handleCollision(Floor& gameObject)  = 0;
     virtual void handleCollision(Rod& gameObject)  = 0;
     virtual void handleCollision(Ladder& gameObject) = 0;
+    virtual sf::Vector2f getLocation()const = 0;
 };

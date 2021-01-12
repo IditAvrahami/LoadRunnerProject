@@ -20,6 +20,16 @@ int Coin::getValue()
 	return m_value;
 }
 
+bool Coin::checkCollision(const sf::FloatRect& floatRect) const
+{
+	return m_CoinPng.getGlobalBounds().intersects(floatRect);
+}
+
+sf::FloatRect Coin::getGlobalBounds() const
+{
+	return m_CoinPng.getGlobalBounds();
+}
+
 void Coin::handleCollision(Object& obj)
 {
 	if (&obj == this) 
@@ -56,4 +66,9 @@ void Coin::handleCollision(Rod& gameObject)
 
 void Coin::handleCollision(Ladder& gameObject)
 {
+}
+
+sf::Vector2f Coin::getLocation() const
+{
+	return m_CoinPng.getPosition();
 }

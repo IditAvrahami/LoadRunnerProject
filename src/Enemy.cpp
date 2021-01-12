@@ -51,6 +51,16 @@ sf::Vector2f Enemy::getDirection()
 	return m_direction;
 }
 
+bool Enemy::checkCollision(const sf::FloatRect& floatRect) const
+{
+	return m_enemyPng.getGlobalBounds().intersects(floatRect);
+}
+
+sf::FloatRect Enemy::getGlobalBounds() const
+{
+	return m_enemyPng.getGlobalBounds();
+}
+
 void Enemy::handleCollision(Object& obj)
 {
 	if (&obj == this)
