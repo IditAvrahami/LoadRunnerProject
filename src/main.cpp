@@ -3,5 +3,5 @@
 int main()
 {
 	Controller a;
-	a.startGame();
+	a.menupage();
 }

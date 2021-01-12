@@ -10,7 +10,7 @@ Controller::Controller() : m_level(1), m_board((*this).levelName(), m_level)
 
 }
 
-void Controller::openScreen(int heigth, int width)
+void Controller::openScreen()
 {
 	//heigth + 4 for the info about score level lives and time left
 	m_window.create(sf::VideoMode((m_board.getHeight() + 4) * 50, m_board.getWidth() * 50), (*this).levelName());
@@ -21,7 +21,8 @@ void Controller::startGame()
 {
 	sf::Clock clock;
 	m_window.setFramerateLimit(60);
-
+	if (!m_window.isOpen())
+		openScreen();
 	while (m_window.isOpen() && m_board.getNumberOfCoins() != 0 && m_board.getLives() != 0)
 	{
 		m_window.clear();
@@ -50,6 +51,65 @@ void Controller::startGame()
 		}
 		auto time = clock.restart();
 		m_board.move(time);
+	}
+	if (m_window.isOpen())
+		m_window.close();
+}
+
+void Controller::menupage()
+{
+	sf::RenderWindow menuPage(sf::VideoMode(1000, 1000), "welcome to lode runner");
+
+	while (menuPage.isOpen())
+	{
+		sf::Texture start;
+		start.loadFromFile("ladder.png");
+		sf::Sprite startpng(start);
+		startpng.setPosition(400, 200);
+		startpng.setScale(10, 5);
+
+		sf::Texture end;
+		end.loadFromFile("enemy.png");
+		sf::Sprite endpng(start);
+		endpng.setPosition(400, 400);
+		endpng.setScale(10, 5);
+
+		/*
+		* add bottom to level select
+		sf::Texture end;
+		end.loadFromFile("player.png");
+		sf::Sprite endpng(start);
+		endpng.setPosition(400, 100);
+		*/
+
+		menuPage.clear();
+		menuPage.draw(startpng);
+		menuPage.draw(endpng);
+		menuPage.display();
+		if (auto event = sf::Event{}; menuPage.waitEvent(event))
+		{
+			switch (event.type)
+			{
+			case sf::Event::Closed:
+			case sf::Keyboard::Escape:
+				menuPage.close();
+				break;
+			case sf::Event::MouseButtonReleased:
+				if (event.mouseButton.x > 400 && event.mouseButton.x < 700
+					&& event.mouseButton.y > 200 && event.mouseButton.y < 350)
+				{
+					menuPage.close();
+					startGame();
+					menuPage.create(sf::VideoMode(1000, 1000), "welcome to lode runner");
+				}
+				else if (event.mouseButton.x > 400 && event.mouseButton.x < 700
+					&& event.mouseButton.y > 400 && event.mouseButton.y < 550)
+					menuPage.close();
+				break;
+			case  sf::Event::MouseMoved:
+				std::cout << event.mouseMove.x << " " << event.mouseMove.y << std::endl;
+			}
+		}
 	}
 }
 
