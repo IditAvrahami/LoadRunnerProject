@@ -10,3 +10,10 @@ const sf::Vector2f TO_DELETED = { -1,-1 };
 
 const int OBJECTS = 7; // change it with backgroud and play buttom
 const int COMPARISON = 30;
+const int PLAYER = 107;
+const int ENEMY = 108;
+const int LEDDER = 109;
+const int COIN = 110;
+const int FLOOR = 111;
+const int ROD = 112;
+const int NOTHING = 113;

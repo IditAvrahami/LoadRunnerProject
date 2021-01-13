@@ -10,7 +10,7 @@ public:
 	HorizontalEnemy(sf::Sprite picture, const int speed);
 	virtual~HorizontalEnemy() = default;
 	sf::Vector2f directionToGo();
-	virtual void move(const sf::Time& time);
+	virtual void move(const sf::Time& time)override;
 private:
 	sf::Vector2f m_myLastDirection;
 };

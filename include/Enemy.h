@@ -22,11 +22,11 @@ public:
     virtual void setLocation(const float y, const float x);
     void moveLocation(const sf::Vector2f& d, sf::Time t);
     virtual void print(sf::RenderWindow& window);
-    virtual void move(const sf::Time& time);
+    virtual void move(const sf::Time& time)override;
     virtual sf::Sprite getSprite();
     virtual sf::Vector2f getLocation()const override;
-    virtual void setSpeed(const int);
-    virtual int getSpeed();
+    virtual void setSpeed(const int)override;
+    virtual int getSpeed()override;
     sf::Vector2f getDirection();
     virtual bool checkCollision(const sf::FloatRect& floatRect) const;
     virtual sf::FloatRect getGlobalBounds() const;

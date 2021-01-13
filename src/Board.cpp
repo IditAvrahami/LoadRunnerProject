@@ -1,8 +1,10 @@
 #include "Board.h"
 #include <string>
 #include <vector>
+#include<typeinfo>
 
-Board::Board(std::string levelName, const int level)
+
+Board::Board() : m_height(0), m_width(0)  //std::string levelName, const int level)
 {	
 	srand(time(NULL));
 
@@ -36,12 +38,18 @@ Board::Board(std::string levelName, const int level)
 	m_player.setSprite(m_pictures[0]);
 	m_player.setSpeed(150);
 	
-	loadBoard(levelName, level); 
-	m_backGroundPng.setScale(0.029, 0.041);
-	m_backGroundPng.scale(m_height, m_width);
+//	loadBoard(levelName, level); 
+//	m_backGroundPng.setScale(0.029, 0.041);
+//	m_backGroundPng.scale(m_height, m_width);
 	
 }
 
+void Board::loadBoardFromController(std::string levelName,const int level)
+{
+	loadBoard(levelName, level);
+	m_backGroundPng.setScale(0.029, 0.041);
+	m_backGroundPng.scale(m_height, m_width);
+}
 
 std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
 {
@@ -111,11 +119,41 @@ void Board::updatePointersInBoard()
 			{
 				if (m_board[i][j]->getLocation().x == -1 && m_board[i][j]->getLocation().y == -1)
 				{
+					if (typeid(*m_board[i][j]) == typeid(Coin))
+					{
+						m_coinsCounter--;
+					}
 					m_board[i][j] = nullptr; // point to null 
 				}
 			}
 		}
 	}
+}
+
+Board& Board::boardObject()
+{
+	static Board boardObject;
+	return boardObject;
+}
+
+std::vector<std::vector<StaticObject*>> Board::getBoard() const
+{
+	std::vector<std::vector<StaticObject*>> tempBoard;
+	tempBoard.resize(m_height);
+	for (size_t i = 0; i < m_height; i++)
+	{
+		tempBoard[i].resize(m_width);
+	}
+
+	for (size_t i = 0; i < m_height; i++)
+	{
+		for (size_t j = 0; j < m_width; j++)
+		{
+			tempBoard[i][j] = m_board[i][j].get(); // return normall pointer
+		}
+	}
+
+	return tempBoard;
 }
 
 int Board::getLives()
@@ -222,27 +260,6 @@ void Board::createBoard()
 	}
 	pointToNull();
 }
-
-bool Board::isGoodMove(const MovingObject& play) const
-{
-	return false;
-}
-
-bool Board::isGoodMove(const StaticObject &play, const int direction)const
-{
-//	int x;
-//	int y;
-	/// <summary>
-	/// //////////////////////////////////////////////////////////////////////////////////
-	/// </summary>
-	/// <param name="play"></param>
-	/// <param name="direction"></param>
-	/// <returns></returns>
-	return false;
-}
-
-
-
 
 int Board::algorithmOfEnemy()
 {

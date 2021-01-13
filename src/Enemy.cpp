@@ -22,6 +22,7 @@ void Enemy::print(sf::RenderWindow& window)
 	window.draw(m_enemyPng);
 }
 
+
 void Enemy::move(const sf::Time& time)
 {
 }

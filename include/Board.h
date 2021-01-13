@@ -29,12 +29,10 @@ using sf::RenderWindow;
 class Board
 {
 public:
-	Board(std::string levelName, const int level);
+//	Board(std::string levelName, const int level); in private to singelton
 	virtual ~Board()=default;
 	void loadBoardFromFile(const int level);
 	bool loadBoard(std::string levelName, const int level);
-	bool isGoodMove(const MovingObject& play)const; // check if is not floor the player can dig
-	bool isGoodMove(const StaticObject& play, const int direction)const;
 	int algorithmOfEnemy();  
 	int getNumberOfCoins();
 	void print(sf::RenderWindow &window);
@@ -51,9 +49,12 @@ public:
 	void handleCollisionsEnemy(Player& player);
 	void handleCollisions(Object& gameObject);
 	void updatePointersInBoard();
+	static Board& boardObject();
+	std::vector<std::vector<StaticObject*>> getBoard()const;
+	void loadBoardFromController(std::string levelName, const int level);
 
 private:
-	
+	Board();//std::string levelName, const int level);
 	int m_height; //read from file
 	int m_width;
 	int m_coinsCounter=0;

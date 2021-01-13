@@ -29,6 +29,8 @@ void Player::print(sf::RenderWindow& window)
 
 void Player::move(const sf::Time& timePassed)
 {
+	std::vector < std::vector<StaticObject*>> array;
+	//Board::boardObject.getBoard();
 	m_playerPng.move( m_speed * timePassed.asSeconds()* m_direction);
 	m_lastDirection = m_speed * timePassed.asSeconds() * m_direction;
 	//if colision return to place

@@ -38,7 +38,7 @@ private:
 	
 	//private members
 	int m_level = 0;
-	Board m_board;
+//	Board m_board;
 	sf::RenderWindow m_window;
 
 	

@@ -4,16 +4,18 @@
 #include <SFML/System/Clock.hpp>
 
 //Controller::Controller() : m_lives(3), m_level(1), m_score(0), m_board((*this).levelName())
-Controller::Controller() : m_level(1), m_board((*this).levelName(), m_level)
+Controller::Controller() : m_level(1)//,Board::boardObject((*this).levelName(), m_level)
 {
-	m_window.create(sf::VideoMode(m_board.getHeight() * COMPARISON, m_board.getWidth() * COMPARISON), (*this).levelName());
+	Board::boardObject();
+	Board::boardObject().loadBoardFromController((*this).levelName(), m_level);
+	m_window.create(sf::VideoMode(Board::boardObject().getHeight() * COMPARISON, Board::boardObject().getWidth() * COMPARISON), (*this).levelName());
 
 }
 
 void Controller::openScreen()
 {
 	//heigth + 4 for the info about score level lives and time left
-	m_window.create(sf::VideoMode((m_board.getHeight() + 4) * 50, m_board.getWidth() * 50), (*this).levelName());
+	m_window.create(sf::VideoMode((Board::boardObject().getHeight() + 4) * 50, Board::boardObject().getWidth() * 50), (*this).levelName());
 }
 
 
@@ -23,10 +25,10 @@ void Controller::startGame()
 	m_window.setFramerateLimit(60);
 	if (!m_window.isOpen())
 		openScreen();
-	while (m_window.isOpen() && m_board.getNumberOfCoins() != 0 && m_board.getLives() != 0)
+	while (m_window.isOpen() && Board::boardObject().getNumberOfCoins() != 0 && Board::boardObject().getLives() != 0)
 	{
 		m_window.clear();
-		m_board.print(m_window);
+		Board::boardObject().print(m_window);
 		m_window.display();
 		// Handle events
 		sf::Event event;
@@ -41,16 +43,16 @@ void Controller::startGame()
 				if (event.key.code == sf::Keyboard::Escape)
 					m_window.close();
 				else
-					m_board.playerSetDirection(event.key.code);
+					Board::boardObject().playerSetDirection(event.key.code);
 				break;
 			case sf::Event::KeyReleased:
-				m_board.playerSetDirection(sf::Keyboard::Space);
+				Board::boardObject().playerSetDirection(sf::Keyboard::Space);
 				break;
 			}
 
 		}
 		auto time = clock.restart();
-		m_board.move(time);
+		Board::boardObject().move(time);
 	}
 	if (m_window.isOpen())
 		m_window.close();
@@ -59,7 +61,7 @@ void Controller::startGame()
 void Controller::menupage()
 {
 	sf::RenderWindow menuPage(sf::VideoMode(1000, 1000), "welcome to lode runner");
-
+	//start.loadFromFile("backgroundCandyWithCookies.png");
 	while (menuPage.isOpen())
 	{
 		sf::Texture start;

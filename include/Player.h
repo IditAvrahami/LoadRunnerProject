@@ -6,6 +6,7 @@
 #include <ostream>
 #include "Enemy.h"
 #include "Coin.h"
+//#include "Board.h"
 
 class Present;
 class Floor;

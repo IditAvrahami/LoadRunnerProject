@@ -10,5 +10,5 @@ public:
 	virtual ~SmartEnemy() = default;
 //	virtual void enemyAlgorithem();
 	sf::Vector2f directionToGo();
-	virtual void move(const sf::Time& time);
+	virtual void move(const sf::Time& time)override;
 };
