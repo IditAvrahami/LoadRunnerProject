@@ -22,10 +22,10 @@ public:
     Enemy(sf::Sprite picture, const int speed);
     virtual ~Enemy() = default;
     virtual void setLocation(const float y, const float x);
-    void moveLocation(const sf::Vector2f& d, sf::Time t);
+    void moveLocation(const sf::Vector2f& d, sf::Time t)override;
     virtual void print(sf::RenderWindow& window);
     virtual void move(const sf::Time& time)override;
-    virtual void gravityFunction();
+    virtual void gravityFunction()override;
     virtual sf::Sprite getSprite();
     virtual sf::Vector2f getLocation()const override;
     virtual void setSpeed(const int)override;

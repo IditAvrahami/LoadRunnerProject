@@ -14,7 +14,8 @@ public:
 
 private:
 	SoundClass();
-	sf::sound m_gameSoundPointer;
+	sf::Sound m_gameSoundPointer;
 	sf::SoundBuffer buffer;
+	sf::Music m_gameSound;
 	//sf::soundBuffer m_gameSound;
 };

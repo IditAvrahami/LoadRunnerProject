@@ -1,4 +1,4 @@
-#include "..\include\Enemy.h"
+//#include "..\include\Enemy.h"
 #pragma once
 #include "Enemy.h"
 #include <SFML/System/Vector2.hpp>
@@ -30,16 +30,17 @@ void Enemy::move(const sf::Time& time)
 
 void Enemy::gravityFunction()
 {
-	int x, y;
-	sf::Vector2f down = KB_DOWN;
-	down.x *= m_speed;
-	down.y *= m_speed;
-	m_enemyPng.move(down); // sfml function
-	x = (m_enemyPng.getPosition().x + KB_DOWN.x)/COMPARISON;
-	y = (m_enemyPng.getPosition().y + KB_DOWN.y) / COMPARISON;
-	
-	//while (!Board::boardObject().isFloor(x,y) && !Board::boardObject().isRod(x, y) && !Board::boardObject().isLadder(x, y))
-	
+	Movment myMove;
+	int x = (m_enemyPng.getPosition().x) / COMPARISON + KB_DOWN.x;
+	int y = (m_enemyPng.getPosition().y) / COMPARISON + KB_DOWN.y;
+
+	if (myMove.canDown(x, y))
+	{
+		sf::Vector2f down = KB_DOWN;
+		down.x *= m_speed;
+		down.y *= m_speed;
+		m_enemyPng.move(down); // sfml function
+	}
 }
 
 sf::Sprite Enemy::getSprite()

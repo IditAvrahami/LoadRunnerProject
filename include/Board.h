@@ -21,6 +21,7 @@
 #include "Utillities.h"
 #include "MovingObject.h"
 */
+
 class Present;
 class Object;
 class Coin;
@@ -67,6 +68,7 @@ public:
 	static Board& boardObject();
 	std::vector<std::vector<StaticObject*>> getBoard()const;
 	void loadBoardFromController(std::string levelName, const int level);
+	void handleGravity(MovingObject*);
 
 private:
 	Board();//std::string levelName, const int level);

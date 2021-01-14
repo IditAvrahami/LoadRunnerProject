@@ -10,5 +10,6 @@
                                           "Rod.cpp"
                                           "Controller.cpp" 
                                           "Player.cpp"
-                                         
+                                         "SoundClass.cpp"
+                                         "Movment.cpp"
                                           )

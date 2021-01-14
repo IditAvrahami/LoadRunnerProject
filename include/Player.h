@@ -6,6 +6,7 @@
 #include <ostream>
 #include "Enemy.h"
 #include "Coin.h"
+#include "Movment.h"
 //#include "Board.h"
 
 class Board;
@@ -51,7 +52,8 @@ public:
     virtual void handleCollision(Enemy& gameObject)override;
     virtual void handleCollision(Rod& gameObject) override; // chage angel?? or picture??
     virtual void handleCollision(Ladder& gameObject)override;// chage angel?? or picture??
-
+    virtual void gravityFunction()override;
+    void moveLocation(const sf::Vector2f& direction, sf::Time time)override;
 
 private:
         sf::Sprite m_playerPng;

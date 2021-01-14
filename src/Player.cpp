@@ -30,14 +30,20 @@ void Player::print(sf::RenderWindow& window)
 
 void Player::move(const sf::Time& timePassed)
 {
-	std::vector < std::vector<StaticObject*>> array;
-	//array = Board::boardObject.getBoard();
+//	Movment myMovment;
+	
 	m_playerPng.move( m_speed * timePassed.asSeconds()* m_direction);
 	m_lastDirection = m_speed * timePassed.asSeconds() * m_direction;
 	//if colision return to place
 	//if (checkcolision(m_playerPng.getPosition() ) )
 	//	m_playerPng.move(m_direction * m_speed * timePassed.asSeconds() * -1 );
 
+}
+
+void Player::moveLocation(const sf::Vector2f& direction, sf::Time time)
+{
+	m_playerPng.move(m_speed * time.asSeconds() * direction);
+	m_lastDirection = m_speed * time.asSeconds() * direction;
 }
 
 void Player::setSprite(const sf::Texture &picture)
@@ -124,6 +130,21 @@ void Player::handleCollision(Rod& gameObject)
 
 void Player::handleCollision(Ladder& gameObject)
 {
+}
+
+void Player::gravityFunction()
+{
+	Movment myMove;
+	int x = (m_playerPng.getPosition().x) / COMPARISON + KB_DOWN.x;
+	int y = (m_playerPng.getPosition().y) / COMPARISON + KB_DOWN.y;
+
+	if (myMove.canDown(x, y))
+	{
+		sf::Vector2f down = KB_DOWN;
+		down.x *= m_speed;
+		down.y *= m_speed;
+		m_playerPng.move(down); // sfml function
+	}
 }
 
 void Player::setSpeed(const int speed)

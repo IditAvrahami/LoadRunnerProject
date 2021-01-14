@@ -13,6 +13,7 @@
 #include "StaticObject.h"
 #include "Utillities.h"
 #include "MovingObject.h"
+#include "Movment.h"
 #include <string>
 #include <vector>
 #include<typeinfo>
@@ -64,7 +65,47 @@ void Board::loadBoardFromController(std::string levelName,const int level)
 	m_backGroundPng.setScale(0.029, 0.041);
 	m_backGroundPng.scale(m_height, m_width);
 }
+/*
+void Board::handleGravity(MovingObject* movable)
+{
+	Movment movment;
+	sf::Time time = sf::milliseconds(100);
+	int x, y;
+	x = (int)(*movable).getLocation().x/// COMPARISON;
+	y = (int)(*movable).getLocation().y / COMPARISON;
 
+	while (movment.canDown(x,y))
+	{
+		//(*movable).gravityFunction();
+		x = (int)(*movable).getLocation().x / COMPARISON;
+		y = (int)(*movable).getLocation().y / COMPARISON;
+		(*movable).moveLocation(KB_DOWN, time);
+		//print
+		
+	}
+}
+*/
+
+void Board::handleGravity(MovingObject* movable)
+{
+	Movment movment;
+	sf::Time time = sf::milliseconds(100);
+	int x, y;
+	x = (int)(*movable).getLocation().x + KB_DOWN.x;/// COMPARISON;
+	y = (int)(*movable).getLocation().y + KB_DOWN.y;// / COMPARISON;
+
+	while (1)
+	{
+		handleCollisions(*movable);
+		//(*movable).gravityFunction();
+	//	x = (int)(*movable).getLocation().x / COMPARISON;
+	//	y = (int)(*movable).getLocation().y / COMPARISON;
+		(*movable).moveLocation(KB_DOWN, time);
+		//m_board[]
+		//print
+
+	}
+}
 
 std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
 {
@@ -86,11 +127,13 @@ void Board::move(sf::Time& time)
 {
 	m_player.move(time);
 	handleCollisions(m_player);
-	
+	handleGravity(&m_player); // send pointer to player
 	for (int i = 0; i < m_enemy.size(); i++)
 	{
 		m_enemy[i]->move(time);
 		handleCollisions(*m_enemy[i]);
+		handleGravity(m_enemy[i].get()); // return regular pointer to enemy
+		//m_enemy[i]->gravityFunction();
 	}
 	handleCollisionsEnemy(m_player);
 	updatePointersInBoard();
