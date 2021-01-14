@@ -134,17 +134,22 @@ void Player::handleCollision(Ladder& gameObject)
 
 void Player::gravityFunction()
 {
-	Movment myMove;
-	int x = (m_playerPng.getPosition().x) / COMPARISON + KB_DOWN.x;
-	int y = (m_playerPng.getPosition().y) / COMPARISON + KB_DOWN.y;
+	//Movment myMove;
+	//int x = (m_playerPng.getPosition().x) / COMPARISON + KB_DOWN.x;
+	//int y = (m_playerPng.getPosition().y) / COMPARISON + KB_DOWN.y;
+	sf::Time time = sf::milliseconds(1);
+	moveLocation(KB_DOWN, time);
+	//m_playerPng.move(KB_DOWN); // sfml function
+	//while (!Board::boardObject().handleCollisions(*this))
+	//	m_playerPng.move(KB_DOWN);
 
-	if (myMove.canDown(x, y))
+	/*if (myMove.canDown(x, y))
 	{
-		sf::Vector2f down = KB_DOWN;
-		down.x *= m_speed;
-		down.y *= m_speed;
-		m_playerPng.move(down); // sfml function
-	}
+		//sf::Vector2f down = KB_DOWN;
+		//down.x *= m_speed;
+		//down.y *= m_speed;
+		m_playerPng.move(KB_DOWN); // sfml function
+	}*/
 }
 
 void Player::setSpeed(const int speed)

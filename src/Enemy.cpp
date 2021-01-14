@@ -30,7 +30,10 @@ void Enemy::move(const sf::Time& time)
 
 void Enemy::gravityFunction()
 {
-	Movment myMove;
+	sf::Time time = sf::milliseconds(1);
+	moveLocation(KB_DOWN, time);
+	//m_enemyPng.move(KB_DOWN); // sfml function
+	/*Movment myMove;
 	int x = (m_enemyPng.getPosition().x) / COMPARISON + KB_DOWN.x;
 	int y = (m_enemyPng.getPosition().y) / COMPARISON + KB_DOWN.y;
 
@@ -40,7 +43,7 @@ void Enemy::gravityFunction()
 		down.x *= m_speed;
 		down.y *= m_speed;
 		m_enemyPng.move(down); // sfml function
-	}
+	}*/
 }
 
 sf::Sprite Enemy::getSprite()

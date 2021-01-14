@@ -89,22 +89,31 @@ void Board::handleGravity(MovingObject* movable)
 void Board::handleGravity(MovingObject* movable)
 {
 	Movment movment;
-	sf::Time time = sf::milliseconds(100);
-	int x, y;
-	x = (int)(*movable).getLocation().x + KB_DOWN.x;/// COMPARISON;
-	y = (int)(*movable).getLocation().y + KB_DOWN.y;// / COMPARISON;
-
-	while (1)
+	sf::Time time = sf::milliseconds(3);
+	//int x, y;
+	//x = (int)(*movable).getLocation().x/ COMPARISON;
+	//y = (int)(*movable).getLocation().y / COMPARISON;
+	//while (movment.canDown(x, y))
+	//{
+	bool needFix = false;
+	while (!handleCollisions(*movable))
 	{
-		handleCollisions(*movable);
-		//(*movable).gravityFunction();
-	//	x = (int)(*movable).getLocation().x / COMPARISON;
-	//	y = (int)(*movable).getLocation().y / COMPARISON;
-		(*movable).moveLocation(KB_DOWN, time);
-		//m_board[]
+		needFix = true;
+		(*movable).gravityFunction();
+	}
+	if (needFix)
+		(*movable).moveLocation(KB_UP, time);
+//		(*movable).gravityFunction();
+	//}
+	/*while (handleCollisions(*movable))
+	{
+		(*movable).gravityFunction();
+		//x = (int)(*movable).getLocation().x / COMPARISON;
+		//y = (int)(*movable).getLocation().y / COMPARISON;
+		//(*movable).moveLocation(KB_DOWN, time);
 		//print
 
-	}
+	}*/
 }
 
 std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
@@ -150,8 +159,9 @@ void Board::handleCollisionsEnemy(Player& player)
 	}
 }
 
-void Board::handleCollisions(Object& gameObject)
+bool Board::handleCollisions(Object& gameObject)
 {
+	bool colid = false;
 	for (int i=0; i < m_height ; i++)
 	{
 		for (int j=0 ; j < m_width ; j++)
@@ -161,10 +171,12 @@ void Board::handleCollisions(Object& gameObject)
 				if (gameObject.checkCollision(m_board[i][j]->getGlobalBounds()))
 				{
 					gameObject.handleCollision(*m_board[i][j]);
+					colid = true;
 				}
 			}
 		}
 	}
+	return colid;
 }
 
 void Board::updatePointersInBoard()

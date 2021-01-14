@@ -63,12 +63,12 @@ public:
 	void move(sf::Time&);
 	int getLives();
 	void handleCollisionsEnemy(Player& player);
-	void handleCollisions(Object& gameObject);
+	bool handleCollisions(Object& gameObject);
 	void updatePointersInBoard();
 	static Board& boardObject();
 	std::vector<std::vector<StaticObject*>> getBoard()const;
 	void loadBoardFromController(std::string levelName, const int level);
-	void handleGravity(MovingObject*);
+	void handleGravity(MovingObject* );
 
 private:
 	Board();//std::string levelName, const int level);
