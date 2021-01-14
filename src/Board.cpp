@@ -1,4 +1,18 @@
 #include "Board.h"
+#include "Enemy.h"
+//#include "Player.h"
+#include "Object.h"
+#include "Coin.h"
+#include "Present.h"
+#include "Ladder.h"
+#include "Floor.h"
+#include "Rod.h"
+#include "SmartEnemy.h"
+#include "RandomEnemy.h"
+#include "HorizontalEnemy.h"
+#include "StaticObject.h"
+#include "Utillities.h"
+#include "MovingObject.h"
 #include <string>
 #include <vector>
 #include<typeinfo>
@@ -50,6 +64,7 @@ void Board::loadBoardFromController(std::string levelName,const int level)
 	m_backGroundPng.setScale(0.029, 0.041);
 	m_backGroundPng.scale(m_height, m_width);
 }
+
 
 std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
 {

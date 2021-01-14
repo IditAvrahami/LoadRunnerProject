@@ -60,31 +60,32 @@ void Controller::startGame()
 
 void Controller::menupage()
 {
-	sf::RenderWindow menuPage(sf::VideoMode(1000, 1000), "welcome to lode runner");
+	sf::RenderWindow menuPage(sf::VideoMode(1000, 550), "welcome to lode runner");
 	//start.loadFromFile("backgroundCandyWithCookies.png");
 	while (menuPage.isOpen())
 	{
+		
 		sf::Texture start;
-		start.loadFromFile("ladder.png");
+		start.loadFromFile("start.png");
 		sf::Sprite startpng(start);
 		startpng.setPosition(400, 200);
-		startpng.setScale(10, 5);
+	//	startpng.setScale(5, 5);
 
 		sf::Texture end;
-		end.loadFromFile("enemy.png");
-		sf::Sprite endpng(start);
-		endpng.setPosition(400, 400);
-		endpng.setScale(10, 5);
+		end.loadFromFile("exit.png");
+		sf::Sprite endpng(end);
+		endpng.setPosition(400, 300);
+	//	endpng.setScale(5, 5);
 
-		/*
-		* add bottom to level select
-		sf::Texture end;
-		end.loadFromFile("player.png");
-		sf::Sprite endpng(start);
-		endpng.setPosition(400, 100);
-		*/
+		
+		//add bottom to level select
+		sf::Texture backGround;
+		backGround.loadFromFile("backgroudCandyWithCookies.jpg");
+		sf::Sprite backGroundPng(backGround);
+		//endpng.setPosition(400, 100);
 
 		menuPage.clear();
+		menuPage.draw(backGroundPng);
 		menuPage.draw(startpng);
 		menuPage.draw(endpng);
 		menuPage.display();
@@ -97,15 +98,15 @@ void Controller::menupage()
 				menuPage.close();
 				break;
 			case sf::Event::MouseButtonReleased:
-				if (event.mouseButton.x > 400 && event.mouseButton.x < 700
-					&& event.mouseButton.y > 200 && event.mouseButton.y < 350)
+				if (event.mouseButton.x > 400 && event.mouseButton.x < 500
+					&& event.mouseButton.y > 200 && event.mouseButton.y < 300)
 				{
 					menuPage.close();
 					startGame();
-					menuPage.create(sf::VideoMode(1000, 1000), "welcome to lode runner");
+					menuPage.create(sf::VideoMode(1000, 550), "welcome to lode runner");
 				}
-				else if (event.mouseButton.x > 400 && event.mouseButton.x < 700
-					&& event.mouseButton.y > 400 && event.mouseButton.y < 550)
+				else if (event.mouseButton.x > 400 && event.mouseButton.x < 500
+					&& event.mouseButton.y > 300 && event.mouseButton.y < 400)
 					menuPage.close();
 				break;
 			case  sf::Event::MouseMoved:

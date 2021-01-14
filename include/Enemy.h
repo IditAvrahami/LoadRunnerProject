@@ -5,6 +5,8 @@
 #include <iostream>
 #include <ostream>
 #include "Player.h"
+#include "Movment.h"
+//#include "Board.h"
 
 class Coin;
 class Present;
@@ -23,6 +25,7 @@ public:
     void moveLocation(const sf::Vector2f& d, sf::Time t);
     virtual void print(sf::RenderWindow& window);
     virtual void move(const sf::Time& time)override;
+    virtual void gravityFunction();
     virtual sf::Sprite getSprite();
     virtual sf::Vector2f getLocation()const override;
     virtual void setSpeed(const int)override;

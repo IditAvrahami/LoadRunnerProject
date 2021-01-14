@@ -5,11 +5,12 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Texture.hpp>
-#include "Object.h"
-#include "Coin.h"
-#include "Present.h"
-#include "Enemy.h"
-#include "Player.h"
+//#include "Object.h"
+//#include "Coin.h"
+//#include "Present.h"
+//#include "Enemy.h"
+#include "Player.h" 
+/*
 #include "Ladder.h"
 #include "Floor.h"
 #include "Rod.h"
@@ -19,7 +20,21 @@
 #include "StaticObject.h"
 #include "Utillities.h"
 #include "MovingObject.h"
-
+*/
+class Present;
+class Object;
+class Coin;
+//class Player;
+class Enemy;
+class Ladder;
+class Floor;
+class Rod;
+class SmartEnemy;
+class RandomEnemy;
+class HorizontalEnemy;
+class Utillities;
+class MovingObject;
+class StaticObject;
 
 using std::ifstream;
 using std::string;

@@ -12,7 +12,7 @@ public:
     virtual void setSpeed(const int)=0;
     virtual int getSpeed()=0;
     virtual void move(const sf::Time& time)=0;
-
+  //  virtual void gravityFunction()=0;
 
 private:
     int m_speed=1;

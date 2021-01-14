@@ -8,6 +8,7 @@
 #include "Coin.h"
 //#include "Board.h"
 
+class Board;
 class Present;
 class Floor;
 class Rod;
