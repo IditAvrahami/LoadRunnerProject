@@ -12,4 +12,6 @@
                                           "Player.cpp"
                                          "SoundClass.cpp"
                                          "Movment.cpp"
+                                         "Present.cpp"
+                                         "ScorePresent.cpp"
                                           )

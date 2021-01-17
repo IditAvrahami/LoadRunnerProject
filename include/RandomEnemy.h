@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Enemy.h"
 #include "Utillities.h"
+#include "Movment.h"
 
 
 class RandomEnemy : public Enemy

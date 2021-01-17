@@ -24,20 +24,22 @@ public:
  //   void scorePresent();
  //   void slowerEnemyPresent();
  //   void ghostEnemyPresent();
-  //  virtual sf::Sprite getSprite();
+    virtual sf::Sprite getSprite();
     virtual void print(sf::RenderWindow& window);
     virtual void setLocation(const float y, const float x)override;
 	virtual sf::Vector2f getLocation()const override;
-	virtual bool checkCollision(const sf::FloatRect& floatRect) const;
+	virtual bool checkCollision(const sf::FloatRect& floatRect) const=0;
 	virtual sf::FloatRect getGlobalBounds() const;
-	virtual void handleCollision(Object& obj)override;
-	virtual void handleCollision(Player& gameObject)override;
-	virtual void handleCollision(Enemy& gameObject) override {};
-	virtual void handleCollision(Present& gameObject) override {};
-	virtual void handleCollision(Coin& gameObject)override {};
-	virtual void handleCollision(Floor& gameObject) override {};
-	virtual void handleCollision(Rod& gameObject) override {};
-	virtual void handleCollision(Ladder& gameObject)override {};
+	virtual void handleCollision(Object& obj)=0;
+	virtual void handleCollision(Player& gameObject)=0;
+	virtual void handleCollision(Enemy& gameObject)=0;
+	virtual void handleCollision(Present& gameObject)=0;
+	virtual void handleCollision(Coin& gameObject)=0;
+	virtual void handleCollision(Floor& gameObject) =0;
+	virtual void handleCollision(Rod& gameObject) =0;
+	virtual void handleCollision(Ladder& gameObject)=0;
+protected:
+	sf::Sprite m_presentPng;
 private:
-    sf::Sprite m_presentPng;
+   
 };

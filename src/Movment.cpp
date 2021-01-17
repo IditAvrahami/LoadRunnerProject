@@ -37,6 +37,15 @@ bool Movment::isFloor(const int x, const int y) const
 	return false;
 }
 
+bool Movment::isNull(const int x, const int y) const
+{
+	if (m_map[x][y])
+	{
+			return false;
+	}
+	return true;
+}
+
 bool Movment::canUp(const int x,const int y) const
 {
 	int newXUp = x, newYUp = y;

@@ -3,6 +3,7 @@
 #include "Board.h"
 #include "Utillities.h"
 #include <SFML/Graphics.hpp>
+#include "Rod.h"
 
 Player::Player(sf::Sprite picture, const int speed)
 	:m_playerPng(picture), m_speed(speed), m_direction(sf::Vector2f(0, 0)), m_lives(3), m_score(0)
@@ -24,20 +25,21 @@ sf::Vector2f Player::getLocation() const
 
 void Player::print(sf::RenderWindow& window)
 {
-	//	std::cout << "player class:  x:  " << m_playerPng.getPosition().x << "y: " << m_playerPng.getPosition().y << std::endl;
 	window.draw(m_playerPng);
 }
 
 void Player::move(const sf::Time& timePassed)
 {
-	Movment myMovment;
-	//if (myMovment.isRod(getLocation().y / COMPARISON, getLocation().x / COMPARISON))
-	//	m_playerPng.move((float)COMPARISON * m_direction);
+	Movment movment;
+	sf::Vector2f place = m_playerPng.getPosition();
+	place.x /= COMPARISON;
+	place.y /= COMPARISON;
+	if (movment.isRod(place.x, place.y) && m_direction == KB_UP)
+	{
+		return;
+	}
 	m_playerPng.move(m_speed * timePassed.asSeconds() * m_direction);
 	m_lastDirection = m_speed * timePassed.asSeconds() * m_direction;
-	//if colision return to place
-	//if (checkcolision(m_playerPng.getPosition() ) )
-	//	m_playerPng.move(m_direction * m_speed * timePassed.asSeconds() * -1 );
 
 }
 
@@ -125,8 +127,15 @@ void Player::handleCollision(Enemy& gameObject)
 }
 
 void Player::handleCollision(Rod& gameObject)
-{
-
+{/*
+	sf::Vector2f rodPosition = gameObject.getLocation();
+//	static Rod rod = gameObject;
+	sf::Vector2f position;
+	//if(gameObject == rod)
+	position = gameObject.getLocation();
+	//m_playerPng.setPosition(position.x, position.y + 10);
+	m_playerPng.setPosition(m_playerPng.getPosition().x, position.y );
+	*/
 }
 
 void Player::handleCollision(Ladder& gameObject)
@@ -137,19 +146,6 @@ void Player::gravityFunction()
 {
 	sf::Time time = sf::milliseconds(1);
 	moveLocation(KB_DOWN, time);
-	/// <summary>
-	/// /////////////////////////////////////////////////////////////
-	/// </summary>
-/*	Movment movment;
-	int x, y;
-	x = m_playerPng.getPosition().x/COMPARISON;
-	y = m_playerPng.getPosition().y/COMPARISON;
-
-	if (movment.isRod(x, y))
-		m_playerPng.setPosition(x * COMPARISON, y * COMPARISON);
-		//m_playerPng.move((float)COMPARISON*KB_DOWN);
-	//if (movment.isRod(x, y-1))
-	//	m_playerPng.move((float)COMPARISON * KB_UP);*/
 }
 
 void Player::setSpeed(const int speed)

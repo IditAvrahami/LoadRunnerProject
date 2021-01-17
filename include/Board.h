@@ -49,7 +49,8 @@ public:
 	virtual ~Board()=default;
 	void loadBoardFromFile(const int level);
 	bool loadBoard(std::string levelName, const int level);
-	int algorithmOfEnemy();  
+	void algorithmOfEnemy();  
+	int getTypeOfEnemy()const;
 	int getNumberOfCoins();
 	void print(sf::RenderWindow &window);
 	void createBoard();
@@ -69,12 +70,13 @@ public:
 	std::vector<std::vector<StaticObject*>> getBoard()const;
 	void loadBoardFromController(std::string levelName, const int level);
 	void handleGravity(MovingObject* );
-
+	std::unique_ptr<Present>kindOfPresent(const int type);
 private:
 	Board();//std::string levelName, const int level);
 	int m_height; //read from file
 	int m_width;
 	int m_coinsCounter=0;
+	int m_enemyType;
 	ifstream m_fileRead;
 	sf::Time m_time;
 	std::vector<std::vector<std::unique_ptr<StaticObject>>> m_board;

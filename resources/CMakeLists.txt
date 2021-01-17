@@ -10,3 +10,6 @@ configure_file ("level1.txt" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("backgroudCandyWithCookies.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("start.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("exit.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("manC.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("candy.png" ${CMAKE_BINARY_DIR} COPYONLY)
+

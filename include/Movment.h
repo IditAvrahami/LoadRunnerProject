@@ -15,6 +15,7 @@ public:
 	bool isRod(const int x, const int y)const;
 	bool isLadder(const int x, const int y)const;
 	bool isFloor(const int x, const int y)const;
+	bool isNull(const int x, const int y)const;
 	bool canUp (const int x,const int y)const;
 	bool canDown(const int x, const int y)const;
 	bool canRight(const int x, const int y)const;

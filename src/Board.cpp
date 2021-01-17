@@ -30,7 +30,7 @@ Board::Board() : m_height(0), m_width(0)  //std::string levelName, const int lev
 
 	m_pictures[0].loadFromFile("player.png");
 
-	m_pictures[1].loadFromFile("enemy.png");
+	m_pictures[1].loadFromFile("manC.png");
 
 	m_pictures[2].loadFromFile("ladder.png");
 
@@ -39,10 +39,10 @@ Board::Board() : m_height(0), m_width(0)  //std::string levelName, const int lev
 	m_pictures[4].loadFromFile("floor.png");
 
 	m_pictures[5].loadFromFile("rod.png");
-	//change size of object
 
 	m_pictures[6].loadFromFile("candyWorld.png");
-	//m_pictures[7].loadFromFile("present.png");
+	
+	m_pictures[7].loadFromFile("candy.png");
 
 	m_picturesSprite.resize(OBJECTS);
 	for (int i = 0; i < OBJECTS; i++)
@@ -114,6 +114,20 @@ void Board::handleGravity(MovingObject* movable)
 		//print
 
 	}*/
+}
+
+std::unique_ptr<Present> Board::kindOfPresent(const int type)
+{
+	int number = rand() % NUMBER_OF_PRESENT;
+
+	switch (number)
+	{
+	case 0:
+		return std::make_unique<Present>(m_picturesSprite[7]);
+
+		break;
+	}
+	return std::unique_ptr<Present>();
 }
 
 std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
@@ -249,10 +263,9 @@ std::unique_ptr<StaticObject> Board::createObject(const char tosprite, const int
 	case '-':
 		return std::make_unique<Rod>(m_picturesSprite[5]);
 		break;
-	//	case '+':
-	//		return std::make_unique<Present>(m_pictures[7]);
-	//		break;
-			//add present case
+	case '+':
+		return std::make_unique<Present>(m_picturesSprite[7]);
+		break;
 	}
 		return std::unique_ptr<StaticObject>(nullptr);
 }
@@ -264,7 +277,7 @@ void Board::playerSetDirection(sf::Keyboard::Key direction)
 
 void Board::loadBoardFromFile(const int level)
 {
-	int enemyKind = algorithmOfEnemy();
+	algorithmOfEnemy();
 
 	string str;
 	getline(m_fileRead, str); //read enter
@@ -285,7 +298,7 @@ void Board::loadBoardFromFile(const int level)
 			}
 			else // is enemy
 			{
-				m_enemy.push_back(kindOfEnemy(enemyKind));
+				m_enemy.push_back(kindOfEnemy(m_enemyType));
 				m_enemy[m_enemy.size() - 1]->setLocation(i, j);
 			}
 		}
@@ -331,9 +344,14 @@ void Board::createBoard()
 	pointToNull();
 }
 
-int Board::algorithmOfEnemy()
+void Board::algorithmOfEnemy()
 {
-	return rand() % 3;
+	m_enemyType = rand() % 3;
+}
+
+int Board::getTypeOfEnemy() const
+{
+	return m_enemyType;
 }
 
 int Board::getNumberOfCoins()

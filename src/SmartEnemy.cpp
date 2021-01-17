@@ -11,19 +11,19 @@ sf::Vector2f SmartEnemy::directionToGo()
 	switch (randomDirection)
 	{
 	case 0:
-		//if(checkIfCan(KB_UP))
+		//if(canUp(KB_UP))
 		return KB_UP;
 		break;
 	case 1:
-		//if(checkIfCan(KB_UP))
+		//if(canDown(KB_UP))
 		return KB_DOWN;
 		break;
 	case 2:
-		//if(checkIfCan(KB_RIGHT))
+		//if(canRight(KB_RIGHT))
 		return KB_RIGHT;
 		break;
 	case 3:
-		//if(checkIfCan(KB_LEFT))
+		//if(canLeft(KB_LEFT))
 		return KB_LEFT;
 		break;
 	}

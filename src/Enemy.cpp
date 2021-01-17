@@ -2,6 +2,7 @@
 #pragma once
 #include "Enemy.h"
 #include <SFML/System/Vector2.hpp>
+#include "Floor.h"
 
 Enemy::Enemy(sf::Sprite picture, const int speed) : m_enemyPng(sf::Sprite(picture)), m_speed(speed)
 {}
@@ -13,8 +14,10 @@ void Enemy::setLocation(const float y, const float x)
 
 void Enemy::moveLocation(const sf::Vector2f & direction,sf::Time time)
 {
+	std::cout << "direction " << direction.x << " " << direction.y << std::endl;
 	m_enemyPng.move(  m_speed * time.asSeconds() * direction );
 	m_direction = m_speed * time.asSeconds() * direction;
+//	std::cout << "in move location " << m_direction.x << " " << m_direction.y << std::endl;
 }
 
 
@@ -32,6 +35,7 @@ void Enemy::gravityFunction()
 {
 	sf::Time time = sf::milliseconds(1);
 	moveLocation(KB_DOWN, time);
+	std::cout << "================================" << std::endl;
 	//m_enemyPng.move(KB_DOWN); // sfml function
 	/*Movment myMove;
 	int x = (m_enemyPng.getPosition().x) / COMPARISON + KB_DOWN.x;
@@ -101,6 +105,8 @@ void Enemy::handleCollision(Floor& gameObject)
 	m_enemyPng.move(m_direction.x*(-1), m_direction.y*(-1));
 	m_direction.x *= (-1);
 	m_direction.y *= (-1);
+	std::cout << "floor pos  " << gameObject.getLocation().x << " " << gameObject.getLocation().y << std::endl;
+
 }
 
 void Enemy::handleCollision(Rod& gameObject)
