@@ -39,6 +39,7 @@ void Rod::handleCollision(Object& obj)
 
 void Rod::handleCollision(Player& obj)
 {
+	obj.setLocation(m_rodPng.getPosition().y/COMPARISON, m_rodPng.getPosition().x / COMPARISON);
 	obj.handleCollision(*this);
 }
 

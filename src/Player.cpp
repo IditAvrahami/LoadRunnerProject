@@ -5,7 +5,7 @@
 #include <SFML/Graphics.hpp>
 
 Player::Player(sf::Sprite picture, const int speed)
-	:m_playerPng(picture), m_speed(speed), m_direction(sf::Vector2f(0, 0)), m_lives(3),m_score(0)
+	:m_playerPng(picture), m_speed(speed), m_direction(sf::Vector2f(0, 0)), m_lives(3), m_score(0)
 {}
 
 
@@ -24,15 +24,16 @@ sf::Vector2f Player::getLocation() const
 
 void Player::print(sf::RenderWindow& window)
 {
-//	std::cout << "player class:  x:  " << m_playerPng.getPosition().x << "y: " << m_playerPng.getPosition().y << std::endl;
+	//	std::cout << "player class:  x:  " << m_playerPng.getPosition().x << "y: " << m_playerPng.getPosition().y << std::endl;
 	window.draw(m_playerPng);
 }
 
 void Player::move(const sf::Time& timePassed)
 {
-//	Movment myMovment;
-	
-	m_playerPng.move( m_speed * timePassed.asSeconds()* m_direction);
+	Movment myMovment;
+	//if (myMovment.isRod(getLocation().y / COMPARISON, getLocation().x / COMPARISON))
+	//	m_playerPng.move((float)COMPARISON * m_direction);
+	m_playerPng.move(m_speed * timePassed.asSeconds() * m_direction);
 	m_lastDirection = m_speed * timePassed.asSeconds() * m_direction;
 	//if colision return to place
 	//if (checkcolision(m_playerPng.getPosition() ) )
@@ -46,7 +47,7 @@ void Player::moveLocation(const sf::Vector2f& direction, sf::Time time)
 	m_lastDirection = m_speed * time.asSeconds() * direction;
 }
 
-void Player::setSprite(const sf::Texture &picture)
+void Player::setSprite(const sf::Texture& picture)
 {
 	m_playerPng.setTexture(picture);
 }
@@ -55,7 +56,7 @@ void Player::setDirection(sf::Keyboard::Key key)
 {
 	switch (key)
 	{
-	case sf::Keyboard::Key::Right :
+	case sf::Keyboard::Key::Right:
 		m_direction = KB_RIGHT;
 		break;
 	case sf::Keyboard::Key::Left:
@@ -68,7 +69,7 @@ void Player::setDirection(sf::Keyboard::Key key)
 		m_direction = KB_DOWN;
 		break;
 	default:
-			m_direction = KB_STAY;
+		m_direction = KB_STAY;
 	}
 
 }
@@ -77,7 +78,7 @@ void Player::changeface(bool toRight)
 {
 	//need to check to where look and then
 	if (toRight)
-		m_playerPng.setScale(-1,1);
+		m_playerPng.setScale(-1, 1);
 	else
 		m_playerPng.setScale(1, 1);
 }
@@ -134,22 +135,21 @@ void Player::handleCollision(Ladder& gameObject)
 
 void Player::gravityFunction()
 {
-	//Movment myMove;
-	//int x = (m_playerPng.getPosition().x) / COMPARISON + KB_DOWN.x;
-	//int y = (m_playerPng.getPosition().y) / COMPARISON + KB_DOWN.y;
 	sf::Time time = sf::milliseconds(1);
 	moveLocation(KB_DOWN, time);
-	//m_playerPng.move(KB_DOWN); // sfml function
-	//while (!Board::boardObject().handleCollisions(*this))
-	//	m_playerPng.move(KB_DOWN);
+	/// <summary>
+	/// /////////////////////////////////////////////////////////////
+	/// </summary>
+/*	Movment movment;
+	int x, y;
+	x = m_playerPng.getPosition().x/COMPARISON;
+	y = m_playerPng.getPosition().y/COMPARISON;
 
-	/*if (myMove.canDown(x, y))
-	{
-		//sf::Vector2f down = KB_DOWN;
-		//down.x *= m_speed;
-		//down.y *= m_speed;
-		m_playerPng.move(KB_DOWN); // sfml function
-	}*/
+	if (movment.isRod(x, y))
+		m_playerPng.setPosition(x * COMPARISON, y * COMPARISON);
+		//m_playerPng.move((float)COMPARISON*KB_DOWN);
+	//if (movment.isRod(x, y-1))
+	//	m_playerPng.move((float)COMPARISON * KB_UP);*/
 }
 
 void Player::setSpeed(const int speed)
@@ -184,8 +184,8 @@ void Player::lastScoreUpdateLose()
 
 void Player::setLives(const int more)
 {
-	if(more == 1 || more == -1)
-	m_lives += more;
+	if (more == 1 || more == -1)
+		m_lives += more;
 }
 
 int Player::getLives()
