@@ -3,7 +3,7 @@
 //#include "Player.h"
 #include "Object.h"
 #include "Coin.h"
-#include "Present.h"
+//#include "Present.h"
 #include "Ladder.h"
 #include "Floor.h"
 #include "Rod.h"
@@ -14,6 +14,7 @@
 #include "Utillities.h"
 #include "MovingObject.h"
 #include "Movment.h"
+#include "Timer.h"
 #include <string>
 #include <vector>
 #include<typeinfo>
@@ -123,8 +124,16 @@ std::unique_ptr<Present> Board::kindOfPresent(const int type)
 	switch (number)
 	{
 	case 0:
-		return std::make_unique<Present>(m_picturesSprite[7]);
-
+		return std::make_unique<Present>(m_picturesSprite[7]); // ScorePresent
+		break;
+	case 1:
+		return std::make_unique<Present>(m_picturesSprite[7]); // TimePresent
+		break;
+	case 2:
+		return std::make_unique<Present>(m_picturesSprite[7]); // BadPresent
+		break;
+	case 3:
+		return std::make_unique<Present>(m_picturesSprite[7]); // LivesPresent
 		break;
 	}
 	return std::unique_ptr<Present>();
@@ -324,8 +333,9 @@ bool Board::loadBoard(std::string levelName, const int level)
 	m_fileRead.open(levelName);
 	if (!m_fileRead.is_open())
 		return false;
-
+	
 	m_fileRead >> m_height >> m_width >> time;
+	Timer::instance().setTimer(time);
 	m_time = sf::seconds((float)time);
 	createBoard();
 	loadBoardFromFile(level);

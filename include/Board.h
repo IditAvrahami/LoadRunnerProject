@@ -7,7 +7,7 @@
 #include <SFML/Graphics/Texture.hpp>
 //#include "Object.h"
 //#include "Coin.h"
-//#include "Present.h"
+#include "Present.h"
 //#include "Enemy.h"
 #include "Player.h" 
 /*
@@ -22,7 +22,7 @@
 #include "MovingObject.h"
 */
 
-class Present;
+//class Present;
 class Object;
 class Coin;
 //class Player;
@@ -78,7 +78,7 @@ private:
 	int m_coinsCounter=0;
 	int m_enemyType;
 	ifstream m_fileRead;
-	sf::Time m_time;
+	//sf::Time m_time;
 	std::vector<std::vector<std::unique_ptr<StaticObject>>> m_board;
 	std::vector <sf::Texture> m_pictures;
 	std::vector <sf::Sprite> m_picturesSprite;

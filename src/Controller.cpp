@@ -8,7 +8,7 @@ Controller::Controller() : m_level(1)//,Board::boardObject((*this).levelName(), 
 {
 	Board::boardObject();
 	Board::boardObject().loadBoardFromController((*this).levelName(), m_level);
-	m_window.create(sf::VideoMode(Board::boardObject().getHeight() * COMPARISON, Board::boardObject().getWidth() * COMPARISON), (*this).levelName());
+	m_window.create(sf::VideoMode(Board::boardObject().getWidth() * COMPARISON, Board::boardObject().getHeight() * COMPARISON), (*this).levelName());
 
 }
 
@@ -110,7 +110,6 @@ void Controller::menupage()
 					menuPage.close();
 				break;
 			case  sf::Event::MouseMoved:
-				std::cout << event.mouseMove.x << " " << event.mouseMove.y << std::endl;
 			}
 		}
 	}

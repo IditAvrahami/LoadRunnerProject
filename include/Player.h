@@ -45,7 +45,7 @@ public:
     virtual bool checkCollision(const sf::FloatRect& floatRect) const override;
     virtual sf::FloatRect getGlobalBounds() const override;
     virtual void handleCollision(Object& obj)override;
-    virtual void handleCollision(Player& gameObject)override {};
+    virtual void handleCollision(Player& gameObject)override; // empy func
     virtual void handleCollision(Coin& gameObject) override;
     virtual void handleCollision(Present& gameObject) override;////////////////////////////////////////////////////////////
     virtual void handleCollision(Floor& gameObject)override;

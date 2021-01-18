@@ -102,6 +102,10 @@ void Player::handleCollision(Object& obj)
 	obj.handleCollision(*this);
 }
 
+void Player::handleCollision(Player& gameObject)
+{
+}
+
 void Player::handleCollision(Coin& gameObject)
 {
 	m_score += gameObject.getValue();
@@ -127,7 +131,17 @@ void Player::handleCollision(Enemy& gameObject)
 }
 
 void Player::handleCollision(Rod& gameObject)
-{/*
+{
+	/*
+	static sf::Vector2f lastrod = gameObject.getLocation();
+	sf::Vector2f place = gameObject.getLocation();
+	if (lastrod == place)
+		m_playerPng.setPosition(m_playerPng.getPosition().x, place.y + 20);
+	else
+		lastrod = place;
+	*/
+	
+	/*
 	sf::Vector2f rodPosition = gameObject.getLocation();
 //	static Rod rod = gameObject;
 	sf::Vector2f position;
