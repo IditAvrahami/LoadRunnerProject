@@ -13,6 +13,7 @@ Player::Player(sf::Sprite picture, const int speed)
 Player::Player(sf::Sprite picture)
 	: m_playerPng(picture), m_speed(1), m_direction(sf::Vector2f(0, 0)), m_lives(3), m_score(0)
 {}
+
 void Player::setLocation(const float y, const float x)
 {
 	m_playerPng.setPosition(sf::Vector2f(x * COMPARISON, y * COMPARISON));
@@ -40,13 +41,46 @@ void Player::move(const sf::Time& timePassed)
 	}
 	m_playerPng.move(m_speed * timePassed.asSeconds() * m_direction);
 	m_lastDirection = m_speed * timePassed.asSeconds() * m_direction;
+	/*if (m_wantDig != dontWont)
+	{
+		if (canDig())
+			dig();
+	}*/
+}
 
+void Player::dig()
+{
+	Movment movment;
+	int nextx = m_playerPng.getPosition().x / COMPARISON;
+	int nexty = m_playerPng.getPosition().y / COMPARISON;
+
+	movment.disappearFloor(nextx, nexty);
+	//add call to disapper of floor
+
+	m_wantDig = dontWont;
 }
 
 void Player::moveLocation(const sf::Vector2f& direction, sf::Time time)
 {
 	m_playerPng.move(m_speed * time.asSeconds() * direction);
 	m_lastDirection = m_speed * time.asSeconds() * direction;
+}
+
+bool Player::canDig()
+{
+	Movment movment;
+	int nextx = m_playerPng.getPosition().x / COMPARISON;
+	int nexty = m_playerPng.getPosition().y / COMPARISON;
+
+	if (m_wantDig == right)
+		if (movment.isFloor(nexty + KB_DOWN.y + KB_RIGHT.y, nextx + KB_DOWN.x + KB_RIGHT.x))
+			return true;
+		else
+			return false;
+	else //m_wantDig == left
+		if (movment.isFloor(nexty + KB_DOWN.y + KB_LEFT.y, nextx + KB_DOWN.x + KB_LEFT.x))
+			return true;
+	return false;
 }
 
 void Player::setSprite(const sf::Texture& picture)
@@ -69,6 +103,18 @@ void Player::setDirection(sf::Keyboard::Key key)
 		break;
 	case sf::Keyboard::Key::Down:
 		m_direction = KB_DOWN;
+		break;
+	case sf::Keyboard::Key::Z:
+		m_direction = KB_STAY;
+		m_wantDig = left;
+		if (canDig())
+			dig();
+		break;
+	case sf::Keyboard::Key::X:
+		m_direction = KB_STAY;
+		m_wantDig = right;
+		if (canDig())
+			dig();
 		break;
 	default:
 		m_direction = KB_STAY;

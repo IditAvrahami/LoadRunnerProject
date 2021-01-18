@@ -26,8 +26,8 @@ public:
     virtual sf::Vector2f getLocation()const override;
     virtual void print(sf::RenderWindow& window)override;
     virtual void move(const sf::Time &timePassed)override;
-    //void dig();
-    //bool canDig();
+    void dig();
+    bool canDig();
     void setSprite(const sf::Texture& picture);
   //  void setSprite(const sf::Sprite& picture);
     virtual void setSpeed(const int)override ;
@@ -63,4 +63,7 @@ private:
         int m_lastScore = 0;
         sf::Vector2f m_direction;
         sf::Vector2f m_lastDirection;
+        enum dig{dontWont,right,left};
+        enum dig m_wantDig = dontWont;
+      //  bool m_wantDig = false;
 };

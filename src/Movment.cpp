@@ -99,3 +99,12 @@ bool Movment::canLeft(const int x, const int y) const
 	}
 	return true;
 }
+
+void Movment::disappearFloor(const int x, const int y) const
+{
+	if (typeid(*m_map[x][y]) == typeid(Floor))
+	{
+		Floor* floor = dynamic_cast<Floor*>(m_map[x][y]);
+		floor->disappear();
+	}
+}

@@ -4,6 +4,7 @@
 
 Floor::Floor(sf::Sprite picture) : m_floorPng(sf::Sprite(picture))
 {}
+
 void Floor::print(sf::RenderWindow& window)
 {
 	window.draw(m_floorPng);
@@ -33,15 +34,30 @@ void Floor::handleCollision(Object& obj)
 
 void Floor::handleCollision(Player& gameObject)
 {
-	gameObject.handleCollision(*this);
+	if (!m_makecolision)
+		gameObject.handleCollision(*this);
 }
 
 void Floor::handleCollision(Enemy& gameObject)
 {
-	gameObject.handleCollision(*this);
+	if (!m_makecolision)
+		gameObject.handleCollision(*this);
 }
 
 sf::Vector2f Floor::getLocation() const
 {
 	return m_floorPng.getPosition();
+}
+
+void Floor::disappear()
+{
+	m_makecolision = true;
+	m_disappear.restart();
+}
+
+void Floor::appear()
+{
+	if (m_makecolision)
+		if (m_disappear.getElapsedTime().asSeconds() > 3)
+			m_makecolision = false;
 }

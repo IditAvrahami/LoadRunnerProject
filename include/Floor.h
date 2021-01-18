@@ -33,7 +33,12 @@ public:
 	virtual void handleCollision(Ladder& gameObject)override{};
 	virtual sf::Vector2f getLocation()const override;
 
+	void disappear();
+	void appear();
+
 private:
 	sf::Sprite m_floorPng;
+	bool m_makecolision = false;
+	sf::Clock m_disappear;
 
 };

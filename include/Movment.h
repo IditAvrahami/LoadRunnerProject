@@ -20,6 +20,7 @@ public:
 	bool canDown(const int x, const int y)const;
 	bool canRight(const int x, const int y)const;
 	bool canLeft(const int x, const int y)const;
+	void disappearFloor(const int x, const int y)const;
 
 private:
 	std::vector<std::vector<StaticObject*>> m_map;
