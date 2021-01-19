@@ -88,21 +88,29 @@ void Board::handleGravity(MovingObject* movable)
 
 std::unique_ptr<Present> Board::kindOfPresent()
 {
-	int number = rand() % NUMBER_OF_PRESENT;
+	int number;
+	if(Timer::instance().getTimer() == -1 )
+	 number = rand() % (NUMBER_OF_PRESENT-1);
+	else
+		 number = rand() % NUMBER_OF_PRESENT;
 
 	switch (number)
 	{
 	case 0:
-		return std::make_unique<ScorePresent>(m_picturesSprite[0]); // now is present
+		std::cout << "score" << std::endl;
+		return std::make_unique<ScorePresent>(m_picturesSprite[0]); // now is present		
 		break;
 	case 1:
-		return std::make_unique<TimePresent>(m_picturesSprite[0]);
+		std::cout << "lives" << std::endl;
+		return std::make_unique<LivePresent>(m_picturesSprite[0]);		
 		break;
 	case 2:
+		std::cout << "badddd" << std::endl;
 		return std::make_unique<BadPresent>(m_picturesSprite[0]); 
 		break;
 	case 3:
-		return std::make_unique<LivePresent>(m_picturesSprite[0]); 
+		std::cout << "time" << std::endl;
+		return std::make_unique<TimePresent>(m_picturesSprite[0]);
 		break;
 	}
 //	return std::unique_ptr<Present>();
@@ -391,27 +399,30 @@ void Board::print(sf::RenderWindow& window)
 
 void Board::addEnemy()
 {
-	int index;
 	Enemy newEnemy(m_picturesSprite[1], 60); // create new enemy
 	m_enemy.push_back(kindOfEnemy(m_enemyType)); // get pointer to kind of enemy
 	sf::Vector2f vector = findGoodPlace();
-	vector.x *= COMPARISON;
-	vector.y *= COMPARISON;
-	index = m_enemy.size();
+	//vector.x *= COMPARISON;
+	//vector.y *= COMPARISON;
+	int index = m_enemy.size()-1;
 	m_enemy[index]->setLocation(vector.y, vector.x);
 }
 
 sf::Vector2f Board::findGoodPlace()
 {
-	for (size_t i = 0; i < m_height; i++)
+	Movment move;
+	int row, col;
+	row = m_height - 1;
+	col = m_width - 1;
+	for (size_t i = 1; i < row; i++)
 	{
-		for (size_t j = 0; j < m_width; j++)
+		for (size_t j = 1; j < col ; j++)
 		{
-			if (!m_board[i][j]) // if not null
+			if(move.isFloor(i, j))
 			{
-				if (m_board[i + 1][j])
+				if (!m_board[i - 1][j])
 				{
-					i++;
+					i--;
 					return sf::Vector2f((float)j, (float)i);
 				}
 			}

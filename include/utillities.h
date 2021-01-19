@@ -17,4 +17,4 @@ const int COIN = 110;
 const int FLOOR = 111;
 const int ROD = 112;
 const int NOTHING = 113;
-const int NUMBER_OF_PRESENT = 1;
+const int NUMBER_OF_PRESENT = 4;

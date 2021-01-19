@@ -46,13 +46,8 @@ void Controller::startGame()
 		while (m_window.isOpen() && Board::boardObject().getNumberOfCoins() != 0 && Player::instance().getLives() != 0
 			&& ((Timer::instance().getTimer() > 0) || (Timer::instance().getTimer() == -1)))
 		{
-			if (lives - Player::instance().getLives() == 1)
-			{
-				lives--;
-				Board::boardObject().clearVectors();
-				Board::boardObject().loadBoard(levelName(), m_level);
-				Player::instance().setLastScore();
-			}
+			lives = Player::instance().getLives();
+			
 
 			if (Timer::instance().getTimer() != -1)
 				Timer::instance().updateTimer();
@@ -82,9 +77,19 @@ void Controller::startGame()
 			}
 			auto time = clock.restart();
 			Board::boardObject().move(time);
+
+			if (lives - Player::instance().getLives() == 1)
+			{
+				lives--;
+				Board::boardObject().clearVectors();
+				Board::boardObject().loadBoard(levelName(), m_level);
+				Player::instance().setLastScore();
+			}
+
 		}
 		Music::instance().stopMusic();
 		
+
 		if (Board::boardObject().getNumberOfCoins() == 0)
 		{ // good music
 		//	Music::instance().startWinMusic();
@@ -100,6 +105,7 @@ void Controller::startGame()
 			else
 				break;
 		}
+		
 	}
 	
 	if (Player::instance().getLives() == 0)
