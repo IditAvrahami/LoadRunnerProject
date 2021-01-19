@@ -7,7 +7,6 @@
 #include "Enemy.h"
 #include "Coin.h"
 #include "Movment.h"
-//#include "Board.h"
 
 class Board;
 class Present;
@@ -18,9 +17,7 @@ class Ladder;
 class Player : public MovingObject
 {
 public:
-    Player() {};
-    Player(sf::Sprite picture, const int speed);
-    Player(sf::Sprite picture);
+   
     virtual ~Player() =default;
     virtual void setLocation(const float y, const float x)override;
     virtual sf::Vector2f getLocation()const override;
@@ -29,10 +26,9 @@ public:
     void dig();
     bool canDig();
     void setSprite(const sf::Texture& picture);
-  //  void setSprite(const sf::Sprite& picture);
     virtual void setSpeed(const int)override ;
     virtual int getSpeed()override ;
-    //virtual sf::Sprite getSprite() ;
+    virtual sf::Sprite getSprite()const ;
     //virtual bool checkNextMove();
     void setScore(const int more);
     int getScore();
@@ -54,16 +50,28 @@ public:
     virtual void handleCollision(Ladder& gameObject)override;// chage angel?? or picture??
     virtual void gravityFunction()override;
     void moveLocation(const sf::Vector2f& direction, sf::Time time)override;
-
+    static Player& instance();
+    enum dig
+    {
+        dontWont,
+        right,
+        left
+    }; 
 private:
+        Player() ;//
+        Player(sf::Sprite picture, const int speed);
+   // Player(sf::Sprite picture);
         sf::Sprite m_playerPng;
         int m_speed=1;
         int m_lives = 3;
+        sf::Text m_livesText; // for print
+        sf::Font m_livesfont;
         int m_score = 0;
+        sf::Text m_scoreText; // for print
+        sf::Font m_scorefont;
         int m_lastScore = 0;
         sf::Vector2f m_direction;
         sf::Vector2f m_lastDirection;
-        enum dig{dontWont,right,left};
-        enum dig m_wantDig = dontWont;
-      //  bool m_wantDig = false;
+         enum dig m_wantDig = dontWont;
+         sf::Texture m_playerPic;
 };

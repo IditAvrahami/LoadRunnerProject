@@ -41,7 +41,7 @@ public:
     virtual void handleCollision(Floor& gameObject) override;
     virtual void handleCollision(Rod& gameObject) override; // chage angel?? or picture??
     virtual void handleCollision(Ladder& gameObject)override; // chage angel?? or picture??
-    
+
 
 private:
     sf::Sprite m_enemyPng;

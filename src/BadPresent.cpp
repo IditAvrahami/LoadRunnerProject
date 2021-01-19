@@ -23,9 +23,9 @@ void BadPresent::handleCollision(Object& obj)
 
 void BadPresent::handleCollision(Player& obj)
 {
-	int type = Board::getTypeOfEnemy();
-	std::unique_ptr <Enemy> newEnemy= Board::kindOfEnemy(type);
-	//addEnemy();
+	int type = Board::boardObject().getTypeOfEnemy();
+	std::unique_ptr <Enemy> newEnemy= Board::boardObject().kindOfEnemy(type);
+	Board::boardObject().addEnemy();
 	m_presentPng.setPosition(TO_DELETED);//delete coin and get into position -1 -1 to delete
 	obj.handleCollision(*this);
 }

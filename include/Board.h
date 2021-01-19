@@ -10,6 +10,7 @@
 #include "Present.h"
 //#include "Enemy.h"
 #include "Player.h" 
+
 /*
 #include "Ladder.h"
 #include "Floor.h"
@@ -22,10 +23,13 @@
 #include "MovingObject.h"
 */
 
-//class Present;
+class Timer;
+class ScorePresent;
 class Object;
 class Coin;
-//class Player;
+class TimePresent;
+class BadPresent;
+class LivePresent;
 class Enemy;
 class Ladder;
 class Floor;
@@ -70,19 +74,23 @@ public:
 	std::vector<std::vector<StaticObject*>> getBoard()const;
 	void loadBoardFromController(std::string levelName, const int level);
 	void handleGravity(MovingObject* );
-	std::unique_ptr<Present>kindOfPresent(const int type);
+	std::unique_ptr<Present>kindOfPresent();
+	void addEnemy();
+	sf::Vector2f findGoodPlace();
+	//sf::Sprite getPlayerTexture()const;
+
 private:
 	Board();//std::string levelName, const int level);
 	int m_height; //read from file
 	int m_width;
 	int m_coinsCounter=0;
-	int m_enemyType;
+	int m_enemyType=0;
 	ifstream m_fileRead;
-	//sf::Time m_time;
+	sf::Time m_time;
 	std::vector<std::vector<std::unique_ptr<StaticObject>>> m_board;
 	std::vector <sf::Texture> m_pictures;
 	std::vector <sf::Sprite> m_picturesSprite;
 	sf::Sprite m_backGroundPng;
 	std::vector <std::unique_ptr <Enemy>> m_enemy; 
-	Player m_player;
+	//Player m_player;
 };

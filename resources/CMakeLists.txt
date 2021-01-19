@@ -1,4 +1,5 @@
 ﻿configure_file ("coin.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("sansation.ttf" ${CMAKE_BINARY_DIR}/resources COPYONLY)
 configure_file ("floor.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("enemy.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ladder.png" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -11,4 +12,5 @@ configure_file ("start.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("exit.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("manC.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("candy.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("timer.png" ${CMAKE_BINARY_DIR} COPYONLY)
 

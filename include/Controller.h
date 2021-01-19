@@ -35,7 +35,12 @@ public:
 private:
 	//private functions
 	std::string levelName();
-	
+	sf::Texture m_start;
+	sf::Sprite m_startPng;
+	sf::Texture m_end;
+	sf::Sprite m_endPng;
+	sf::Texture m_backGround;
+	sf::Sprite m_backGroundPng;
 	//private members
 	int m_level = 0;
 //	Board m_board;

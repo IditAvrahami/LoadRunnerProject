@@ -2,20 +2,33 @@
 #include "Controller.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
+#include "Timer.h"
 
 //Controller::Controller() : m_lives(3), m_level(1), m_score(0), m_board((*this).levelName())
 Controller::Controller() : m_level(1)//,Board::boardObject((*this).levelName(), m_level)
 {
+	m_start.loadFromFile("start.png");
+	m_startPng = sf::Sprite(m_start);
+	m_startPng.setPosition(400, 200);
+
+	m_end.loadFromFile("exit.png");
+	m_endPng = sf::Sprite(m_end);
+	m_endPng.setPosition(400, 300);
+
+		//add bottom to level select
+	m_backGround.loadFromFile("backgroudCandyWithCookies.jpg");
+	m_backGroundPng = sf::Sprite(m_backGround);
 	Board::boardObject();
 	Board::boardObject().loadBoardFromController((*this).levelName(), m_level);
-	m_window.create(sf::VideoMode(Board::boardObject().getWidth() * COMPARISON, Board::boardObject().getHeight() * COMPARISON), (*this).levelName());
+	openScreen();
+	//	m_window.create(sf::VideoMode(Board::boardObject().getWidth() * COMPARISON, Board::boardObject().getHeight() * COMPARISON), (*this).levelName());
 
 }
 
 void Controller::openScreen()
 {
 	//heigth + 4 for the info about score level lives and time left
-	m_window.create(sf::VideoMode((Board::boardObject().getHeight() + 4) * 50, Board::boardObject().getWidth() * 50), (*this).levelName());
+	m_window.create(sf::VideoMode((Board::boardObject().getWidth()) * COMPARISON, (Board::boardObject().getHeight()+3) * COMPARISON), (*this).levelName());
 }
 
 
@@ -25,8 +38,10 @@ void Controller::startGame()
 	m_window.setFramerateLimit(60);
 	if (!m_window.isOpen())
 		openScreen();
-	while (m_window.isOpen() && Board::boardObject().getNumberOfCoins() != 0 && Board::boardObject().getLives() != 0)
+	while (m_window.isOpen() && Board::boardObject().getNumberOfCoins() != 0 && Board::boardObject().getLives() != 0
+			&& Timer::instance().getTimer() > 0 )
 	{
+		Timer::instance().updateTimer();
 		m_window.clear();
 		Board::boardObject().print(m_window);
 		m_window.display();
@@ -64,30 +79,10 @@ void Controller::menupage()
 	//start.loadFromFile("backgroundCandyWithCookies.png");
 	while (menuPage.isOpen())
 	{
-		
-		sf::Texture start;
-		start.loadFromFile("start.png");
-		sf::Sprite startpng(start);
-		startpng.setPosition(400, 200);
-	//	startpng.setScale(5, 5);
-
-		sf::Texture end;
-		end.loadFromFile("exit.png");
-		sf::Sprite endpng(end);
-		endpng.setPosition(400, 300);
-	//	endpng.setScale(5, 5);
-
-		
-		//add bottom to level select
-		sf::Texture backGround;
-		backGround.loadFromFile("backgroudCandyWithCookies.jpg");
-		sf::Sprite backGroundPng(backGround);
-		//endpng.setPosition(400, 100);
-
 		menuPage.clear();
-		menuPage.draw(backGroundPng);
-		menuPage.draw(startpng);
-		menuPage.draw(endpng);
+		menuPage.draw(m_backGroundPng);
+		menuPage.draw(m_startPng);
+		menuPage.draw(m_endPng);
 		menuPage.display();
 		if (auto event = sf::Event{}; menuPage.waitEvent(event))
 		{
@@ -109,7 +104,7 @@ void Controller::menupage()
 					&& event.mouseButton.y > 300 && event.mouseButton.y < 400)
 					menuPage.close();
 				break;
-			case  sf::Event::MouseMoved:
+			//case  sf::Event::MouseMoved:
 			}
 		}
 	}

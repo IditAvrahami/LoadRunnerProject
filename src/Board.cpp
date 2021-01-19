@@ -1,9 +1,11 @@
 #include "Board.h"
 #include "Enemy.h"
-//#include "Player.h"
 #include "Object.h"
 #include "Coin.h"
-//#include "Present.h"
+#include "ScorePresent.h"
+#include "TimePresent.h"
+#include "LivePresent.h"
+#include "BadPresent.h"
 #include "Ladder.h"
 #include "Floor.h"
 #include "Rod.h"
@@ -23,13 +25,13 @@
 Board::Board() : m_height(0), m_width(0)  //std::string levelName, const int level)
 {	
 	srand(time(NULL));
-
+	
 	// play button and background
 	// kind of enemeis
 	
 	m_pictures.resize(OBJECTS);
 
-	m_pictures[0].loadFromFile("player.png");
+	m_pictures[0].loadFromFile("candy.png");
 
 	m_pictures[1].loadFromFile("manC.png");
 
@@ -42,8 +44,6 @@ Board::Board() : m_height(0), m_width(0)  //std::string levelName, const int lev
 	m_pictures[5].loadFromFile("rod.png");
 
 	m_pictures[6].loadFromFile("candyWorld.png");
-	
-	m_pictures[7].loadFromFile("candy.png");
 
 	m_picturesSprite.resize(OBJECTS);
 	for (int i = 0; i < OBJECTS; i++)
@@ -51,51 +51,30 @@ Board::Board() : m_height(0), m_width(0)  //std::string levelName, const int lev
 		m_picturesSprite[i] = sf::Sprite(m_pictures[i]);
 	}
 	m_backGroundPng.setTexture(m_pictures[6]);
-	m_player.setSprite(m_pictures[0]);
-	m_player.setSpeed(150);
-	
-//	loadBoard(levelName, level); 
-//	m_backGroundPng.setScale(0.029, 0.041);
-//	m_backGroundPng.scale(m_height, m_width);
+	//Player::instance().setSprite(m_pictures[0]);
+	//m_player.setSprite(m_pictures[0]);
+	Player::instance().setSpeed(150);
+//	m_player.setSpeed(150);
 	
 }
 
 void Board::loadBoardFromController(std::string levelName,const int level)
 {
 	loadBoard(levelName, level);
-	m_backGroundPng.setScale(0.029, 0.041);
+	m_backGroundPng.setScale(0.029, 0.039);
 	m_backGroundPng.scale(m_height, m_width);
 }
-/*
-void Board::handleGravity(MovingObject* movable)
-{
-	Movment movment;
-	sf::Time time = sf::milliseconds(100);
-	int x, y;
-	x = (int)(*movable).getLocation().x/// COMPARISON;
-	y = (int)(*movable).getLocation().y / COMPARISON;
-
-	while (movment.canDown(x,y))
-	{
-		//(*movable).gravityFunction();
-		x = (int)(*movable).getLocation().x / COMPARISON;
-		y = (int)(*movable).getLocation().y / COMPARISON;
-		(*movable).moveLocation(KB_DOWN, time);
-		//print
-		
-	}
-}
-*/
 
 void Board::handleGravity(MovingObject* movable)
 {
 	Movment movment;
 	sf::Time time = sf::milliseconds(3);
-	//int x, y;
-	//x = (int)(*movable).getLocation().x/ COMPARISON;
-	//y = (int)(*movable).getLocation().y / COMPARISON;
-	//while (movment.canDown(x, y))
-	//{
+
+	if (typeid(*movable) == typeid(HorizontalEnemy))
+	{
+		return;
+	}
+
 	bool needFix = false;
 	while (!handleCollisions(*movable))
 	{
@@ -104,39 +83,29 @@ void Board::handleGravity(MovingObject* movable)
 	}
 	if (needFix)
 		(*movable).moveLocation(KB_UP, time);
-//		(*movable).gravityFunction();
-	//}
-	/*while (handleCollisions(*movable))
-	{
-		(*movable).gravityFunction();
-		//x = (int)(*movable).getLocation().x / COMPARISON;
-		//y = (int)(*movable).getLocation().y / COMPARISON;
-		//(*movable).moveLocation(KB_DOWN, time);
-		//print
 
-	}*/
 }
 
-std::unique_ptr<Present> Board::kindOfPresent(const int type)
+std::unique_ptr<Present> Board::kindOfPresent()
 {
 	int number = rand() % NUMBER_OF_PRESENT;
 
 	switch (number)
 	{
 	case 0:
-		return std::make_unique<Present>(m_picturesSprite[7]); // ScorePresent
+		return std::make_unique<ScorePresent>(m_picturesSprite[0]); // now is present
 		break;
 	case 1:
-		return std::make_unique<Present>(m_picturesSprite[7]); // TimePresent
+		return std::make_unique<TimePresent>(m_picturesSprite[0]);
 		break;
 	case 2:
-		return std::make_unique<Present>(m_picturesSprite[7]); // BadPresent
+		return std::make_unique<BadPresent>(m_picturesSprite[0]); 
 		break;
 	case 3:
-		return std::make_unique<Present>(m_picturesSprite[7]); // LivesPresent
+		return std::make_unique<LivePresent>(m_picturesSprite[0]); 
 		break;
 	}
-	return std::unique_ptr<Present>();
+//	return std::unique_ptr<Present>();
 }
 
 std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
@@ -157,17 +126,17 @@ std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
 
 void Board::move(sf::Time& time)
 {
-	m_player.move(time);
-	handleCollisions(m_player);
-	handleGravity(&m_player); // send pointer to player
+	Player::instance().move(time);
+	handleCollisions(Player::instance());
+	handleGravity(&Player::instance());
+
 	for (int i = 0; i < m_enemy.size(); i++)
 	{
 		m_enemy[i]->move(time);
 		handleCollisions(*m_enemy[i]);
 		handleGravity(m_enemy[i].get()); // return regular pointer to enemy
-		//m_enemy[i]->gravityFunction();
 	}
-	handleCollisionsEnemy(m_player);
+	handleCollisionsEnemy(Player::instance());
 	updatePointersInBoard();
 }
 
@@ -212,6 +181,11 @@ void Board::updatePointersInBoard()
 			{
 				if (m_board[i][j]->getLocation().x == -1 && m_board[i][j]->getLocation().y == -1)
 				{
+					if (typeid(*m_board[i][j]) == typeid(Floor))
+					{	
+						Floor* floor = dynamic_cast<Floor*>(m_board[i][j].get());
+						floor->appear(sf::Sprite(m_picturesSprite[4]));
+					}
 					if (typeid(*m_board[i][j]) == typeid(Coin))
 					{
 						m_coinsCounter--;
@@ -251,7 +225,7 @@ std::vector<std::vector<StaticObject*>> Board::getBoard() const
 
 int Board::getLives()
 {
-	return m_player.getLives();
+	return Player::instance().getLives();
 }
 
 
@@ -273,7 +247,7 @@ std::unique_ptr<StaticObject> Board::createObject(const char tosprite, const int
 		return std::make_unique<Rod>(m_picturesSprite[5]);
 		break;
 	case '+':
-		return std::make_unique<Present>(m_picturesSprite[7]);
+		return  kindOfPresent();   //std::make_unique<Present>(m_picturesSprite[7]);
 		break;
 	}
 		return std::unique_ptr<StaticObject>(nullptr);
@@ -281,7 +255,7 @@ std::unique_ptr<StaticObject> Board::createObject(const char tosprite, const int
 
 void Board::playerSetDirection(sf::Keyboard::Key direction)
 {
-	m_player.setDirection(direction);
+	Player::instance().setDirection(direction);
 }
 
 void Board::loadBoardFromFile(const int level)
@@ -297,7 +271,7 @@ void Board::loadBoardFromFile(const int level)
 		{
 			if (str[j] == '@')
 			{
-				m_player.setLocation(i, j);
+				Player::instance().setLocation(i, j);
 			}
 			else if (!(str[j] == '@') && !(str[j] == '%'))
 			{
@@ -336,6 +310,7 @@ bool Board::loadBoard(std::string levelName, const int level)
 	
 	m_fileRead >> m_height >> m_width >> time;
 	Timer::instance().setTimer(time);
+	//m_backGroundPng.scale(1 / m_width, 1 / m_height); // change background size
 	m_time = sf::seconds((float)time);
 	createBoard();
 	loadBoardFromFile(level);
@@ -390,6 +365,7 @@ int Board::getWidth()
 void Board::print(sf::RenderWindow& window)
 {
 	window.draw(m_backGroundPng);
+	
 	for (int i = 0; i < m_height; i++)
 		for (int j = 0; j < m_width; j++)
 			if (m_board[i][j])
@@ -398,5 +374,39 @@ void Board::print(sf::RenderWindow& window)
 	{
 		m_enemy[i]->print(window);
 	}
-	m_player.print(window);
+	if(Timer::instance().getTimer() != -1)
+	Timer::instance().print(window);
+	Player::instance().print(window);
 }
+
+void Board::addEnemy()
+{
+	int index;
+	Enemy newEnemy(m_picturesSprite[1], 60); // create new enemy
+	m_enemy.push_back(kindOfEnemy(m_enemyType)); // get pointer to kind of enemy
+	sf::Vector2f vector = findGoodPlace();
+	vector.x *= COMPARISON;
+	vector.y *= COMPARISON;
+	index = m_enemy.size();
+	m_enemy[index]->setLocation(vector.y, vector.x);
+}
+
+sf::Vector2f Board::findGoodPlace()
+{
+	for (size_t i = 0; i < m_height; i++)
+	{
+		for (size_t j = 0; j < m_width; j++)
+		{
+			if (!m_board[i][j]) // if not null
+			{
+				if (m_board[i + 1][j])
+				{
+					i++;
+					return sf::Vector2f((float)j, (float)i);
+				}
+			}
+		}
+	}
+	return sf::Vector2f(0.f, 0.f);
+}
+

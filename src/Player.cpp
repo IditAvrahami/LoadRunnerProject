@@ -4,15 +4,23 @@
 #include "Utillities.h"
 #include <SFML/Graphics.hpp>
 #include "Rod.h"
-
+/*
 Player::Player(sf::Sprite picture, const int speed)
 	:m_playerPng(picture), m_speed(speed), m_direction(sf::Vector2f(0, 0)), m_lives(3), m_score(0)
 {}
-
-
+*/
+/*
 Player::Player(sf::Sprite picture)
 	: m_playerPng(picture), m_speed(1), m_direction(sf::Vector2f(0, 0)), m_lives(3), m_score(0)
 {}
+*/
+Player::Player() 
+{
+	m_playerPic.loadFromFile("player.png");
+	m_playerPng.setTexture(m_playerPic);
+	//	m_playerPng = sf::Sprite(m_playerPic);
+	m_speed = 1;
+}
 
 void Player::setLocation(const float y, const float x)
 {
@@ -35,17 +43,14 @@ void Player::move(const sf::Time& timePassed)
 	sf::Vector2f place = m_playerPng.getPosition();
 	place.x /= COMPARISON;
 	place.y /= COMPARISON;
-	if (movment.isRod(place.x, place.y) && m_direction == KB_UP)
+	if (movment.isRod(place.y, place.x) && m_direction == KB_UP)
+	//if (movment.isRod(place.x, place.y) && m_direction == KB_UP)
 	{
 		return;
 	}
 	m_playerPng.move(m_speed * timePassed.asSeconds() * m_direction);
 	m_lastDirection = m_speed * timePassed.asSeconds() * m_direction;
-	/*if (m_wantDig != dontWont)
-	{
-		if (canDig())
-			dig();
-	}*/
+
 }
 
 void Player::dig()
@@ -53,9 +58,13 @@ void Player::dig()
 	Movment movment;
 	int nextx = m_playerPng.getPosition().x / COMPARISON;
 	int nexty = m_playerPng.getPosition().y / COMPARISON;
-
-	movment.disappearFloor(nextx, nexty);
-	//add call to disapper of floor
+	//movment.disappearFloor(nextx, nexty);
+	//movment.disappearFloor(nexty, nextx); // we change
+	if(m_wantDig == left)
+		movment.disappearFloor(nexty + KB_DOWN.y + KB_LEFT.y, nextx + KB_DOWN.x + KB_LEFT.x);
+	if(m_wantDig == right)
+		movment.disappearFloor(nexty + KB_DOWN.y + KB_RIGHT.y, nextx + KB_DOWN.x + KB_RIGHT.x);
+										  //add call to disapper of floor
 
 	m_wantDig = dontWont;
 }
@@ -64,6 +73,12 @@ void Player::moveLocation(const sf::Vector2f& direction, sf::Time time)
 {
 	m_playerPng.move(m_speed * time.asSeconds() * direction);
 	m_lastDirection = m_speed * time.asSeconds() * direction;
+}
+
+Player& Player::instance()
+{
+	static Player player;
+	return player;
 }
 
 bool Player::canDig()
@@ -155,7 +170,6 @@ void Player::handleCollision(Player& gameObject)
 void Player::handleCollision(Coin& gameObject)
 {
 	m_score += gameObject.getValue();
-	//gameObject.handleCollision(*this);
 }
 
 void Player::handleCollision(Present& gameObject)
@@ -216,6 +230,11 @@ void Player::setSpeed(const int speed)
 int Player::getSpeed()
 {
 	return m_speed;
+}
+
+sf::Sprite Player::getSprite() const
+{
+	return m_playerPng;
 }
 
 void Player::setScore(const int more)

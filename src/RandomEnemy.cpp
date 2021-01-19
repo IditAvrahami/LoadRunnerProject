@@ -32,8 +32,6 @@ sf::Vector2f RandomEnemy::directionToGo()
 		return KB_RIGHT;
 		break;
 	case 3:
-//		location.x += KB_LEFT.x;
-	//	location.y += KB_LEFT.y;
 		location.x = (location.x / COMPARISON) + KB_LEFT.x;
 		location.y = (location.y / COMPARISON) + KB_LEFT.y;
 		if(movment.canLeft((int)location.x, (int)location.y))

@@ -32,13 +32,15 @@ public:
 	virtual void handleCollision(Rod& gameObject) override {}; // chage angel?? or picture??
 	virtual void handleCollision(Ladder& gameObject)override{};
 	virtual sf::Vector2f getLocation()const override;
+	void setSprite(sf::Sprite sprite);
 
 	void disappear();
-	void appear();
+	void appear(sf::Sprite sprit);
 
 private:
 	sf::Sprite m_floorPng;
 	bool m_makecolision = false;
 	sf::Clock m_disappear;
+	sf::Vector2f m_position;
 
 };

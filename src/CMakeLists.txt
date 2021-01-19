@@ -14,5 +14,8 @@
                                          "Movment.cpp"
                                          "Present.cpp"
                                          "ScorePresent.cpp"
-                                         "Timer.cpp"
+                                          "Timer.cpp"
+                                         "TimePresent.cpp"
+                                         "BadPresent.cpp"
+                                         "LivePresent.cpp"
                                           )

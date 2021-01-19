@@ -9,6 +9,7 @@ public:
 	SmartEnemy(sf::Sprite picture, const int speed);
 	virtual ~SmartEnemy() = default;
 //	virtual void enemyAlgorithem();
-	sf::Vector2f directionToGo();
+	std::vector<sf::Vector2f> directionToGo();
 	virtual void move(const sf::Time& time)override;
+	sf::Vector2f nextMove(const std::vector<sf::Vector2f> &direction)const;
 };

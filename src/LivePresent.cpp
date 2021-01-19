@@ -1,4 +1,4 @@
-#pragme once
+//#pragme once
 #include "LivePresent.h"
 #include "Player.h"
 

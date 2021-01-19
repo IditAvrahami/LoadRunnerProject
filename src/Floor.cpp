@@ -7,6 +7,7 @@ Floor::Floor(sf::Sprite picture) : m_floorPng(sf::Sprite(picture))
 
 void Floor::print(sf::RenderWindow& window)
 {
+	if(!m_makecolision)
 	window.draw(m_floorPng);
 }
 
@@ -49,15 +50,29 @@ sf::Vector2f Floor::getLocation() const
 	return m_floorPng.getPosition();
 }
 
+void Floor::setSprite(sf::Sprite sprite)
+{
+	m_floorPng = sprite;
+}
+
 void Floor::disappear()
 {
 	m_makecolision = true;
 	m_disappear.restart();
+	m_position = m_floorPng.getPosition();
+	m_floorPng.setPosition(TO_DELETED);
 }
 
-void Floor::appear()
+void Floor::appear(sf::Sprite sprite)
 {
+	sf::Time AITime = sf::milliseconds(300.0f);
 	if (m_makecolision)
-		if (m_disappear.getElapsedTime().asSeconds() > 3)
+	{
+		if (m_disappear.getElapsedTime().asMilliseconds() > AITime.asMilliseconds())
+		{
 			m_makecolision = false;
+			setSprite(sprite);
+			m_floorPng.setPosition(m_position);
+		}
+	}
 }

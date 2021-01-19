@@ -116,3 +116,5 @@ void Enemy::handleCollision(Rod& gameObject)
 void Enemy::handleCollision(Ladder& gameObject)
 {
 }
+
+
