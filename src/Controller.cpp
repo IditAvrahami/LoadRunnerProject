@@ -20,7 +20,7 @@ Controller::Controller() : m_level(1)//,Board::boardObject((*this).levelName(), 
 	m_backGround.loadFromFile("backgroudCandyWithCookies.jpg");
 	m_backGroundPng = sf::Sprite(m_backGround);
 	Board::boardObject();
-	Board::boardObject().loadBoardFromController((*this).levelName(), m_level);
+	Board::boardObject().loadBoardFromController(levelName(), m_level);
 	openScreen();
 	//	m_window.create(sf::VideoMode(Board::boardObject().getWidth() * COMPARISON, Board::boardObject().getHeight() * COMPARISON), (*this).levelName());
 
@@ -29,51 +29,84 @@ Controller::Controller() : m_level(1)//,Board::boardObject((*this).levelName(), 
 void Controller::openScreen()
 {
 	//heigth + 4 for the info about score level lives and time left
-	m_window.create(sf::VideoMode((Board::boardObject().getWidth()) * COMPARISON, (Board::boardObject().getHeight()+3) * COMPARISON), (*this).levelName());
+	m_window.create(sf::VideoMode((Board::boardObject().getWidth()) * COMPARISON, (Board::boardObject().getHeight()+3) * COMPARISON), levelName());
 }
 
 
 void Controller::startGame()
 {
+	int lives=3;
 	sf::Clock clock;
 	m_window.setFramerateLimit(60);
 	if (!m_window.isOpen())
 		openScreen();
 	Music::instance().startMusic();
-	
-	while (m_window.isOpen() && Board::boardObject().getNumberOfCoins() != 0 && Board::boardObject().getLives() != 0
-			&& ( (Timer::instance().getTimer() > 0  ) || (Timer::instance().getTimer() == -1) ) )
+	while (Player::instance().getLives() > 0)// && Board::boardObject().loadBoard(levelName(), m_level))
 	{
-		if(Timer::instance().getTimer() != -1)
-			Timer::instance().updateTimer();
-		m_window.clear();
-		Board::boardObject().print(m_window);
-		m_window.display();
-		// Handle events
-		sf::Event event;
-		for (auto event = sf::Event{}; m_window.pollEvent(event); ) // wait to event
+		while (m_window.isOpen() && Board::boardObject().getNumberOfCoins() != 0 && Player::instance().getLives() != 0
+			&& ((Timer::instance().getTimer() > 0) || (Timer::instance().getTimer() == -1)))
 		{
-			switch (event.type)
+			if (lives - Player::instance().getLives() == 1)
 			{
-			case sf::Event::Closed:
-				m_window.close();
-				break;
-			case sf::Event::KeyPressed:
-				if (event.key.code == sf::Keyboard::Escape)
-					m_window.close();
-				else
-					Board::boardObject().playerSetDirection(event.key.code);
-				break;
-			case sf::Event::KeyReleased:
-				Board::boardObject().playerSetDirection(sf::Keyboard::Space);
-				break;
+				lives--;
+				Board::boardObject().clearVectors();
+				Board::boardObject().loadBoard(levelName(), m_level);
+				Player::instance().setLastScore();
 			}
 
+			if (Timer::instance().getTimer() != -1)
+				Timer::instance().updateTimer();
+			m_window.clear();
+			Board::boardObject().print(m_window);
+			m_window.display();
+			// Handle events
+			sf::Event event;
+			for (auto event = sf::Event{}; m_window.pollEvent(event); ) // wait to event
+			{
+				switch (event.type)
+				{
+				case sf::Event::Closed:
+					m_window.close();
+					break;
+				case sf::Event::KeyPressed:
+					if (event.key.code == sf::Keyboard::Escape)
+						m_window.close();
+					else
+						Board::boardObject().playerSetDirection(event.key.code);
+					break;
+				case sf::Event::KeyReleased:
+					Board::boardObject().playerSetDirection(sf::Keyboard::Space);
+					break;
+				}
+
+			}
+			auto time = clock.restart();
+			Board::boardObject().move(time);
 		}
-		auto time = clock.restart();
-		Board::boardObject().move(time);
+		Music::instance().stopMusic();
+		
+		if (Board::boardObject().getNumberOfCoins() == 0)
+		{ // good music
+		//	Music::instance().startWinMusic();
+			m_level++;
+			Board::boardObject().clearVectors();
+			Player::instance().setLastScore();
+			m_window.close();
+			if (Board::boardObject().loadBoard(levelName(), m_level))
+			{
+				openScreen();
+				Music::instance().startMusic();
+			}
+			else
+				break;
+		}
 	}
-	Music::instance().stopMusic();
+	
+	if (Player::instance().getLives() == 0)
+	{ // bad music
+		failed();
+	}
+	
 	if (m_window.isOpen())
 		m_window.close();
 }
@@ -113,6 +146,15 @@ void Controller::menupage()
 			}
 		}
 	}
+}
+
+void Controller::failed()
+{
+	m_level = 1;
+	Player::instance().setLives(3); // more 3 lives
+	Player::instance().resetData();
+	Board::boardObject().clearVectors();
+	Board::boardObject().loadBoard(levelName(), m_level);	
 }
 
 std::string Controller::levelName()

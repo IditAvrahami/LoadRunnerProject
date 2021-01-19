@@ -420,3 +420,13 @@ sf::Vector2f Board::findGoodPlace()
 	return sf::Vector2f(0.f, 0.f);
 }
 
+void Board::clearVectors()
+{
+	m_coinsCounter = 0;
+	m_enemy.clear();
+	for (size_t i = 0; i < m_height; i++)
+	{
+		m_board[i].clear();
+	}
+}
+

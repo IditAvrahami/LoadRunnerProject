@@ -8,6 +8,7 @@ SoundClass::SoundClass()
 Music::Music()
 {
 	m_music.openFromFile("music.wav");
+	m_win.openFromFile("nextLevel.wav");
 }
 
 
@@ -31,4 +32,14 @@ void Music::stopMusic()
 void Music::pauseMusic()
 {
 	m_music.pause();
+}
+
+void Music::startWinMusic()
+{
+	m_win.play();
+}
+
+void Music::stopWinMusic()
+{
+	m_win.stop();
 }

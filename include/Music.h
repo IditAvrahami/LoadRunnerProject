@@ -9,8 +9,11 @@ public:
 	void startMusic();
 	void stopMusic();
 	void pauseMusic();
+	void startWinMusic();
+	void stopWinMusic();
 
 private:
 	Music(); // open music file
 	sf::Music m_music;
+	sf::Music m_win;
 };

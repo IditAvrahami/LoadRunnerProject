@@ -77,6 +77,7 @@ public:
 	std::unique_ptr<Present>kindOfPresent();
 	void addEnemy();
 	sf::Vector2f findGoodPlace();
+	void clearVectors();
 	//sf::Sprite getPlayerTexture()const;
 
 private:

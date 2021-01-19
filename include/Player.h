@@ -50,6 +50,7 @@ public:
     virtual void handleCollision(Ladder& gameObject)override;// chage angel?? or picture??
     virtual void gravityFunction()override;
     void moveLocation(const sf::Vector2f& direction, sf::Time time)override;
+    void resetData();
     static Player& instance();
     void updateFont();
     enum dig

@@ -101,6 +101,13 @@ void Player::moveLocation(const sf::Vector2f& direction, sf::Time time)
 	m_lastDirection = m_speed * time.asSeconds() * direction;
 }
 
+void Player::resetData()
+{
+	m_lastScore = 0;
+	m_score = 0;
+	m_lives = 3;
+}
+
 Player& Player::instance()
 {
 	static Player player;
