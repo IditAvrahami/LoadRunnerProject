@@ -14,16 +14,23 @@ void Enemy::setLocation(const float y, const float x)
 
 void Enemy::moveLocation(const sf::Vector2f & direction,sf::Time time)
 {
-	//std::cout << "direction " << direction.x << " " << direction.y << std::endl;
 	m_enemyPng.move(  m_speed * time.asSeconds() * direction );
 	m_direction = m_speed * time.asSeconds() * direction;
-//	std::cout << "in move location " << m_direction.x << " " << m_direction.y << std::endl;
 }
 
 
 void Enemy::print(sf::RenderWindow& window)
 {
+	sf::Vector2f windowPosition, temp;
+	temp.x = m_enemyPng.getPosition().x;
+	temp.y = m_enemyPng.getPosition().y;
+	windowPosition.x = m_enemyPng.getPosition().x - COMPARISON;
+	windowPosition.y = m_enemyPng.getPosition().y - COMPARISON;
+	m_enemyPng.setPosition(windowPosition);
 	window.draw(m_enemyPng);
+	m_enemyPng.setPosition(temp);
+
+//	window.draw(m_enemyPng);
 }
 
 

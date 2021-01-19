@@ -7,8 +7,18 @@ Floor::Floor(sf::Sprite picture) : m_floorPng(sf::Sprite(picture))
 
 void Floor::print(sf::RenderWindow& window)
 {
-	if(!m_haveDisappear)
-	window.draw(m_floorPng);
+	if (!m_haveDisappear)
+	{
+		sf::Vector2f windowPosition, temp;
+		temp.x = m_floorPng.getPosition().x;
+		temp.y = m_floorPng.getPosition().y;
+		windowPosition.x = m_floorPng.getPosition().x - COMPARISON;
+		windowPosition.y = m_floorPng.getPosition().y - COMPARISON;
+		m_floorPng.setPosition(windowPosition);
+		window.draw(m_floorPng);
+		m_floorPng.setPosition(temp);
+	}
+//	window.draw(m_floorPng);
 }
 
 void  Floor::setLocation(const float y, const float x)

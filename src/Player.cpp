@@ -60,7 +60,17 @@ void Player::print(sf::RenderWindow& window)
 	m_livesText.setString(std::to_string(m_lives));
 	window.draw(m_livesText);
 
+	sf::Vector2f windowPosition, temp;
+	temp.x = m_playerPng.getPosition().x;
+	temp.y = m_playerPng.getPosition().y;
+	windowPosition.x = m_playerPng.getPosition().x - COMPARISON;
+	windowPosition.y = m_playerPng.getPosition().y - COMPARISON;
+	m_playerPng.setPosition(windowPosition);
 	window.draw(m_playerPng);
+	m_playerPng.setPosition(temp);
+
+
+//	window.draw(m_playerPng);
 }
 
 void Player::move(const sf::Time& timePassed)

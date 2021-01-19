@@ -6,8 +6,18 @@ Rod::Rod(sf::Sprite picture) : m_rodPng(sf::Sprite(picture))
 {}
 void Rod::print(sf::RenderWindow& window)
 {
-//	std::cout << "rod class:  x:  " << m_rodPng.getPosition().x << "y: " << m_rodPng.getPosition().y << std::endl;
+
+	sf::Vector2f windowPosition, temp;
+	temp.x = m_rodPng.getPosition().x;
+	temp.y = m_rodPng.getPosition().y;
+	windowPosition.x = m_rodPng.getPosition().x - COMPARISON;
+	windowPosition.y = m_rodPng.getPosition().y - COMPARISON;
+	m_rodPng.setPosition(windowPosition);
 	window.draw(m_rodPng);
+	m_rodPng.setPosition(temp);
+
+
+//	window.draw(m_rodPng);
 }
 
 void  Rod::setLocation(const float y, const float x)

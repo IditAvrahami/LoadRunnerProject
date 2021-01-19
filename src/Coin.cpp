@@ -7,7 +7,14 @@ Coin::Coin(sf::Sprite picture, const int level) : m_CoinPng(sf::Sprite(picture))
 
 void Coin::print(sf::RenderWindow& window)
 {
+	sf::Vector2f windowPosition, temp;
+	temp.x = m_CoinPng.getPosition().x;
+	temp.y = m_CoinPng.getPosition().y;
+	windowPosition.x = m_CoinPng.getPosition().x - COMPARISON;
+	windowPosition.y = m_CoinPng.getPosition().y - COMPARISON;
+	m_CoinPng.setPosition(windowPosition);
 	window.draw(m_CoinPng);
+	m_CoinPng.setPosition(temp);
 }
 
 void Coin::setLocation(const float y, const float x)

@@ -283,7 +283,7 @@ void Board::loadBoardFromFile(const int level)
 		{
 			if (str[j] == '@')
 			{
-
+				//updateWndowPosition
 				Player::instance().setLocation(i , j+1);
 			//	Player::instance().setLocation(i-1, j+1);
 			}
@@ -291,11 +291,13 @@ void Board::loadBoardFromFile(const int level)
 			{
 				//temp = j + 1;
 				m_board[i][j+1] = createObject(str[j], level);
+				//updateWndowPosition
 				if (str[j] != ' ')
 					m_board[i][j+1]->setLocation(i, j+1);
 			}
 			else // is enemy
 			{
+				//updateWndowPosition
 				m_enemy.push_back(kindOfEnemy(m_enemyType));
 				m_enemy[m_enemy.size() - 1]->setLocation(i, j+1);
 			}
@@ -386,11 +388,9 @@ void Board::print(sf::RenderWindow& window)
 {
 	window.draw(m_backGroundPng);
 	
-	for (int i = 0; i < m_height; i++)
-		for (int j = 0; j < m_width; j++)
+	for (int i = 1; i < m_height-1; i++)
+		for (int j = 1; j < m_width-1; j++)
 		{
-			if (i == 3 && j == 14)//////////////////////////////////////
-				int a = 5;
 			if (m_board[i][j])
 				m_board[i][j]->print(window);
 		}

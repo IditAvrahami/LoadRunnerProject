@@ -12,7 +12,16 @@ sf::Sprite Present::getSprite()
 
 void Present::print(sf::RenderWindow& window)
 {
+	sf::Vector2f windowPosition, temp;
+	temp.x = m_presentPng.getPosition().x;
+	temp.y = m_presentPng.getPosition().y;
+	windowPosition.x = m_presentPng.getPosition().x - COMPARISON;
+	windowPosition.y = m_presentPng.getPosition().y - COMPARISON;
+	m_presentPng.setPosition(windowPosition);
 	window.draw(m_presentPng);
+	m_presentPng.setPosition(temp);
+
+	//window.draw(m_presentPng);
 }
 
 void Present::setLocation(const float y, const float x)

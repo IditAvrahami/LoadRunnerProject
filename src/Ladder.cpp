@@ -7,7 +7,16 @@ Ladder::Ladder(sf::Sprite picture) : m_ladderPng(sf::Sprite(picture))
 
 void Ladder:: print(sf::RenderWindow& window)
 {
+	sf::Vector2f windowPosition, temp;
+	temp.x = m_ladderPng.getPosition().x;
+	temp.y = m_ladderPng.getPosition().y;
+	windowPosition.x = m_ladderPng.getPosition().x - COMPARISON;
+	windowPosition.y = m_ladderPng.getPosition().y - COMPARISON;
+	m_ladderPng.setPosition(windowPosition);
 	window.draw(m_ladderPng);
+	m_ladderPng.setPosition(temp);
+
+//	window.draw(m_ladderPng);
 }
 
 void  Ladder::setLocation(const float y, const float x)
