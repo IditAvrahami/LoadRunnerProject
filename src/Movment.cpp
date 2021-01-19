@@ -104,7 +104,7 @@ void Movment::disappearFloor(const int x, const int y) const
 {
 	if (typeid(*m_map[x][y]) == typeid(Floor))
 	{
-		Floor* floor = dynamic_cast<Floor*>(m_map[x][y]);
+		Floor* floor = dynamic_cast<Floor*>(m_map[x][y]); //get regular poinetr to floor in i j position
 		floor->disappear();
 	}
 }

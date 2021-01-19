@@ -39,7 +39,7 @@ public:
 
 private:
 	sf::Sprite m_floorPng;
-	bool m_makecolision = false;
+	bool m_haveDisappear = false;
 	sf::Clock m_disappear;
 	sf::Vector2f m_position;
 

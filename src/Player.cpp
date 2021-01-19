@@ -20,6 +20,27 @@ Player::Player()
 	m_playerPng.setTexture(m_playerPic);
 	//	m_playerPng = sf::Sprite(m_playerPic);
 	m_speed = 1;
+	m_livesfont.loadFromFile("resources/sansation.ttf");
+	m_livesText.setFont(m_livesfont);
+	m_livesText.setCharacterSize(50);
+//	m_livesText.setPosition((float)((width - 6) * COMPARISON), (float)((height)*COMPARISON));
+	m_livesText.setFillColor(sf::Color::White);
+
+	m_scorefont.loadFromFile("resources/sansation.ttf");
+	m_scoreText.setFont(m_scorefont);
+	m_scoreText.setCharacterSize(50);
+//	m_scoreText.setPosition((float)((width - 9) * COMPARISON), (float)((height)*COMPARISON));
+	m_scoreText.setFillColor(sf::Color::White);
+
+}
+
+void Player::updateFont()
+{
+	int width = Board::boardObject().getWidth();
+	int height = Board::boardObject().getHeight();
+
+	m_livesText.setPosition((float)((width - 5)* COMPARISON), (float)((height)*COMPARISON));
+	m_scoreText.setPosition((float)((width - 7)* COMPARISON), (float)((height)*COMPARISON));
 }
 
 void Player::setLocation(const float y, const float x)
@@ -34,6 +55,11 @@ sf::Vector2f Player::getLocation() const
 
 void Player::print(sf::RenderWindow& window)
 {
+	m_scoreText.setString(std::to_string(m_score));
+	window.draw(m_scoreText); 
+	m_livesText.setString(std::to_string(m_lives));
+	window.draw(m_livesText);
+
 	window.draw(m_playerPng);
 }
 
@@ -192,24 +218,6 @@ void Player::handleCollision(Enemy& gameObject)
 
 void Player::handleCollision(Rod& gameObject)
 {
-	/*
-	static sf::Vector2f lastrod = gameObject.getLocation();
-	sf::Vector2f place = gameObject.getLocation();
-	if (lastrod == place)
-		m_playerPng.setPosition(m_playerPng.getPosition().x, place.y + 20);
-	else
-		lastrod = place;
-	*/
-	
-	/*
-	sf::Vector2f rodPosition = gameObject.getLocation();
-//	static Rod rod = gameObject;
-	sf::Vector2f position;
-	//if(gameObject == rod)
-	position = gameObject.getLocation();
-	//m_playerPng.setPosition(position.x, position.y + 10);
-	m_playerPng.setPosition(m_playerPng.getPosition().x, position.y );
-	*/
 }
 
 void Player::handleCollision(Ladder& gameObject)

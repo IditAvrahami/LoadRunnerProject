@@ -51,12 +51,14 @@ public:
     virtual void gravityFunction()override;
     void moveLocation(const sf::Vector2f& direction, sf::Time time)override;
     static Player& instance();
+    void updateFont();
     enum dig
     {
         dontWont,
         right,
         left
     }; 
+
 private:
         Player() ;//
         Player(sf::Sprite picture, const int speed);

@@ -188,9 +188,10 @@ void Board::updatePointersInBoard()
 					}
 					if (typeid(*m_board[i][j]) == typeid(Coin))
 					{
+						m_board[i][j] = nullptr; // point to null 
 						m_coinsCounter--;
 					}
-					m_board[i][j] = nullptr; // point to null 
+					
 				}
 			}
 		}
@@ -310,6 +311,7 @@ bool Board::loadBoard(std::string levelName, const int level)
 	
 	m_fileRead >> m_height >> m_width >> time;
 	Timer::instance().setTimer(time);
+	Player::instance().updateFont();
 	//m_backGroundPng.scale(1 / m_width, 1 / m_height); // change background size
 	m_time = sf::seconds((float)time);
 	createBoard();
@@ -368,8 +370,12 @@ void Board::print(sf::RenderWindow& window)
 	
 	for (int i = 0; i < m_height; i++)
 		for (int j = 0; j < m_width; j++)
+		{
+			if (i == 3 && j == 14)//////////////////////////////////////
+				int a = 5;
 			if (m_board[i][j])
 				m_board[i][j]->print(window);
+		}
 	for (int i = 0; i < m_enemy.size(); i++)
 	{
 		m_enemy[i]->print(window);
