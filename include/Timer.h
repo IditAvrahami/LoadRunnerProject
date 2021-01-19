@@ -22,7 +22,7 @@ public:
 	
 private:
 	Timer();
-	int m_timerInt = 0;
+	int m_timerInt;
 	//sf::Time m_boardTime;
 	sf::Time m_timer;
 	sf::Clock m_clock;

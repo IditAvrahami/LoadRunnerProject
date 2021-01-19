@@ -18,4 +18,5 @@
                                          "TimePresent.cpp"
                                          "BadPresent.cpp"
                                          "LivePresent.cpp"
+                                         "Music.cpp"
                                           )

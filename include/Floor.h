@@ -33,7 +33,7 @@ public:
 	virtual void handleCollision(Ladder& gameObject)override{};
 	virtual sf::Vector2f getLocation()const override;
 	void setSprite(sf::Sprite sprite);
-
+	bool getDisappear()const;
 	void disappear();
 	void appear(sf::Sprite sprit);
 

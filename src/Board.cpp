@@ -74,7 +74,7 @@ void Board::handleGravity(MovingObject* movable)
 	{
 		return;
 	}
-
+	
 	bool needFix = false;
 	while (!handleCollisions(*movable))
 	{
@@ -183,15 +183,18 @@ void Board::updatePointersInBoard()
 				{
 					if (typeid(*m_board[i][j]) == typeid(Floor))
 					{	
-						Floor* floor = dynamic_cast<Floor*>(m_board[i][j].get());
+						Floor* floor = dynamic_cast<Floor*>(m_board[i][j].get()); // get regular pointer to floor(floor kind)
 						floor->appear(sf::Sprite(m_picturesSprite[4]));
 					}
-					if (typeid(*m_board[i][j]) == typeid(Coin))
+					else if (typeid(*m_board[i][j]) == typeid(Coin))
 					{
 						m_board[i][j] = nullptr; // point to null 
 						m_coinsCounter--;
 					}
-					
+					else 
+					{
+						m_board[i][j] = nullptr; // point to null 
+					}
 				}
 			}
 		}
@@ -333,7 +336,8 @@ void Board::createBoard()
 
 void Board::algorithmOfEnemy()
 {
-	m_enemyType = rand() % 3;
+	m_enemyType = 1;
+	//m_enemyType = rand() % 3;
 }
 
 int Board::getTypeOfEnemy() const

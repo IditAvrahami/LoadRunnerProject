@@ -32,7 +32,12 @@ bool Movment::isFloor(const int x, const int y) const
 	if (m_map[x][y])
 	{
 		if (typeid(*m_map[x][y]) == typeid(Floor))
-			return true; 
+		{
+			Floor* floor = dynamic_cast<Floor*>(m_map[x][y]);
+			bool disappear = floor->getDisappear();
+			if (!disappear) // diappear == true need to ignore
+			return true;
+		}
 	}
 	return false;
 }

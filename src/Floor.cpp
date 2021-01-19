@@ -55,6 +55,11 @@ void Floor::setSprite(sf::Sprite sprite)
 	m_floorPng = sprite;
 }
 
+bool Floor::getDisappear() const
+{
+	return m_haveDisappear;
+}
+
 void Floor::disappear()
 {
 	if (!m_haveDisappear)

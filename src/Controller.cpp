@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 #include "Timer.h"
+#include "Music.h"
 
 //Controller::Controller() : m_lives(3), m_level(1), m_score(0), m_board((*this).levelName())
 Controller::Controller() : m_level(1)//,Board::boardObject((*this).levelName(), m_level)
@@ -38,10 +39,13 @@ void Controller::startGame()
 	m_window.setFramerateLimit(60);
 	if (!m_window.isOpen())
 		openScreen();
+	Music::instance().startMusic();
+	
 	while (m_window.isOpen() && Board::boardObject().getNumberOfCoins() != 0 && Board::boardObject().getLives() != 0
-			&& Timer::instance().getTimer() > 0 )
+			&& ( (Timer::instance().getTimer() > 0  ) || (Timer::instance().getTimer() == -1) ) )
 	{
-		Timer::instance().updateTimer();
+		if(Timer::instance().getTimer() != -1)
+			Timer::instance().updateTimer();
 		m_window.clear();
 		Board::boardObject().print(m_window);
 		m_window.display();
@@ -69,6 +73,7 @@ void Controller::startGame()
 		auto time = clock.restart();
 		Board::boardObject().move(time);
 	}
+	Music::instance().stopMusic();
 	if (m_window.isOpen())
 		m_window.close();
 }

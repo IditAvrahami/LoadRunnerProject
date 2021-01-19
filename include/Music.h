@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Audio.hpp>
 
 class Music
 {
@@ -7,7 +8,8 @@ public:
 	static Music& instance();
 	void startMusic();
 	void stopMusic();
-	 
+	void pauseMusic();
+
 private:
 	Music(); // open music file
 	sf::Music m_music;
