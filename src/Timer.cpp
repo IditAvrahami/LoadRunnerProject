@@ -8,14 +8,14 @@ Timer::Timer()
 	
 	int width = Board::boardObject().getWidth();
 	int height = Board::boardObject().getHeight();
-	/*m_timerPic.loadFromFile("timer.png");
+	m_timerPic.loadFromFile("timer.png");
 	m_timerPng = sf::Sprite(m_timerPic);
-	m_timerPng.setPosition(width*COMPARISON-40, height*COMPARISON + 50);
-	*/
+	m_timerPng.setPosition((float)(12 * (width / 12) * COMPARISON), (float)((height - 1.5) * COMPARISON));
+	
 	m_font.loadFromFile("resources/sansation.ttf");
 	m_timerText.setFont(m_font);
 	m_timerText.setCharacterSize(50);
-	m_timerText.setPosition((float)((width - 3) * COMPARISON), (float)((height) * COMPARISON));
+	m_timerText.setPosition((float)(10*(width/12) * COMPARISON), (float)((height-1.5) * COMPARISON));
 	m_timerText.setFillColor(sf::Color::White);
 }
 
@@ -68,7 +68,12 @@ Timer& Timer::instance()
 
 void Timer::print(sf::RenderWindow& window)
 {
+	//int width = Board::boardObject().getWidth();
+	//int height = Board::boardObject().getHeight();
+
 	m_timerText.setString(std::to_string(m_timerInt));
+	//m_timerPng.setPosition((float)(10 * (width / 12) * COMPARISON), (float)((height - 1.5) * COMPARISON));
+	window.draw(m_timerPng);
 	window.draw( m_timerText);
 	//window.draw(m_timerPng);
 }

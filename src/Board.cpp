@@ -41,7 +41,7 @@ Board::Board() : m_height(0), m_width(0)  //std::string levelName, const int lev
 
 	m_pictures[4].loadFromFile("floor.png");
 
-	m_pictures[5].loadFromFile("rod.png");
+	m_pictures[5].loadFromFile("newRod.png");
 
 	m_pictures[6].loadFromFile("candyWorld.png");
 
@@ -276,7 +276,7 @@ void Board::loadBoardFromFile(const int level)
 	int temp;
 	string str;
 	getline(m_fileRead, str); //read enter
-	for (int i = 1; i <= m_height; i++)
+	for (int i = 1; i < m_height - 1; i++)
 	{
 		getline(m_fileRead, str);
 		for (int j = str.size()-1 ; j >= 0; j--) // insert to the vector the board

@@ -29,7 +29,7 @@ Controller::Controller() : m_level(1)//,Board::boardObject((*this).levelName(), 
 void Controller::openScreen()
 {
 	//heigth + 4 for the info about score level lives and time left
-	m_window.create(sf::VideoMode((Board::boardObject().getWidth()-2) * COMPARISON, (Board::boardObject().getHeight()+3) * COMPARISON), levelName());
+	m_window.create(sf::VideoMode((Board::boardObject().getWidth()-2) * COMPARISON, (Board::boardObject().getHeight()+1) * COMPARISON), levelName());
 }
 
 
@@ -40,7 +40,7 @@ void Controller::startGame()
 	m_window.setFramerateLimit(60);
 	if (!m_window.isOpen())
 		openScreen();
-	 Music::instance().startMusic(); /////////////////////////////////////////////////////////////
+//	 Music::instance().startMusic(); /////////////////////////////////////////////////////////////
 	while (Player::instance().getLives() > 0)// && Board::boardObject().loadBoard(levelName(), m_level))
 	{
 		while (m_window.isOpen() && Board::boardObject().getNumberOfCoins() != 0 && Player::instance().getLives() != 0
@@ -87,7 +87,7 @@ void Controller::startGame()
 			}
 
 		}
-		Music::instance().stopMusic(); ///////////////////////////////////////////////////
+	//	Music::instance().stopMusic(); ///////////////////////////////////////////////////
 		
 
 		if (Board::boardObject().getNumberOfCoins() == 0)

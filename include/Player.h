@@ -63,7 +63,6 @@ public:
 private:
         Player() ;//
         Player(sf::Sprite picture, const int speed);
-   // Player(sf::Sprite picture);
         sf::Sprite m_playerPng;
         int m_speed=1;
         int m_lives = 3;
@@ -72,6 +71,10 @@ private:
         int m_score = 0;
         sf::Text m_scoreText; // for print
         sf::Font m_scorefont;
+        sf::Texture m_livePicture;
+        sf::Sprite m_livePng;
+        sf::Texture m_scorePicture;
+        sf::Sprite m_scorePng;
         int m_lastScore = 0;
         sf::Vector2f m_direction;
         sf::Vector2f m_lastDirection;

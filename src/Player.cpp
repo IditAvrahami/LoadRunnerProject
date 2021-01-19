@@ -25,12 +25,16 @@ Player::Player()
 	m_livesText.setCharacterSize(50);
 //	m_livesText.setPosition((float)((width - 6) * COMPARISON), (float)((height)*COMPARISON));
 	m_livesText.setFillColor(sf::Color::White);
+	m_livePicture.loadFromFile("heart.png");
+	m_livePng.setTexture(m_livePicture);
 
 	m_scorefont.loadFromFile("resources/sansation.ttf");
 	m_scoreText.setFont(m_scorefont);
 	m_scoreText.setCharacterSize(50);
 //	m_scoreText.setPosition((float)((width - 9) * COMPARISON), (float)((height)*COMPARISON));
 	m_scoreText.setFillColor(sf::Color::White);
+	m_scorePicture.loadFromFile("score.png");
+	m_scorePng.setTexture(m_scorePicture);
 
 }
 
@@ -39,8 +43,10 @@ void Player::updateFont()
 	int width = Board::boardObject().getWidth();
 	int height = Board::boardObject().getHeight();
 
-	m_livesText.setPosition((float)((width - 5)* COMPARISON), (float)((height)*COMPARISON));
-	m_scoreText.setPosition((float)((width - 7)* COMPARISON), (float)((height)*COMPARISON));
+	m_livesText.setPosition((float)(6*(width / 12)* COMPARISON), (float)((height - 1.5)*COMPARISON));
+	m_scoreText.setPosition((float)(2*(width/12)* COMPARISON), (float)((height-1.5)*COMPARISON));
+	m_livePng.setPosition((float)(8*(width / 12) * COMPARISON), (float)((height - 1.5) * COMPARISON));
+	m_scorePng.setPosition((float)(4*(width / 12) * COMPARISON), (float)((height - 1.5) * COMPARISON));
 }
 
 void Player::setLocation(const float y, const float x)
@@ -59,6 +65,8 @@ void Player::print(sf::RenderWindow& window)
 	window.draw(m_scoreText); 
 	m_livesText.setString(std::to_string(m_lives));
 	window.draw(m_livesText);
+	window.draw(m_livePng);
+	window.draw(m_scorePng);
 
 	sf::Vector2f windowPosition, temp;
 	temp.x = m_playerPng.getPosition().x;
