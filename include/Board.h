@@ -78,6 +78,7 @@ public:
 	void addEnemy();
 	sf::Vector2f findGoodPlace();
 	void clearVectors();
+	void doBounds();
 	//sf::Sprite getPlayerTexture()const;
 
 private:

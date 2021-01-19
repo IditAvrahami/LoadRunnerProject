@@ -273,31 +273,35 @@ void Board::playerSetDirection(sf::Keyboard::Key direction)
 void Board::loadBoardFromFile(const int level)
 {
 	algorithmOfEnemy();
-
+	int temp;
 	string str;
 	getline(m_fileRead, str); //read enter
-	for (int i = 0; i < m_height; i++)
+	for (int i = 1; i <= m_height; i++)
 	{
 		getline(m_fileRead, str);
-		for (int j = str.size() - 1; j >= 0; j--) // insert to the vector the board
+		for (int j = str.size()-1 ; j >= 0; j--) // insert to the vector the board
 		{
 			if (str[j] == '@')
 			{
-				Player::instance().setLocation(i, j);
+
+				Player::instance().setLocation(i , j+1);
+			//	Player::instance().setLocation(i-1, j+1);
 			}
 			else if (!(str[j] == '@') && !(str[j] == '%'))
 			{
-				m_board[i][j] = createObject(str[j], level);
+				//temp = j + 1;
+				m_board[i][j+1] = createObject(str[j], level);
 				if (str[j] != ' ')
-					m_board[i][j]->setLocation(i, j);
+					m_board[i][j+1]->setLocation(i, j+1);
 			}
 			else // is enemy
 			{
 				m_enemy.push_back(kindOfEnemy(m_enemyType));
-				m_enemy[m_enemy.size() - 1]->setLocation(i, j);
+				m_enemy[m_enemy.size() - 1]->setLocation(i, j+1);
 			}
 		}
 	}
+	doBounds();
 }
 
 
@@ -321,6 +325,8 @@ bool Board::loadBoard(std::string levelName, const int level)
 		return false;
 	
 	m_fileRead >> m_height >> m_width >> time;
+	m_height += 2;
+	m_width += 2;
 	Timer::instance().setTimer(time);
 	Player::instance().updateFont();
 	//m_backGroundPng.scale(1 / m_width, 1 / m_height); // change background size
@@ -334,7 +340,7 @@ bool Board::loadBoard(std::string levelName, const int level)
 
 void Board::createBoard()
 {
-	m_board.resize(m_height);
+	m_board.resize(m_height );
 	for (size_t i = 0; i < m_height; i++)
 	{
 		m_board[i].resize(m_width);
@@ -438,6 +444,26 @@ void Board::clearVectors()
 	for (size_t i = 0; i < m_height; i++)
 	{
 		m_board[i].clear();
+	}
+}
+
+void Board::doBounds()
+{
+	for (size_t i = 0; i < m_height; i++)
+	{
+		for (size_t j = 0; j < m_width; j++)
+		{
+			if (i == 0 || i == (m_height - 1))
+			{
+				m_board[i][j] = createObject('#', 0);
+				m_board[i][j]->setLocation(i, j);
+			}
+			else if (j==0 || j == (m_width - 1))
+			{
+				m_board[i][j] = createObject('#', 0);
+				m_board[i][j]->setLocation(i, j);
+			}
+		}
 	}
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "Floor.h"
-
+#include "Board.h"
 
 Floor::Floor(sf::Sprite picture) : m_floorPng(sf::Sprite(picture))
 {}
@@ -64,6 +64,8 @@ void Floor::disappear()
 {
 	if (!m_haveDisappear)
 	{
+		if (m_floorPng.getPosition().y == (Board::boardObject().getHeight()-1) * COMPARISON)
+			return;
 		m_haveDisappear = true;
 		m_disappear.restart();
 		m_position = m_floorPng.getPosition();
@@ -81,6 +83,10 @@ void Floor::appear(sf::Sprite sprite)
 			m_haveDisappear = false;
 			//setSprite(sprite);
 			m_floorPng.setPosition(m_position);
+			if (m_floorPng.getGlobalBounds().intersects(Player::instance().getGlobalBounds()))
+				Player::instance().setLives(-1);
+			
 		}
+		
 	}
 }
