@@ -131,7 +131,6 @@ std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
 	return std::make_unique< RandomEnemy >(m_picturesSprite[1], 60);
 }
 
-
 void Board::move(sf::Time& time)
 {
 	Player::instance().move(time);
@@ -187,14 +186,14 @@ void Board::updatePointersInBoard()
 		{
 			if (m_board[i][j])
 			{
+				if (typeid(*m_board[i][j]) == typeid(Floor))
+				{
+					Floor* floor = dynamic_cast<Floor*>(m_board[i][j].get()); // get regular pointer to floor(floor kind)
+					floor->appear(sf::Sprite(m_picturesSprite[4]));
+				}
 				if (m_board[i][j]->getLocation().x == -1 && m_board[i][j]->getLocation().y == -1)
 				{
-					if (typeid(*m_board[i][j]) == typeid(Floor))
-					{	
-						Floor* floor = dynamic_cast<Floor*>(m_board[i][j].get()); // get regular pointer to floor(floor kind)
-						floor->appear(sf::Sprite(m_picturesSprite[4]));
-					}
-					else if (typeid(*m_board[i][j]) == typeid(Coin))
+					if (typeid(*m_board[i][j]) == typeid(Coin))
 					{
 						m_board[i][j] = nullptr; // point to null 
 						m_coinsCounter--;
@@ -239,7 +238,6 @@ int Board::getLives()
 {
 	return Player::instance().getLives();
 }
-
 
 std::unique_ptr<StaticObject> Board::createObject(const char tosprite, const int level)
 {
@@ -306,8 +304,6 @@ void Board::loadBoardFromFile(const int level)
 	doBounds();
 }
 
-
-
 void Board::pointToNull()
 {
 	for (size_t i = 0; i < m_height; i++)
@@ -365,7 +361,6 @@ int Board::getNumberOfCoins()
 {
 	return m_coinsCounter;
 }
-
 
 void Board::createObjectVector()
 {

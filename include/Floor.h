@@ -39,8 +39,9 @@ public:
 
 private:
 	sf::Sprite m_floorPng;
-	bool m_haveDisappear = false;
-	sf::Clock m_disappear;
+	bool m_Disappear = false; //true = need to ignore , false = dont ignore
+	bool m_fullFloor = false;
+	sf::Clock m_disappearTimer;
 	sf::Vector2f m_position;
 
 };

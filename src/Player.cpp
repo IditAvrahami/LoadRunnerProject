@@ -87,11 +87,11 @@ void Player::move(const sf::Time& timePassed)
 	sf::Vector2f place = m_playerPng.getPosition();
 	place.x /= COMPARISON;
 	place.y /= COMPARISON;
-	if (movment.isRod(place.y, place.x) && m_direction == KB_UP)
+	/*if (movment.isRod(place.y, place.x) && m_direction == KB_UP)
 	//if (movment.isRod(place.x, place.y) && m_direction == KB_UP)
 	{
 		return;
-	}
+	}*/
 	m_playerPng.move(m_speed * timePassed.asSeconds() * m_direction);
 	m_lastDirection = m_speed * timePassed.asSeconds() * m_direction;
 

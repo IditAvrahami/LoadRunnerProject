@@ -9,6 +9,82 @@ Movment::Movment() :m_map(Board::boardObject().getBoard())
 
 bool Movment::isRod(const int x, const int y) const
 {
+	if (isValid(x, y))
+	{
+		if (m_map[x][y])
+		{
+			if (typeid(*m_map[x][y]) == typeid(Rod))
+				return true;
+		}
+		return false;
+	}
+}
+
+bool Movment::isLadder(const int x, const int y) const
+{
+	if (isValid(x, y))
+	{
+		if (m_map[x][y])
+		{
+			if (typeid(*m_map[x][y]) == typeid(Ladder))
+				return true;
+		}
+		return false;
+	}
+}
+
+bool Movment::isFloor(const int x, const int y) const
+{
+	if (isValid(x, y))
+	{
+		if (m_map[x][y])
+		{
+			if (typeid(*m_map[x][y]) == typeid(Floor))
+			{
+				//		Floor* floor = dynamic_cast<Floor*>(m_map[x][y]);
+				//		bool disappear = floor->getDisappear();
+				//	if (!disappear) // diappear == true need to ignore
+				return true;
+			}
+		}
+		return false;
+	}
+}
+
+bool Movment::isNull(const int x, const int y) const
+{
+	if (isValid(x, y))
+	{
+		if (m_map[x][y])
+		{
+			return false;
+		}
+		return true;
+	}
+}
+
+bool Movment::isDisappear(const int x, const int y) const
+{
+	Floor* floor = dynamic_cast<Floor*>(m_map[x][y]);
+	bool disappear = floor->getDisappear();
+	if (disappear) // if the floor in x, y index is disappear
+		return true;
+
+	return false;
+}
+
+bool Movment::isValid(const int x, const int y)const
+{
+	if (x > 0 && x < Board::boardObject().getHeight())
+	{
+		if (y > 0 && y + 1 < Board::boardObject().getWidth())
+			return true;
+	}
+	return false;
+}
+
+/*bool Movment::isRod(const int x, const int y) const
+{
 	if (m_map[x][y])
 	{
 	if (typeid(*m_map[x][y]) == typeid(Rod))
@@ -49,7 +125,7 @@ bool Movment::isNull(const int x, const int y) const
 			return false;
 	}
 	return true;
-}
+}*/
 
 bool Movment::canUp(const int x,const int y) const
 {

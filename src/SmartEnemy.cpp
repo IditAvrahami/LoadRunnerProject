@@ -21,7 +21,7 @@ std::vector<sf::Vector2f> SmartEnemy::directionToGo()
 		{
 			move[0] = KB_UP;
 			move[2] = KB_DOWN;
-			if (y > 0)
+			if (y < 0)
 			{
 				move[1] = KB_LEFT;
 				move[3] = KB_RIGHT;
@@ -36,7 +36,7 @@ std::vector<sf::Vector2f> SmartEnemy::directionToGo()
 		{
 			move[0] = KB_DOWN;
 			move[2] = KB_UP;
-			if (y < 0)
+			if (y > 0)
 			{
 				move[1] = KB_LEFT;
 				move[3] = KB_RIGHT;

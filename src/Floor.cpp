@@ -7,7 +7,7 @@ Floor::Floor(sf::Sprite picture) : m_floorPng(sf::Sprite(picture))
 
 void Floor::print(sf::RenderWindow& window)
 {
-	if (!m_haveDisappear)
+	if (!m_Disappear)
 	{
 		sf::Vector2f windowPosition, temp;
 		temp.x = m_floorPng.getPosition().x;
@@ -45,14 +45,23 @@ void Floor::handleCollision(Object& obj)
 
 void Floor::handleCollision(Player& gameObject)
 {
-	if (!m_haveDisappear)
+	if (!m_Disappear)
 		gameObject.handleCollision(*this);
 }
 
 void Floor::handleCollision(Enemy& gameObject)
 {
-	if (!m_haveDisappear)
+	if (m_fullFloor && !m_Disappear)
+	{
+		sf::Vector2f position = m_floorPng.getPosition();
+		position.x /= COMPARISON;
+		position.y /= COMPARISON;
+		gameObject.setLocation(position.y-1, position.x);
+	}
+	else if (!m_Disappear)
 		gameObject.handleCollision(*this);
+	else
+		m_fullFloor = true;
 }
 
 sf::Vector2f Floor::getLocation() const
@@ -67,30 +76,30 @@ void Floor::setSprite(sf::Sprite sprite)
 
 bool Floor::getDisappear() const
 {
-	return m_haveDisappear;
+	return m_Disappear;
 }
 
 void Floor::disappear()
 {
-	if (!m_haveDisappear)
+	if (!m_Disappear)
 	{
 		if (m_floorPng.getPosition().y == (Board::boardObject().getHeight()-1) * COMPARISON)
 			return;
-		m_haveDisappear = true;
-		m_disappear.restart();
+		m_Disappear = true;
+		m_disappearTimer.restart();
 		m_position = m_floorPng.getPosition();
-		m_floorPng.setPosition(TO_DELETED);
+		//m_floorPng.setPosition(TO_DELETED);
 	}
 }
 
 void Floor::appear(sf::Sprite sprite)
 {
 	sf::Time AITime = sf::milliseconds(3000.0f);
-	if (m_haveDisappear)
+	if (m_Disappear)
 	{
-		if (m_disappear.getElapsedTime().asMilliseconds() > AITime.asMilliseconds())
+		if (m_disappearTimer.getElapsedTime().asMilliseconds() > AITime.asMilliseconds())
 		{
-			m_haveDisappear = false;
+			m_Disappear = false;
 			//setSprite(sprite);
 			m_floorPng.setPosition(m_position);
 			if (m_floorPng.getGlobalBounds().intersects(Player::instance().getGlobalBounds()))

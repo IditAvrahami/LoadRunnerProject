@@ -42,7 +42,7 @@ void Enemy::gravityFunction()
 {
 	sf::Time time = sf::milliseconds(1);
 	moveLocation(KB_DOWN, time);
-	std::cout << "================================" << std::endl;
+	//std::cout << "================================" << std::endl;
 	//m_enemyPng.move(KB_DOWN); // sfml function
 	/*Movment myMove;
 	int x = (m_enemyPng.getPosition().x) / COMPARISON + KB_DOWN.x;
