@@ -1,10 +1,6 @@
 #pragma once
 #include "Music.h"
-/*
-SoundClass::SoundClass()
-{
-	loadSoundAudio();
-}*/
+
 Music::Music()
 {
 	m_music.openFromFile("music.wav");

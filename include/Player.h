@@ -17,7 +17,8 @@ class Ladder;
 class Player : public MovingObject
 {
 public:
-   
+    Player();//
+    Player(sf::Sprite picture, const int speed);
     virtual ~Player() =default;
     virtual void setLocation(const float y, const float x)override;
     virtual sf::Vector2f getLocation()const override;
@@ -29,7 +30,6 @@ public:
     virtual void setSpeed(const int)override ;
     virtual int getSpeed()override ;
     virtual sf::Sprite getSprite()const ;
-    //virtual bool checkNextMove();
     void setScore(const int more);
     int getScore();
     void setLastScore();
@@ -51,7 +51,7 @@ public:
     virtual void gravityFunction()override;
     void moveLocation(const sf::Vector2f& direction, sf::Time time)override;
     void resetData();
-    static Player& instance();
+  //  static Player& instance();
     void updateFont();
     enum dig
     {
@@ -61,8 +61,7 @@ public:
     }; 
 
 private:
-        Player() ;//
-        Player(sf::Sprite picture, const int speed);
+       
         sf::Sprite m_playerPng;
         int m_speed=1;
         int m_lives = 3;

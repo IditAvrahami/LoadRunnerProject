@@ -5,8 +5,8 @@
 #include "Timer.h"
 #include "Music.h"
 
-//Controller::Controller() : m_lives(3), m_level(1), m_score(0), m_board((*this).levelName())
-Controller::Controller() : m_level(1)//,Board::boardObject((*this).levelName(), m_level)
+
+Controller::Controller() : m_level(1)
 {
 	m_start.loadFromFile("start.png");
 	m_startPng = sf::Sprite(m_start);
@@ -19,10 +19,8 @@ Controller::Controller() : m_level(1)//,Board::boardObject((*this).levelName(), 
 		//add bottom to level select
 	m_backGround.loadFromFile("backgroudCandyWithCookies.jpg");
 	m_backGroundPng = sf::Sprite(m_backGround);
-	Board::boardObject();
 	Board::boardObject().loadBoardFromController(levelName(), m_level);
 	openScreen();
-	//	m_window.create(sf::VideoMode(Board::boardObject().getWidth() * COMPARISON, Board::boardObject().getHeight() * COMPARISON), (*this).levelName());
 
 }
 
@@ -41,12 +39,13 @@ void Controller::startGame()
 	if (!m_window.isOpen())
 		openScreen();
 	 Music::instance().startMusic(); /////////////////////////////////////////////////////////////
-	while (Player::instance().getLives() > 0)// && Board::boardObject().loadBoard(levelName(), m_level))
-	{
-		while (m_window.isOpen() && Board::boardObject().getNumberOfCoins() != 0 && Player::instance().getLives() != 0
+	//while (Player::instance().getLives() > 0)// && Board::boardObject().loadBoard(levelName(), m_level))
+	 while (Board::boardObject().getLives() > 0)
+	 {
+		while (m_window.isOpen() && Board::boardObject().getNumberOfCoins() != 0 && Board::boardObject().getLives() != 0
 			&& ((Timer::instance().getTimer() > 0) || (Timer::instance().getTimer() == -1)))
 		{
-			lives = Player::instance().getLives();
+			lives = Board::boardObject().getLives();//Player::instance().getLives();
 			
 
 			if (Timer::instance().getTimer() != -1)
@@ -78,24 +77,23 @@ void Controller::startGame()
 			auto time = clock.restart();
 			Board::boardObject().move(time);
 
-			if (lives - Player::instance().getLives() == 1)
+			if (lives - Board::boardObject().getLives() == 1) //if failed
 			{
 				lives--;
 				Board::boardObject().clearVectors();
 				Board::boardObject().loadBoard(levelName(), m_level);
-				Player::instance().setLastScore();
+				Board::boardObject().getPlayer().setLastScore();//Player::instance().setLastScore();
 			}
 
 		}
-		Music::instance().stopMusic(); ///////////////////////////////////////////////////
-		
+		Music::instance().stopMusic(); 
 
 		if (Board::boardObject().getNumberOfCoins() == 0)
 		{ // good music
 		//	Music::instance().startWinMusic();
 			m_level++;
 			Board::boardObject().clearVectors();
-			Player::instance().setLastScore();
+			Board::boardObject().getPlayer().setLastScore();//Player::instance().setLastScore();
 			m_window.close();
 			if (Board::boardObject().loadBoard(levelName(), m_level))
 			{
@@ -108,7 +106,7 @@ void Controller::startGame()
 		
 	}
 	
-	if (Player::instance().getLives() == 0)
+	if (Board::boardObject().getLives() == 0)
 	{ // bad music
 		failed();
 	}
@@ -157,8 +155,8 @@ void Controller::menupage()
 void Controller::failed()
 {
 	m_level = 1;
-	Player::instance().setLives(3); // more 3 lives
-	Player::instance().resetData();
+	Board::boardObject().getPlayer().setLives(3);//Player::instance().setLives(3); // more 3 lives
+	Board::boardObject().getPlayer().resetData();//Player::instance().resetData();
 	Board::boardObject().clearVectors();
 	Board::boardObject().loadBoard(levelName(), m_level);	
 }

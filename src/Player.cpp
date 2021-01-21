@@ -4,26 +4,16 @@
 #include "Utillities.h"
 #include <SFML/Graphics.hpp>
 #include "Rod.h"
-/*
-Player::Player(sf::Sprite picture, const int speed)
-	:m_playerPng(picture), m_speed(speed), m_direction(sf::Vector2f(0, 0)), m_lives(3), m_score(0)
-{}
-*/
-/*
-Player::Player(sf::Sprite picture)
-	: m_playerPng(picture), m_speed(1), m_direction(sf::Vector2f(0, 0)), m_lives(3), m_score(0)
-{}
-*/
+
+
 Player::Player() 
 {
 	m_playerPic.loadFromFile("player.png");
 	m_playerPng.setTexture(m_playerPic);
-	//	m_playerPng = sf::Sprite(m_playerPic);
 	m_speed = 1;
 	m_livesfont.loadFromFile("resources/sansation.ttf");
 	m_livesText.setFont(m_livesfont);
 	m_livesText.setCharacterSize(50);
-//	m_livesText.setPosition((float)((width - 6) * COMPARISON), (float)((height)*COMPARISON));
 	m_livesText.setFillColor(sf::Color::White);
 	m_livePicture.loadFromFile("heart.png");
 	m_livePng.setTexture(m_livePicture);
@@ -31,7 +21,6 @@ Player::Player()
 	m_scorefont.loadFromFile("resources/sansation.ttf");
 	m_scoreText.setFont(m_scorefont);
 	m_scoreText.setCharacterSize(50);
-//	m_scoreText.setPosition((float)((width - 9) * COMPARISON), (float)((height)*COMPARISON));
 	m_scoreText.setFillColor(sf::Color::White);
 	m_scorePicture.loadFromFile("score.png");
 	m_scorePng.setTexture(m_scorePicture);
@@ -77,8 +66,6 @@ void Player::print(sf::RenderWindow& window)
 	window.draw(m_playerPng);
 	m_playerPng.setPosition(temp);
 
-
-//	window.draw(m_playerPng);
 }
 
 void Player::move(const sf::Time& timePassed)
@@ -87,11 +74,7 @@ void Player::move(const sf::Time& timePassed)
 	sf::Vector2f place = m_playerPng.getPosition();
 	place.x /= COMPARISON;
 	place.y /= COMPARISON;
-	/*if (movment.isRod(place.y, place.x) && m_direction == KB_UP)
-	//if (movment.isRod(place.x, place.y) && m_direction == KB_UP)
-	{
-		return;
-	}*/
+
 	m_playerPng.move(m_speed * timePassed.asSeconds() * m_direction);
 	m_lastDirection = m_speed * timePassed.asSeconds() * m_direction;
 
@@ -102,8 +85,7 @@ void Player::dig()
 	Movment movment;
 	int nextx = m_playerPng.getPosition().x / COMPARISON;
 	int nexty = m_playerPng.getPosition().y / COMPARISON;
-	//movment.disappearFloor(nextx, nexty);
-	//movment.disappearFloor(nexty, nextx); // we change
+
 	if(m_wantDig == left)
 		movment.disappearFloor(nexty + KB_DOWN.y + KB_LEFT.y, nextx + KB_DOWN.x + KB_LEFT.x);
 	if(m_wantDig == right)
@@ -124,12 +106,6 @@ void Player::resetData()
 	m_lastScore = 0;
 	m_score = 0;
 	m_lives = 3;
-}
-
-Player& Player::instance()
-{
-	static Player player;
-	return player;
 }
 
 bool Player::canDig()

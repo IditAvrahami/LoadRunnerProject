@@ -22,12 +22,9 @@
 #include<typeinfo>
 
 
-Board::Board() : m_height(0), m_width(0)  //std::string levelName, const int level)
+Board::Board() : m_height(0), m_width(0)  
 {	
 	srand(time(NULL));
-	
-	// play button and background
-	// kind of enemeis
 	
 	m_pictures.resize(OBJECTS);
 
@@ -53,17 +50,16 @@ Board::Board() : m_height(0), m_width(0)  //std::string levelName, const int lev
 		m_picturesSprite[i] = sf::Sprite(m_pictures[i]);
 	}
 	m_backGroundPng.setTexture(m_pictures[6]);
-	//Player::instance().setSprite(m_pictures[0]);
-	//m_player.setSprite(m_pictures[0]);
-	Player::instance().setSpeed(150);
-//	m_player.setSpeed(150);
+
+	m_player.setSpeed(150);
+//	Player::instance().setSpeed(150);
 	
 }
 
 void Board::loadBoardFromController(std::string levelName,const int level)
 {
 	loadBoard(levelName, level);
-	m_backGroundPng.setScale(0.029, 0.039);
+	m_backGroundPng.setScale(0.029, 0.039); /// do the calculate
 	m_backGroundPng.scale(m_height, m_width);
 }
 
@@ -135,9 +131,10 @@ std::unique_ptr<Enemy> Board::kindOfEnemy(const int type)
 
 void Board::move(sf::Time& time)
 {
-	Player::instance().move(time);
-	handleCollisions(Player::instance());
-	handleGravity(&Player::instance());
+	m_player.move(time);
+	//Player::instance().move(time);
+	handleCollisions(m_player);
+	handleGravity(&m_player);
 
 	for (int i = 0; i < m_enemy.size(); i++)
 	{
@@ -145,7 +142,7 @@ void Board::move(sf::Time& time)
 		handleCollisions(*m_enemy[i]);
 		handleGravity(m_enemy[i].get()); // return regular pointer to enemy
 	}
-	handleCollisionsEnemy(Player::instance());
+	handleCollisionsEnemy(m_player);
 	updatePointersInBoard();
 }
 
@@ -193,14 +190,14 @@ void Board::updatePointersInBoard()
 					Floor* floor = dynamic_cast<Floor*>(m_board[i][j].get()); // get regular pointer to floor(floor kind)
 					floor->appear(sf::Sprite(m_picturesSprite[4]));
 				}
-				if (m_board[i][j]->getLocation().x == -1 && m_board[i][j]->getLocation().y == -1)
+				if (m_board[i][j]->getLocation().x == TO_DELETED.x && m_board[i][j]->getLocation().y == TO_DELETED.y)
 				{
 					if (typeid(*m_board[i][j]) == typeid(Coin))
 					{
 						m_board[i][j] = nullptr; // point to null 
 						m_coinsCounter--;
 					}
-					else 
+					else // if present
 					{
 						m_board[i][j] = nullptr; // point to null 
 					}
@@ -236,10 +233,15 @@ std::vector<std::vector<StaticObject*>> Board::getBoard() const
 	return tempBoard;
 }
 
-int Board::getLives()
+void Board::setLives(const int more)
 {
-	return Player::instance().getLives();
+	m_player.setLives(more);
 }
+
+int Board::getLives() // delete
+{
+	return m_player.getLives();
+} 
 
 std::unique_ptr<StaticObject> Board::createObject(const char tosprite, const int level)
 {
@@ -265,9 +267,10 @@ std::unique_ptr<StaticObject> Board::createObject(const char tosprite, const int
 		return std::unique_ptr<StaticObject>(nullptr);
 }
 
-void Board::playerSetDirection(sf::Keyboard::Key direction)
+void Board::playerSetDirection(sf::Keyboard::Key direction) //to delete
 {
-	Player::instance().setDirection(direction);
+	m_player.setDirection(direction);
+//	Player::instance().setDirection(direction);
 }
 
 void Board::loadBoardFromFile(const int level)
@@ -284,7 +287,8 @@ void Board::loadBoardFromFile(const int level)
 			if (str[j] == '@')
 			{
 				//updateWndowPosition
-				Player::instance().setLocation(i , j+1);
+				m_player.setLocation(i, j + 1);
+				//Player::instance().setLocation(i , j+1);
 			//	Player::instance().setLocation(i-1, j+1);
 			}
 			else if (!(str[j] == '@') && !(str[j] == '%'))
@@ -330,9 +334,10 @@ bool Board::loadBoard(std::string levelName, const int level)
 	m_height += 2;
 	m_width += 2;
 	Timer::instance().setTimer(time);
-	Player::instance().updateFont();
-	//m_backGroundPng.scale(1 / m_width, 1 / m_height); // change background size
-	m_time = sf::seconds((float)time);
+	m_player.updateFont();
+	//Player::instance().updateFont();
+	
+	m_time = sf::seconds((float)time); 
 	createBoard();
 	loadBoardFromFile(level);
 	m_fileRead.close();
@@ -360,6 +365,7 @@ int Board::getTypeOfEnemy() const
 {
 	return m_enemyType;
 }
+
 
 int Board::getNumberOfCoins()
 {
@@ -399,7 +405,8 @@ void Board::print(sf::RenderWindow& window)
 	}
 	if(Timer::instance().getTimer() != -1)
 	Timer::instance().print(window);
-	Player::instance().print(window);
+	m_player.print(window);
+	//Player::instance().print(window);
 }
 
 void Board::addEnemy()
@@ -407,8 +414,6 @@ void Board::addEnemy()
 	Enemy newEnemy(m_picturesSprite[1], 60); // create new enemy
 	m_enemy.push_back(kindOfEnemy(m_enemyType)); // get pointer to kind of enemy
 	sf::Vector2f vector = findGoodPlace();
-	//vector.x *= COMPARISON;
-	//vector.y *= COMPARISON;
 	int index = m_enemy.size()-1;
 	m_enemy[index]->setLocation(vector.y, vector.x);
 }
@@ -465,4 +470,15 @@ void Board::doBounds()
 		}
 	}
 }
+
+sf::Vector2f Board::getPlayerLocation() const
+{
+	return m_player.getLocation();
+}
+
+Player Board::getPlayer() const
+{
+	return m_player;
+}
+
 

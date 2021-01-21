@@ -1,13 +1,13 @@
 #pragma once
 #include "SmartEnemy.h"
-
+#include "Board.h"
 SmartEnemy::SmartEnemy(sf::Sprite picture, const int speed) : Enemy(picture, speed)
 {}
 
 sf::Vector2f SmartEnemy::directionToGo()
 {
 	Movment movment;
-	sf::Vector2f playerPosition = Player::instance().getLocation();
+	sf::Vector2f playerPosition = Board::boardObject().getPlayerLocation();//player.getLocation();
 
 	if (playerPosition.y > Enemy::getLocation().y
 		&& movment.ifCanDown((Enemy::getLocation().y) / COMPARISON, Enemy::getLocation().x / COMPARISON))//thereIsLadderOrRod())
@@ -111,7 +111,7 @@ void SmartEnemy::move(const sf::Time& time)
 {
 
 	sf::Vector2f direction = directionToGo(); //need caculate direction
-	//sf::Vector2f toMove = nextMove(direction);
+	
 	Movment movment;
 	int nextx = Enemy::getLocation().x / COMPARISON;
 	int nexty = Enemy::getLocation().y / COMPARISON;

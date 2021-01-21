@@ -42,19 +42,6 @@ void Enemy::gravityFunction()
 {
 	sf::Time time = sf::milliseconds(1);
 	moveLocation(KB_DOWN, time);
-	//std::cout << "================================" << std::endl;
-	//m_enemyPng.move(KB_DOWN); // sfml function
-	/*Movment myMove;
-	int x = (m_enemyPng.getPosition().x) / COMPARISON + KB_DOWN.x;
-	int y = (m_enemyPng.getPosition().y) / COMPARISON + KB_DOWN.y;
-
-	if (myMove.canDown(x, y))
-	{
-		sf::Vector2f down = KB_DOWN;
-		down.x *= m_speed;
-		down.y *= m_speed;
-		m_enemyPng.move(down); // sfml function
-	}*/
 }
 
 sf::Sprite Enemy::getSprite()
@@ -109,11 +96,9 @@ void Enemy::handleCollision(Player& obj)
 
 void Enemy::handleCollision(Floor& gameObject)
 {
-	m_enemyPng.move(m_direction.x*(-1), m_direction.y*(-1));
+	m_enemyPng.move(m_direction.x*(-1), m_direction.y*(-1)); //change direction
 	m_direction.x *= (-1);
 	m_direction.y *= (-1);
-	std::cout << "floor pos  " << gameObject.getLocation().x << " " << gameObject.getLocation().y << std::endl;
-
 }
 
 void Enemy::handleCollision(Rod& gameObject)

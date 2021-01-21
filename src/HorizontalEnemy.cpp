@@ -11,9 +11,7 @@ sf::Vector2f HorizontalEnemy::directionToGo()
 	int nextx = Enemy::getLocation().x / COMPARISON;
 	int nexty = Enemy::getLocation().y / COMPARISON;
 
-
-
-	if (Enemy::getDirection().x >= 0 &&//m_myLastDirection == KB_RIGHT && 
+	if (Enemy::getDirection().x >= 0 &&
 		((movment.isFloor(nexty + KB_DOWN.y + KB_RIGHT.y, nextx + KB_DOWN.x + KB_RIGHT.x)
 			&& movment.isDisappear(nexty + KB_DOWN.y + KB_RIGHT.y, nextx + KB_DOWN.x + KB_RIGHT.x)) ||
 			movment.isFloor(nexty + KB_DOWN.y + KB_RIGHT.y, nextx + KB_DOWN.x + KB_RIGHT.x) ||

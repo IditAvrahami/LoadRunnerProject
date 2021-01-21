@@ -21,7 +21,6 @@ void Present::print(sf::RenderWindow& window)
 	window.draw(m_presentPng);
 	m_presentPng.setPosition(temp);
 
-	//window.draw(m_presentPng);
 }
 
 void Present::setLocation(const float y, const float x)

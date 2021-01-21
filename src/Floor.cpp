@@ -51,16 +51,16 @@ void Floor::handleCollision(Player& gameObject)
 
 void Floor::handleCollision(Enemy& gameObject)
 {
-	if (m_fullFloor && !m_Disappear)
+	if (m_fullFloor && !m_Disappear) //retun enemy location up
 	{
 		sf::Vector2f position = m_floorPng.getPosition();
 		position.x /= COMPARISON;
 		position.y /= COMPARISON;
 		gameObject.setLocation(position.y-1, position.x);
 	}
-	else if (!m_Disappear)
+	else if (!m_Disappear) 
 		gameObject.handleCollision(*this);
-	else
+	else // floor disappear and enemy get in
 		m_fullFloor = true;
 }
 
@@ -83,7 +83,7 @@ void Floor::disappear()
 {
 	if (!m_Disappear)
 	{
-		if (m_floorPng.getPosition().y == (Board::boardObject().getHeight()-1) * COMPARISON)
+		if (m_floorPng.getPosition().y == (Board::boardObject().getHeight()-1) * COMPARISON) // if out of range
 			return;
 		m_Disappear = true;
 		m_disappearTimer.restart();
@@ -102,8 +102,9 @@ void Floor::appear(sf::Sprite sprite)
 			m_Disappear = false;
 			//setSprite(sprite);
 			m_floorPng.setPosition(m_position);
-			if (m_floorPng.getGlobalBounds().intersects(Player::instance().getGlobalBounds()))
-				Player::instance().setLives(-1);
+			if (m_floorPng.getGlobalBounds().intersects(Board::boardObject().getPlayer().getGlobalBounds()))
+				Board::boardObject().setLives(-1);
+				//	Player::instance().setLives(-1);
 			
 		}
 		

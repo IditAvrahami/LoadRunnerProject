@@ -66,7 +66,7 @@ public:
 	int getWidth();
 	void playerSetDirection(sf::Keyboard::Key  );
 	void move(sf::Time&);
-	int getLives();
+	//int getLives();
 	void handleCollisionsEnemy(Player& player);
 	bool handleCollisions(Object& gameObject);
 	void updatePointersInBoard();
@@ -79,7 +79,12 @@ public:
 	sf::Vector2f findGoodPlace();
 	void clearVectors();
 	void doBounds();
-	//sf::Sprite getPlayerTexture()const;
+	//==========================================Player============================
+	sf::Vector2f getPlayerLocation()const;
+	Player getPlayer()const;
+	void setLives(const int more);
+	int getLives();
+
 
 private:
 	Board();//std::string levelName, const int level);
@@ -94,5 +99,5 @@ private:
 	std::vector <sf::Sprite> m_picturesSprite;
 	sf::Sprite m_backGroundPng;
 	std::vector <std::unique_ptr <Enemy>> m_enemy; 
-	//Player m_player;
+	Player m_player;
 };
