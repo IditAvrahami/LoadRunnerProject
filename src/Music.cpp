@@ -22,6 +22,7 @@ void Music::startMusic()
 {
 	m_music.play();
 	m_music.setLoop(true);
+	m_music.setVolume((float)30);
 }
 
 void Music::stopMusic()

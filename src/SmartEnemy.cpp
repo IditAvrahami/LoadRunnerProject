@@ -4,8 +4,34 @@
 SmartEnemy::SmartEnemy(sf::Sprite picture, const int speed) : Enemy(picture, speed)
 {}
 
-std::vector<sf::Vector2f> SmartEnemy::directionToGo()
+sf::Vector2f SmartEnemy::directionToGo()
 {
+	Movment movment;
+	sf::Vector2f playerPosition = Player::instance().getLocation();
+
+	if (playerPosition.y > Enemy::getLocation().y
+		&& movment.ifCanDown((Enemy::getLocation().y) / COMPARISON, Enemy::getLocation().x / COMPARISON))//thereIsLadderOrRod())
+	{
+	//	if (movment.isLadder((Enemy::getLocation().y + 5) / COMPARISON, Enemy::getLocation().x / COMPARISON))
+	//		Enemy::setLocation(Enemy::getLocation().y, Enemy::getLocation().x - 2);
+		return KB_DOWN;
+	}
+	else if (playerPosition.y < Enemy::getLocation().y &&
+		movment.canUp((Enemy::getLocation().y ) / COMPARISON, Enemy::getLocation().x / COMPARISON))
+	{
+	//	if (movment.isLadder((Enemy::getLocation().y + 5) / COMPARISON, Enemy::getLocation().x / COMPARISON))
+	//		Enemy::setLocation(Enemy::getLocation().y, Enemy::getLocation().x - 2);
+		return KB_UP;
+	}
+	else if (playerPosition.x > Enemy::getLocation().x)
+		return KB_RIGHT;
+	else if (playerPosition.x < Enemy::getLocation().x)
+		return KB_LEFT;
+
+
+
+
+	/*
 	std::vector<sf::Vector2f> move;
 	move.resize(4);
 	//findBestDirection();
@@ -23,13 +49,13 @@ std::vector<sf::Vector2f> SmartEnemy::directionToGo()
 			move[2] = KB_DOWN;
 			if (y < 0)
 			{
-				move[1] = KB_LEFT;
-				move[3] = KB_RIGHT;
+				move[1] = KB_RIGHT;
+				move[3] = KB_LEFT;
 			}
 			else
 			{
-				move[1] = KB_RIGHT;
-				move[3] = KB_LEFT;
+				move[1] = KB_LEFT;
+				move[3] = KB_RIGHT;
 			}
 		}
 		else
@@ -38,31 +64,16 @@ std::vector<sf::Vector2f> SmartEnemy::directionToGo()
 			move[2] = KB_UP;
 			if (y > 0)
 			{
-				move[1] = KB_LEFT;
-				move[3] = KB_RIGHT;
-			}
-			else
-			{
 				move[1] = KB_RIGHT;
 				move[3] = KB_LEFT;
 			}
+			else
+			{
+				move[1] = KB_LEFT;
+				move[3] = KB_RIGHT;
+			}
 		}
 	else if (y > 0)
-	{
-		move[0] = KB_LEFT;
-		move[2] = KB_RIGHT;
-		if (x < 0)
-		{
-			move[1] = KB_UP;
-			move[3] = KB_DOWN;
-		}
-		else
-		{
-			move[1] = KB_DOWN;
-			move[3] = KB_UP;
-		}
-	}
-	else
 	{
 		move[0] = KB_RIGHT;
 		move[2] = KB_LEFT;
@@ -77,15 +88,52 @@ std::vector<sf::Vector2f> SmartEnemy::directionToGo()
 			move[3] = KB_UP;
 		}
 	}
+	else
+	{
+		move[0] = KB_LEFT;
+		move[2] = KB_RIGHT;
+		if (x < 0)
+		{
+			move[1] = KB_UP;
+			move[3] = KB_DOWN;
+		}
+		else
+		{
+			move[1] = KB_DOWN;
+			move[3] = KB_UP;
+		}
+	}
 
 	return move;
-	
+	*/
 }
 void SmartEnemy::move(const sf::Time& time)
 {
-	std::vector<sf::Vector2f> direction = directionToGo(); //need caculate direction
-	sf::Vector2f toMove = nextMove(direction);
-	Enemy::moveLocation(toMove, time);
+
+	sf::Vector2f direction = directionToGo(); //need caculate direction
+	//sf::Vector2f toMove = nextMove(direction);
+	Movment movment;
+	int nextx = Enemy::getLocation().x / COMPARISON;
+	int nexty = Enemy::getLocation().y / COMPARISON;
+	sf::Vector2f position = Enemy::getLocation();
+
+	if (direction == KB_RIGHT && (movment.isFloor(nexty + KB_DOWN.y + KB_RIGHT.y, nextx + KB_DOWN.x + KB_RIGHT.x)
+		&& movment.isDisappear(nexty + KB_DOWN.y + KB_RIGHT.y, nextx + KB_DOWN.x + KB_RIGHT.x)))
+	{
+		direction = KB_STAY;
+		position = Enemy::getLocation();
+		Enemy::setLocation(nexty + KB_DOWN.y + KB_RIGHT.y, nextx + KB_DOWN.x + KB_RIGHT.x);
+	}
+	else if (direction == KB_LEFT && (movment.isFloor(nexty + KB_DOWN.y + KB_LEFT.y, nextx + KB_DOWN.x + KB_LEFT.x)
+		&& movment.isDisappear(nexty + KB_DOWN.y + KB_LEFT.y, nextx + KB_DOWN.x + KB_LEFT.x)))
+	{
+		direction = KB_STAY;
+		position = Enemy::getLocation();
+		Enemy::setLocation(nexty + KB_DOWN.y + KB_LEFT.y, nextx + KB_DOWN.x + KB_LEFT.x);
+	}
+
+
+	Enemy::moveLocation(direction, time);
 }
 
 sf::Vector2f SmartEnemy::nextMove(const std::vector<sf::Vector2f>& direction) const

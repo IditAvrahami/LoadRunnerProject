@@ -129,16 +129,35 @@ bool Movment::isNull(const int x, const int y) const
 
 bool Movment::canUp(const int x,const int y) const
 {
-	int newXUp = x, newYUp = y;
-	newXUp += KB_UP.x;
-	newYUp += KB_UP.y;
+	//int newXUp = x + KB_UP.x;
+	//int newYUp = y + KB_UP.y;
+
+	int newXUp = x + KB_UP.y;
+	int newYUp = y + KB_UP.x;
+
+
 	if (isLadder(newXUp, newYUp))
 		return true;
+	
 	return false;
 }
 
+bool Movment::ifCanDown(const int x, const int y) const
+{
+	int newXUp = x + KB_DOWN.y;
+	int newYUp = y + KB_DOWN.x;
+	if (isLadder(newXUp, newYUp) || isRod(newXUp, newYUp) || !m_map[newXUp][newYUp])// && !m_map[x][y] && isFloor(x, y))// || typeid(*m_map[x][y]) == typeid(nullptr))
+	{
+		return true;
+	}
+	return false;
+}
+
+
 bool Movment::canDown(const int x, const int y) const
 {
+	int newXUp = x + KB_DOWN.x;
+	int newYUp = y + KB_DOWN.y;
 	if (!isLadder(x, y) && !isRod(x, y) && !m_map[x][y] && isFloor(x,y))// || typeid(*m_map[x][y]) == typeid(nullptr))
 	{
 		return true;
@@ -165,7 +184,6 @@ bool Movment::canRight(const int x, const int y) const
 
 bool Movment::canLeft(const int x, const int y) const
 {
-
 	int checkX = x + KB_LEFT.x;
 	int checkY = y + KB_LEFT.y;
 

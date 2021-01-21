@@ -34,8 +34,10 @@ Board::Board() : m_height(0), m_width(0)  //std::string levelName, const int lev
 	m_pictures[0].loadFromFile("candy.png");
 
 	m_pictures[1].loadFromFile("manC.png");
+//	m_pictures[1].loadFromFile("sinagot.png");
 
-	m_pictures[2].loadFromFile("ladder.png");
+	//m_pictures[2].loadFromFile("ladder.png");
+	m_pictures[2].loadFromFile("ladder3.png");
 
 	m_pictures[3].loadFromFile("coin.png");
 
@@ -290,7 +292,9 @@ void Board::loadBoardFromFile(const int level)
 				//temp = j + 1;
 				m_board[i][j+1] = createObject(str[j], level);
 				//updateWndowPosition
-				if (str[j] != ' ')
+				if(str[j] == 'H')
+					m_board[i][j + 1]->setLocation(i , j + 1 + 0.25);
+				else if (str[j] != ' ')
 					m_board[i][j+1]->setLocation(i, j+1);
 			}
 			else // is enemy
@@ -348,8 +352,8 @@ void Board::createBoard()
 
 void Board::algorithmOfEnemy()
 {
-	m_enemyType = 1;
-	//m_enemyType = rand() % 3;
+//	m_enemyType = 2;
+	m_enemyType = rand() % 3;
 }
 
 int Board::getTypeOfEnemy() const

@@ -23,6 +23,7 @@ public:
 	void disappearFloor(const int x, const int y)const;
 	bool isDisappear(const int x, const int y) const;
 	bool isValid(const int x, const int y)const;
+	bool ifCanDown(const int x, const int y)const;
 
 private:
 	std::vector<std::vector<StaticObject*>> m_map;
